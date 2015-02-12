@@ -1,0 +1,21 @@
+{
+  "name": "N.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/doronzzz/N.js",
+  "authors": [
+    "doronzzz <gourdoron@gmail.com>"
+  ],
+  "dependencies": {
+    "json3": "^3.3.0",
+    "lodash": "~3.1.0"
+  },
+  "description": "Nurego js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
