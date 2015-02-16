@@ -1,3 +1,9 @@
 <div>
-	price list html goes here
+	see our price plans
+	<ul>
+		{{  for(var plan in plans.plans.data) { }}
+		<li>{{=plans.plans.data[plan].name}}</li>
+		{{ } }}
+	</ul>
+	<button class="button">subscribe</button>
 </div>

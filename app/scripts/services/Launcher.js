@@ -6,9 +6,9 @@ define(["underscore"],function(_){
     	evaluate: /\{\{(.+?)\}\}/g,
 	};
 
-	var Utils = {
+	var Launcher = {
 
 	};
 
-	return Utils;
+	return Launcher;
 })

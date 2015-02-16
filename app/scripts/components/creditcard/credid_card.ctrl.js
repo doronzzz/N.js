@@ -13,7 +13,7 @@ define(["backbone","text!components/price_list/price_list.html"],function(bb,tmp
 		  },
 
 		  login:function(e){
-		  	alert('subscribe btn clicked');
+		  	alert('btn clicked');
 		  },
 
 		  render: function(){

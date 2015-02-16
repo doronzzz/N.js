@@ -1,4 +1,5 @@
 define(["backbone","text!components/login/login.html"],function(bb,loginTmpl){
+
 		var loginViewCtrl = Backbone.View.extend({
 		  tagName: "li",
 		  className: "login",
@@ -7,9 +8,9 @@ define(["backbone","text!components/login/login.html"],function(bb,loginTmpl){
 		    "click .button":   "login"
 		  },
 
-		  initialize: function(model) {
+		  initialize: function(model){
 		  	this.model = model;
-		    this.listenTo(this.model, "change", this.render);
+		    this.listenToOnce(this.model, "change", this.render);
 		  },
 
 		  login:function(e){
@@ -17,8 +18,8 @@ define(["backbone","text!components/login/login.html"],function(bb,loginTmpl){
 		  },
 
 		  render: function(){
-		  	var json = this.template(this.model.attributes);
-		    this.$el.html(	json );
+		  	var html = this.template(this.model.attributes);
+		    this.$el.html(	html );
 		    return this;
 		  }
 
