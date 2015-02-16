@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function (grunt){
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -15,8 +15,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  grunt.loadNpmTasks('grunt-html2js');
+  //grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-plato');
+  grunt.loadNpmTasks('grunt-bower-requirejs');
 
   // Configurable paths for the application
   var app,appConfig;
@@ -31,6 +32,13 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
+
+    bowerRequirejs:{
+      target:{
+        rjsConfig: 'app/scripts/config/config.js'
+      }
+    },
+
     plato: {
         complexityreport: {
           files: {
@@ -39,23 +47,23 @@ module.exports = function (grunt) {
         }
       },
 
-    html2js: {
+/*    html2js:{
       options: {
         module: 'templates',
         singleModule: true,
         base: 'app/'
-      },
-      main: {
-        src: [appConfig.app+'/views/**/*.html'],
-        dest: appConfig.app+'/scripts/tmp/templates.js'
-      }
-    },
+      },*/
+      //main: {
+        //src: [appConfig.app+'/views/**/*.html'],
+        //dest: appConfig.app+'/scripts/tmp/templates.js'
+      //}
+//   },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
         files: ['bower.json'],
-        tasks: ['wiredep']
+        tasks: ['wiredep','bowerRequirejs']
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}{,*/}*.js'],
@@ -190,10 +198,10 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     wiredep: {
-      app: {
+      /*app: {
         src: ['<%= yeoman.app %>/index.html','<%= yeoman.app %>/login.html'],
         ignorePath:  /\.\.\//
-      },
+      },*/
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
@@ -327,7 +335,7 @@ module.exports = function (grunt) {
       }
     },
 
-    htmlmin: {
+/*    htmlmin: {
       dist: {
         options: {
           collapseWhitespace: true,
@@ -337,13 +345,13 @@ module.exports = function (grunt) {
           removeOptionalTags: true
         },
         files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
-      }
-    },
+          expand: true,*/
+          //cwd: '<%= yeoman.dist %>',
+          //src: ['*.html', 'comp/{,*/}*.html'],
+          //dest: '<%= yeoman.dist %>'
+        //}]
+      //}
+    //},
 
     
     // Copies remaining files to places other tasks can use
@@ -418,6 +426,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       //'html2js',
+      'bowerRequirejs',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -443,6 +452,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bowerRequirejs',
     //'html2js',
     'wiredep',
     'useminPrepare',
@@ -454,7 +464,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    /*'htmlmin'*/
   ]);
 
   grunt.registerTask('default', [

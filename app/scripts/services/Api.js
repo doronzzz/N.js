@@ -1,1 +1,6 @@
-console.log("API module");
+define([],function(){
+	return {
+		"baseURL":"https://url.com",
+	};
+})
+ 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nurego Client site</title>
+	<script>
+		{
+		    api_key: null, // nurego API key, see Settings page in your Nurego account
+		    plan_element_id: null, //Id of the plan DOM element. (string or null)
+		    bills_element_id: null, //Id of the bills listing DOM element. (string or null)
+		    theme: {
+		      // name of theme Nurego.theme.SIMPLE_3_TIER or Nurego.theme.FLAT_RATE
+		      name: Nurego.theme.SIMPLE_3_TIER,
+		      // theme properties
+		      properties: {}
+		    },
+		    css_url: 'http://js.nurego.com/v1/lib/css/simple_3_tier.css', //Url to custom CSS file. (string or null)
+		    select_url: '/?plan_id=', //Url prefix for plan link. (string)
+		    select_callback: null, //Callback function after selecting plan. (function or null)
+		    label_price: 'Monthly cost', //Label in Price column. (string)
+		    label_select: 'Select', //Label on Select button. (string)
+		    label_feature_on: '<span class="nr-check nr-yes"></span>', //String for enabled option. (string)
+		    label_feature_off: '<span class="nr-check nr-no"></span>', //String for disabled option. (string)
+		    label_before_price: '$', //Prefix for price value. (string)
+		    label_after_price: '', //Suffix for price value. (string)
+		    time_out: 5 * 1000, //Timeout in milliseconds. (integer)
+		    loading_class: 'nr-container nr-loading',  //CSS class for loading block. (string)
+		    error_class: 'nr-notify nr-red', //CSS class for error block. (string)
+		    warning_class: 'nr-notify nr-yellow', //CSS class for waring block. (string)
+		    empty_class: 'nr-container nr-empty', //CSS class for empty block. (string)
+		    price_class: 'nr-price', //CSS class for price block. (string)
+		    date_from: '', // Bills from date
+		    date_to: '', // Bills to date
+		    signup_url: '', // if this url is set, signup button will redirect to this page with plan_eid paramter
+		    update_url: '', // if this url is set, update button will redirect to this page
+		    distribution_channel: '', // distribution channel
+		    customer_id: '',
+		    customer_plan_render: this.Nurego.customerPlan.OFFERINGS_ONLY, // rendering plan and offerings: PLAN_ONLY, OFFERINGS_ONLY, PLAN_OFFERINGS
+		    zero_price_alt: 'Pay as You Go', // Zero price text display for flat rate
+		    zero_price_simple_tier_alt: 'Free', // Zero price text display for simple 3 tier
+		    plan_description: '', // Plan description for flat rate, set if you want to display custom description
+		    display_cent_symbol: true, // Display cent symbol in case price is less than $1
+		    display_switcher: true, // Display switcher which lets you switch between Monthly and Yearly plans
+		    display_period: true, // Display monthly/yearly text after plan price when switcher is on
+		    sign_up_button_text: 'Sign Up', // Text on Sign Up button
+		}
+	</script>
+</head>
+<body>
+
+
+
+<script>
+
+var myNurego = {
+	"token":"32423423",//String || URL
+	"components":{
+		"priceList":{
+			"parent":"#element",
+			"configParams":{
+				"css":"",
+				"html":""
+			}
+		},
+		"login":{
+			"parent":"#element",
+			"configParams":{
+				"css":"",
+				"html":""
+			}
+		}
+	}
+}
+
+</script>
+
+<script>
+//Nurego lib loader.
+var iframe = document.createElement('iframe');
+iframe.src = "http://nurego.com/js.api?token=myId";
+iframe.src += "https://clienthostname.com"; //or use window.top ?
+iframe.style.setProperty('display','none');
+document.body.appendChild(iframe);
+
+window.addEventListener("messsage",function(e){
+		var message = e.data;
+		Nurego = message;
+		Nurego.init(myNurego)
+});
+
+Nurego.init = function(config){
+	var createFrame = function(component){
+		var iframe = createElement('iframe');
+		iframe.src = "https://" + Nurego.baseURL + "/widgets/"
+	}
+
+	for(config.components){
+		createFrame(config.components);
+	}
+}
+
+</script>
+
+<iframe="http://nurego.com/launcher.js">
+	<script>
+		var Nurego = {};
+		//only post msg if we loaded this script as a loader.
+		if(window.location.href.indexOf('launcher')){
+			window.postMessage('doneLoading',Nurego);
+		}
+	</script>
+</iframe>
+ 
+
+ 
+
+<iframe="http://nurego.com/widgets/pricelist#parent=https://mydomain.com&css=css.css&html=html.css" name="priceList">
+	
+	<script>
+		var html = "thisHtmlTemplate";
+		var NuregoLib = window.addEventListener('message',function(e){
+			var NuregoLib = e.data;
+		})
+	</script>
+	{
+		html : ?,
+		css: ?,
+		parser and eventHandler: ?
+		initParams : window.hash
+	}
+</iframe>
+
+
+
+</body>
+</html>
+

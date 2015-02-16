@@ -1,0 +1,10 @@
+- camelCase or camel_case (best practices)
+- css html, do we need to inc version to see default templates changes. 
+  or do we want to allow external loading of resources, or both.
+
+- lodash and 3rd party libs - dont cross the 100kb benchmark.
+- one request benchmarks. (whats the optimal size)
+
+
+
+

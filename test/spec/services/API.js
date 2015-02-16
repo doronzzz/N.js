@@ -12,6 +12,4 @@ describe('Service: API', function () {
             expect(1).toBe(1); 
         });
     });
-
-
 });

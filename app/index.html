@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>Nurego JS Library sandbox</title>
+    <title>Nurego JS Library Sandbox</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -15,7 +15,6 @@
     <!-- endbuild -->
   </head>
   <body>
-  <script src="scripts/app.js"></script>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -26,14 +25,13 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/json2/json2.js"></script>
+    <script src="bower_components/requirejs/require.js" data-main="scripts/config/config.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-
+	
 
     <!-- endbuild -->
-</body>
+	</body>
 </html>
