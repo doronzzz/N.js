@@ -1,7 +1,6 @@
 # N.js
 
 ###API DEMO
-First, include Nurego.js in the page. We recommend putting the script tag in the ```<head>``` tag.
 ```JavaScript
 <!-- Load jQuery, not necessary if your page already loads -->
 
