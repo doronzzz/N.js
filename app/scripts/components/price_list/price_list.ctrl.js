@@ -1,4 +1,4 @@
-define(["backbone","text!price_list_html"],function(bb,tmpl){
+define(["backbone","text!PriceListHTML"],function(bb,tmpl){
 		var priceList = Backbone.View.extend({
 		  tagName: "li",
 		  className: "login",

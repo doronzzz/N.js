@@ -8,11 +8,12 @@ var Nurego = window.Nurego = {
 		//LOAD NUREGO LIB IN IFRAME
 		var iframe = document.createElement('iframe');
 		var clientUrl = window.location.origin;
-		iframe.src = "http://nurego.com/js.api?clientUrl=" + clientUrl;
+		iframe.src = "http://.com/js.api?clientUrl=" + clientUrl;
 		iframe.style.setProperty('display','none');
 		document.body.appendChild(iframe);
 
-		//ONCE THE IFRAME WITH THE NUREGO LIB LOADED SAVE IT TO THIS WINDOW SCOPE
+		//ONCE THE IFRAME WITH THE NUREGO LIB LOADED SAVE THE RES TO THIS WINDOW SCOPE
+		//SO WE CAN START DRAWING COMPONENTS
 		window.addEventListener("messsage",function(e){
 				var NuregoLib = e.data;
 				NuregoLib.widgetsFactory.build(this.options);

@@ -1,28 +1,28 @@
 define([
-		"../services/Launcher",
-		"../services/API",
-		"../services/Utils",
-
-		"../models/login",
-		"../models/price_list",
-
-		"../components/login/login.ctrl",
-		"../components/price_list/price_list.ctrl"
+		"API",
+		"Utils",
+		"WidgetsFactory",
+		"LoginModel",
+		"PriceListModel",
+		"LoginViewCtrl",
+		"PriceListViewCtrl"
 		],
-
-	function(Launcher,API,Utils,loginModel,priceListModel,loginComonent,priceListComonent){ 
-		return {
-			myAPI:API,
-			utils:Utils,
-			components:{
-				login:{
-					view:loginComonent,
-					model:loginModel
-				},
-				priceList:{
-					view:priceListComonent,
-					model:priceListModel
+	function(API,Utils,WidgetFactory,loginModel,
+			 priceListModel,LoginViewCtrl,PriceListViewCtrl){
+		
+				return {
+					myAPI:API,
+					utils:Utils,
+					widgetFactory:WidgetFactory,
+					components:{
+						login:{
+							view:LoginViewCtrl,
+							model:loginModel
+						},
+						priceList:{
+							view:PriceListViewCtrl,
+							model:priceListModel
+						}
+					}
 				}
-			}
-		}
-})
+});
