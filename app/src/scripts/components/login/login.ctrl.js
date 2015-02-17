@@ -1,7 +1,7 @@
 define(["backbone","text!LoginHTML"],function(bb,loginTmpl){
 
 		var loginViewCtrl = Backbone.View.extend({
-		  tagName: "li",
+		  tagName: "div",
 		  className: "login",
 		  template: _.template(loginTmpl),
 		  events: {
