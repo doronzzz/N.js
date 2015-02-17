@@ -19,6 +19,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'bower_components/**/*.js',
+      'bower_components/underscore/underscore.js',
+      'app/scripts/config/config.js',
       'app/scripts/**/*.js',
       'test/spec/**/*.js'
     ],

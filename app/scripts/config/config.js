@@ -15,11 +15,8 @@ require.config({
         jquery: '../../../bower_components/jquery/dist/jquery',
         'requirejs-text': '../../../bower_components/requirejs-text/text',
         underscore: '../../../bower_components/underscore/underscore',
-
-        /***** HTML TEMPLATES ********/
-        login_html: "../components/login/login.html",
-        price_list_html: "../components/price_list/price_list.html"
-
+        login_html: '../components/login/login.html',
+        price_list_html: '../components/price_list/price_list.html'
     },
     shim: {
         backbone: {
