@@ -44,7 +44,7 @@ module.exports = function (grunt){
     requirejs: {
         compile: {
           options: {
-            baseUrl: 'app/scripts/config/',
+            baseUrl: 'app/scripts/config',
             mainConfigFile: "app/scripts/config/config.js",
             name: "config",
             out: "dist/bin.js",//TODO: rename clbApp to clb.js

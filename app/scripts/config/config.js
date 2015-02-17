@@ -48,12 +48,18 @@ require.config({
 
     ]
 });
+
  
 // Start loading the main app file. Put all of
 // your application logic in there.
 require(['main_app'],function(app){
-	if(window != window.top){//we are running inside an iframe
+	if(false && window != window.top){//we are not a widget iframe
 		//window.postMessage('')
+	}else{//we are a widget iframe draw the widget with the right params
+		var params = app.utils.URLToArray(window.location.href);
+		var thisWidget = app.components[params.widget];
+		var widgetModel = new thisWidget.model();
+		var widgetView = new thisWidget.view(widgetModel);
+		$('body').append(widgetView.render().$el);
 	}
 });
-

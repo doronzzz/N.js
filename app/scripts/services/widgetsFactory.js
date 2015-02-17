@@ -1,22 +1,27 @@
 define(["underscore","Utils","API"],function(_,Utils,API){
 
 	var widgetsFactory = {
-		options:{},
-		build:function(opt){
-			this.options = opt;
-			this.initWidgets();
+		options:{
+			widget:"",
+			html:"",
+			css:"",
+			parentUrl:"",
+			token:""
 		},
-		initComponents:function(config){
-			/*for(config.components){
-				this.createWidgetFrame(config.components);
-			}*/
+		build:function(components,opt){
+			this.options = opt;
+			var params = Utils.URLToArray(window.location.href);
+			console.log(params);
+			this.initComponent();
+		},
+		initComponent:function(config){
+			this.createWidgetFrame();
 		},
 		createWidgetFrame:function(component){
 			var iframe = createElement('iframe');
-			var compSrc = this.buildWidgetUrl(component);
+			var compSrc = this.buildComponentUrl(component);
 			iframe.src = compSrc;
 		},
-
 		buildComponentUrl:function(widget){
 			var res = "https://" + API.baseURL() + "/widgets/";
 			var indx = 0;
