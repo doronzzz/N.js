@@ -37,19 +37,19 @@ module.exports = function (grunt){
 
     bowerRequirejs:{
       target:{
-        rjsConfig: 'app/scripts/config/config.js'
+        rjsConfig: 'app/src/scripts/config/config.js'
       }
     },
 
     requirejs: {
         compile: {
           options: {
-            baseUrl: 'app/scripts/config',
-            mainConfigFile: "app/scripts/config/config.js",
+            baseUrl: 'app/src/scripts/config',
+            mainConfigFile: "app/src/scripts/config/config.js",
             name: "config",
-            out: "dist/bin.js",//TODO: rename clbApp to clb.js
+            out: "app/dist/bin.js",//TODO: rename clbApp to clb.js
             paths: { //Include require js lib in our optimized super script.
-              requireLib: '../../../bower_components/requirejs/require'
+              requireLib: '../../bower_components/requirejs/require'
             },
             stubModules: ['text'],
             findNestedDependencies: true,
