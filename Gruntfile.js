@@ -18,6 +18,8 @@ module.exports = function (grunt){
   //grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-plato');
   grunt.loadNpmTasks('grunt-bower-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
+
 
   // Configurable paths for the application
   var app,appConfig;
@@ -36,6 +38,24 @@ module.exports = function (grunt){
     bowerRequirejs:{
       target:{
         rjsConfig: 'app/scripts/config/config.js'
+      }
+    },
+
+    requirejs: {
+        compile: {
+          options: {
+            baseUrl: 'app/scripts/config/',
+            mainConfigFile: "app/scripts/config/config.js",
+            name: "config",
+            out: "dist/bin.js",//TODO: rename clbApp to clb.js
+            paths: { //Include require js lib in our optimized super script.
+              requireLib: '../../../bower_components/requirejs/require'
+            },
+            stubModules: ['text'],
+            findNestedDependencies: true,
+            include: 'requireLib',
+            //optimize: 'none'
+          }
       }
     },
 
