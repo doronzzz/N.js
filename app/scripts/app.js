@@ -1,19 +1,18 @@
 define([
 		"API",
 		"Utils",
-		"WidgetsFactory",
+		"WidgetInjector",
 		"LoginModel",
 		"PriceListModel",
 		"LoginViewCtrl",
 		"PriceListViewCtrl"
 		],
-	function(API,Utils,WidgetFactory,loginModel,
+	function(API,Utils,WidgetInjector,loginModel,
 			 priceListModel,LoginViewCtrl,PriceListViewCtrl){
-		
 				return {
 					myAPI:API,
 					utils:Utils,
-					widgetFactory:WidgetFactory,
+					widgetInjector:WidgetInjector,
 					components:{
 						login:{
 							view:LoginViewCtrl,

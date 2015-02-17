@@ -4,7 +4,7 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 require.config({
-    baseUrl: '../../../',
+    //baseUrl: '../../../',
     paths: {
         json2: '../../../bower_components/json2/json2',
         json3: '../../../bower_components/json3/lib/json3',
@@ -16,24 +16,24 @@ require.config({
         underscore: '../../../bower_components/underscore/underscore',
 		
 		//Main App services goes here:
-        API:"../scripts/services/API",
-		Utils:"../scripts/services/Utils",
-		WidgetsFactory:"../scripts/services/WidgetsFactory",
+        API:"../services/API",
+		Utils:"../services/Utils",
+		WidgetInjector:"../services/WidgetInjector",
 
 		//App Models goes here:
-		LoginModel:"../scripts/models/login",
-		PriceListModel:"../scripts/models/price_list",
+		LoginModel:"../models/login",
+		PriceListModel:"../models/price_list",
 
 		//App Views Controllers goes here:
-		LoginViewCtrl:"../scripts/components/login/login.ctrl",
-		PriceListViewCtrl:"../scripts/components/price_list/price_list.ctrl",
+		LoginViewCtrl:"../components/login/login.ctrl",
+		PriceListViewCtrl:"../components/price_list/price_list.ctrl",
 
 		//Components HTML goes here:
-		LoginHTML: '../scripts/components/login/login.html',
-        PriceListHTML: '../scripts/components/price_list/price_list.html',
+		LoginHTML: '../components/login/login.html',
+        PriceListHTML: '../components/price_list/price_list.html',
 
         //Main App file goes here:
-        main_app: '../scripts/app'
+        main_app: '../app'
     },
     shim: {
         backbone: {
