@@ -34,16 +34,9 @@ require.config({
  
 // Start loading the main app file. Put all of
 // your application logic in there.
-require(['main_app',"jquery"],function(app){
-	var loginModel = new app.components.login.model();
-	var loginView = new app.components.login.view(loginModel);
-	var loginEl = loginView.render().$el;
-	$('body').append(loginEl);
-
-
-	var priceListModel = new app.components.priceList.model();
-	var priceListView = new app.components.priceList.view(priceListModel);
-	var priceListEl = priceListView.render().$el;
-	$('body').append(priceListEl);
+require(['main_app'],function(app){
+	if(window != window.top){//we are running inside an iframe
+		//window.postMessage('')
+	}
 });
 

@@ -1,4 +1,5 @@
 define([
+		"../services/Launcher",
 		"../services/API",
 		"../services/Utils",
 
@@ -9,7 +10,7 @@ define([
 		"../components/price_list/price_list.ctrl"
 		],
 
-	function(API,Utils,loginModel,priceListModel,loginComonent,priceListComonent){ 
+	function(Launcher,API,Utils,loginModel,priceListModel,loginComonent,priceListComonent){ 
 		return {
 			myAPI:API,
 			utils:Utils,

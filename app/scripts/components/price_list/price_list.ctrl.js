@@ -9,7 +9,7 @@ define(["backbone","text!price_list_html"],function(bb,tmpl){
 
 		  initialize: function(model){
 		  	this.model = model;
-		    this.listenToOnce(this.model, "change", this.render);
+		    //this.listenToOnce(this.model, "change", this.render);
 		  },
 
 		  login:function(e){

@@ -1,6 +1,11 @@
 define([],function(){
 	return {
-		"baseURL":"https://url.com",
+		baseURL:function(){
+			return "https://url.com"
+		},
+		getPrices:function(){
+			return this.baseURL() + "/prices"
+		}
 	};
 })
  
