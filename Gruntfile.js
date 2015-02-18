@@ -47,8 +47,9 @@ module.exports = function (grunt){
             baseUrl: 'app/src/scripts/config',
             mainConfigFile: "app/src/scripts/config/config.js",
             name: "config",
-            out: "app/dist/bin.js",//TODO: rename clbApp to clb.js
+            out: "app/dist/bin.js",
             paths: { //Include require js lib in our optimized super script.
+              //requireLib: 'app/src/bower_components/requirejs/require'
               requireLib: '../../bower_components/requirejs/require'
             },
             stubModules: ['text'],
@@ -86,7 +87,7 @@ module.exports = function (grunt){
         tasks: ['wiredep','bowerRequirejs']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}{,*/}*.js'],
+        files: ['<%= yeoman.app %>/src/scripts/{,*/}{,*/}*.js'],
         tasks: ['karma','requirejs'], //'newer:jshint:all'
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -134,8 +135,8 @@ module.exports = function (grunt){
             return [
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/app/src/bower_components',
+                connect.static('./app/src/bower_components')
               ),
               connect.static(appConfig.app)
             ];
@@ -150,8 +151,8 @@ module.exports = function (grunt){
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/app/src/bower_components',
+                connect.static('./app/src/bower_components')
               ),
               connect.static(appConfig.app)
             ];
@@ -237,7 +238,7 @@ module.exports = function (grunt){
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: './app/src/bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',

@@ -4,7 +4,20 @@
 
 - lodash and 3rd party libs - dont cross the 100kb benchmark.
 - one request benchmarks. (whats the optimal size)
+- replace bower components to vendors
+
+- move each model to its component folder.
+- base classes for models and views
 
 
+- check for oAuth client side only.
+- go over "stories" in povital project managment.
 
+
+LOGIN{
+	
+	- ask for server url and pass plan 
+	- redirecto to the server url
+
+}
 

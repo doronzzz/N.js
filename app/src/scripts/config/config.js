@@ -43,12 +43,8 @@ require.config({
 // your application logic in there.
 require(['main_app'],function(app){
 	if(false && window != window.top){//we are not a widget iframe
-		//window.postMessage('')
+        app.postNuregoLib();
 	}else{//we are a widget iframe draw the widget with the right params
-		var params = app.utils.URLToArray(window.location.href);
-		var thisWidget = app.components[params.widget];
-		var widgetModel = new thisWidget.model();
-		var widgetView = new thisWidget.view(widgetModel);
-		$('body').append(widgetView.render().$el);
+        app.start();
 	}
 });
