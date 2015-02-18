@@ -14,6 +14,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 
 		  login:function(e){
 		  	alert('subscribe btn clicked');
+		  	alert($(window.top).width())
 		  },
 
 		  render: function(){

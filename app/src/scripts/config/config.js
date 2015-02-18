@@ -42,9 +42,10 @@ require.config({
 // Start loading the main app file. Put all of
 // your application logic in there.
 require(['main_app'],function(app){
-	if(false && window != window.top){//we are not a widget iframe
-        app.postNuregoLib();
-	}else{//we are a widget iframe draw the widget with the right params
-        app.start();
+	var url = window.location.href;
+	if(app.utils.URLToArray(url).widget){
+		app.start();
+	}else{
+		//we are running in the injector scope 
 	}
 });
