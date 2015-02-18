@@ -1,4 +1,4 @@
-define(["backbone","text!LoginHTML"],function(bb,loginTmpl){
+define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 
 		var loginViewCtrl = Backbone.View.extend({
 		  tagName: "div",

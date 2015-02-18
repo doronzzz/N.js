@@ -1,4 +1,4 @@
-define(["backbone","text!PriceListHTML"],function(bb,tmpl){
+define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		var priceList = Backbone.View.extend({
 		  tagName: "div",
 		  className: "login",
@@ -17,8 +17,8 @@ define(["backbone","text!PriceListHTML"],function(bb,tmpl){
 		  },
 
 		  render: function(){
-		  	var json = this.template(this.model.attributes);
-		    this.$el.html(	json );
+		  	var html = this.template(this.model.attributes);
+		    this.$el.html(	html );
 		    return this;
 		  }
 

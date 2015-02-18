@@ -12,7 +12,7 @@
 
 - check for oAuth client side only.
 - go over "stories" in povital project managment.
-
+- capture widget frame on load to post the clients html overwrite after loading it via ajax from the clients site and saving it to a var.
 
 LOGIN{
 	

@@ -1,4 +1,4 @@
-define(["backbone"],function(Backbone){
+define(["backbone","constants"],function(Backbone,constants){
     /*var baseClass = Backbone.Model.extend({
         fetch:function(){
             this.name 
@@ -13,11 +13,15 @@ define(["backbone"],function(Backbone){
             this.model = $.http('nurego.com/pricelist.json');
         }*/
         fetch:function(){
-            API.getBaseURL() + "/prices"
+            constants.baseURL() + "/prices"
         },
 
         parse:function(){
+            if(json.plans.data == undefined){
+                
+            }else{
 
+            }
         },
 
         defaults: {

@@ -1,4 +1,4 @@
-define(["backbone"],function(Backbone){
+define(["backbone","constants"],function(Backbone,constants){
 
     var loginModel = Backbone.Model.extend({
         initialize:function(){

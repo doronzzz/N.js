@@ -26,15 +26,19 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <!--script src="bower_components/requirejs/require.js" data-main="scripts/config/config.js"></script-->
-
+    <link href="template.html"/>
     <script src="bower_components/requirejs/require.js" data-main="scripts/config/config.js"></script>
 
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script>
+    var loaded = function(e){debugger;}
+    </script>
+    
 	<h1>Price List</h1>
-    <iframe src="widget.html?widget=priceList"></iframe>
+    <iframe src="widget.html?widget=priceList" onload="loaded()"></iframe>
 
     <h1>Login</h1>
     <iframe src="widget.html?widget=login"></iframe> 

@@ -1,7 +1,6 @@
-define(["underscore","Utils","API","jquery"],function(_,Utils,API,$){
+define(["underscore","utils","constants","jquery"],function(_,utils,constants,$){
 
 	var ResourcesManager = {
-		
 		resources:{
 			html:{},
 			css:{}

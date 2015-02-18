@@ -1,25 +1,24 @@
 define([
-		"API",
-		"Utils",
-		"WidgetInjector",
-		"LoginModel",
-		"PriceListModel",
-		"LoginViewCtrl",
-		"PriceListViewCtrl"
+		"constants",
+		"utils",
+		"widgetInjector",
+		"loginModel",
+		"priceListModel",
+		"loginViewCtrl",
+		"priceListViewCtrl"
 		],
-	function(API,Utils,WidgetInjector,loginModel,
-			 priceListModel,LoginViewCtrl,PriceListViewCtrl){
+	function(constants,utils,widgetInjector,loginModel,priceListModel,loginViewCtrl,priceListViewCtrl){
 				var app = {
-					myAPI:API, 
-					utils:Utils,
-					widgetInjector:WidgetInjector,
+					constants:constants, 
+					utils:utils,
+					widgetInjector:widgetInjector,
 					components:{
 						login:{
-							view:LoginViewCtrl,
+							view:loginViewCtrl,
 							model:loginModel
 						},
 						priceList:{
-							view:PriceListViewCtrl,
+							view:priceListViewCtrl,
 							model:priceListModel
 						}
 					}
@@ -29,8 +28,8 @@ define([
 					var params = app.utils.URLToArray(window.location.href);
 					var thisWidget = app.components[params.widget];
 					var widgetModel = new thisWidget.model();
-					var widgetView = new thisWidget.view(widgetModel);
-					$('body').append(widgetView.render().$el);
+					var widgetView = new thisWidget.view(widgetModel).render().$el;
+					$('body').append(widgetView);
 				};
  
 				app.initLib = function(){
