@@ -10276,7 +10276,7 @@ text = {
     throw new Error('Dynamic load not allowed: ' + id);
   }
 };
-text_loginHTML = '<div>\r\n\twelcome {{=user.name}} - {{=user.last}}\r\n\t<input class="form-control" type="text" placeholder="username"/>\r\n\t<input class="form-control" type="text" placeholder="password"/>\r\n\t<div>\r\n\t\t<button class="button btn btn-primary">Login</button>\r\n\t</div>\r\n</div>\r\n';
+text_loginHTML = '<div>\r\n\twelcome {{=user.name}} - {{=user.last}}\r\n\t<input class="form-control" type="text" placeholder="username"/>\r\n\t<input class="form-control" type="text" placeholder="password"/>\r\n\r\n\t<br/>\r\n\t<input class="form-control" type="text" id="baseURL" placeholder="http://localhost:2323"/>\r\n\t<br/>\r\n\t<div>\r\n\t\t<button class="button btn btn-primary">Login</button>\r\n\t</div>\r\n</div>\r\n';
 loginViewCtrl = function (bb, loginTmpl) {
   var loginViewCtrl = Backbone.View.extend({
     tagName: 'div',
@@ -10292,7 +10292,9 @@ loginViewCtrl = function (bb, loginTmpl) {
     },
     login: function (e) {
       debugger;
-      $.get(constants.BaseURL() + '/login', function (data) {
+      var baseURL = this.$el.find('#baseURL').val();
+      alert(baseURL);
+      $.get(constants.baseURL() + '/login', function (data) {
         console.log(data);
       });
     },

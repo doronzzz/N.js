@@ -17,7 +17,9 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		  },
  
 		  login:function(e){debugger; 
-		  	$.get(constants.BaseURL() + "/login",function(data){
+		  	var baseURL = this.$el.find('#baseURL').val();
+		  	alert(baseURL)
+		  	$.get(constants.baseURL() + "/login",function(data){
 		  		console.log(data);
 		  	})
 		  },
