@@ -2,7 +2,7 @@
 
 ####INCLUDE JS LIB
 ```HTML
- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+     <script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"></script>
 ```
 
 
