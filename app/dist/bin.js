@@ -10292,7 +10292,7 @@ loginViewCtrl = function (bb, loginTmpl) {
     },
     login: function (e) {
       debugger;
-      $.get(constants.getBaseUrl() + '/login', function (data) {
+      $.get(constants.BaseURL() + '/login', function (data) {
         console.log(data);
       });
     },
