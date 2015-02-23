@@ -10364,7 +10364,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
       $('body').append(widgetView);
     };
     var onHTML = function (e) {
-      debugger;
       var key = e.message ? 'message' : 'data';
       var data = e[key];
       //run function//
@@ -10381,24 +10380,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
       draw();
     }
   };
-  /*"components":{
-  			"priceList":{
-  				"parent":"#element",
-  				"configParams":{
-  					"css":"",
-  					"html":"scripts/components/price_list/price_list_demo.html"
-  				}
-  			},
-  			"login":{
-  				"parent":"#element",
-  				"configParams":{
-  					"css":"",
-  					"html":""
-  				}
-  			}
-  
-  */
-  //selfinvoked fn
   $(document).ready(function () {
     var elems = $('nurego-widget');
     if (elems.length) {
@@ -10419,21 +10400,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
       app.init({ components: comps });
     }
   });
-  /*app.injectWidgets = function(opt){
-  	//lib.widgetFactory.build(opt);
-  };*/
-  // Start loading the main app file. Put all of
-  // your application logic in there.
-  /*require(['main_app'],function(app){debugger;
-  	var url = window.location.href;
-  	debugger;
-  	if(app.utils.URLToArray(url).widget){
-  		app.start();
-  	}else{
-  		//we are running in the injector scope 
-  		window.Nurego = app;
-  	}
-  });*/
   return app;
 }(constants, utils, widgetFactory, loginModel, priceListModel, loginViewCtrl, priceListViewCtrl);
 window.Nurego = Nurego;
