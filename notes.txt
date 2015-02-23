@@ -1,20 +1,25 @@
-* seperate to ingnitor N widgetInjector from the iframe app.
+V* seperate to ingnitor N widgetInjector from the iframe app.
+V* support html directive to inject widget with options <nurego-widget height="" html="res" css="res">
 * injector script
 * js_hub
 * parsers
 * routing
 * default tempaltes
 * cover old api
-* html resources managment
+V* html resources managment
 * css managment
 
+- move each model to its component folder.
+- base classes for models and views
+* add events publisher to : onWidgetLoad / onSubscribeSelected / onFinishEnd etc..
 * sandbox demo page
 * scss
 * yoeman generator for the workspace
 * mobile
 
 * angular
-* allow iframes and html 
+* allow iframes and html (with shadowbox polyfill)
+* go over "stories" in povital project managment.
 
 
 - camelCase or camel_case (best practices)
@@ -25,12 +30,7 @@
 - one request benchmarks. (whats the optimal size)
 - replace bower components to vendors (no need since bower is configrable and not in source control)
 
-- move each model to its component folder.
-- base classes for models and views
-
-
 - check for oAuth client side only.
-- go over "stories" in povital project managment.
 - capture widget frame on load to post the clients html overwrite after loading it via ajax from the clients site and saving it to a var.
 
 LOGIN{
