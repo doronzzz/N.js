@@ -2,7 +2,6 @@
 var constants, underscore, utils, widgetFactory, jquery, backbone, loginModel, priceListModel, text, text_loginHTML, loginViewCtrl, text_priceListHTML, priceListViewCtrl, Nurego;
 constants = {
   baseURL: function () {
-    debugger;
     var baseUrlEl = $('nurego-baseurl').attr('url');
     if (baseUrlEl) {
       return baseUrlEl;

@@ -5,12 +5,6 @@
      <script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"></script>
 ```
 
-####INCLUDE SET BASE URL (for dev mostly)
-```HTML
-	<nurego-baseurl url="https://mybaseurl.com"></nurego-baseurl>
-```
-
-
 
 
 ###API DEMO

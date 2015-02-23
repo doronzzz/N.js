@@ -1,6 +1,6 @@
 define([],function(){
 	return {
-		baseURL:function(){debugger;
+		baseURL:function(){
 			var baseUrlEl = $("nurego-baseurl").attr('url');
 			if(baseUrlEl){
 				return baseUrlEl;
