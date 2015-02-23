@@ -81,7 +81,6 @@ define([
 
 */				//selfinvoked fn
 				var initDirectives = function(){
-					
 					var elems = $("nurego-widget");
 					if(elems.length){
 						var comps = {};

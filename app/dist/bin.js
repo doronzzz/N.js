@@ -2,7 +2,13 @@
 var constants, underscore, utils, widgetFactory, jquery, backbone, loginModel, priceListModel, text, text_loginHTML, loginViewCtrl, text_priceListHTML, priceListViewCtrl, Nurego;
 constants = {
   baseURL: function () {
-    return 'http://localhost:9000/src';
+    debugger;
+    var baseUrlEl = $('nurego-baseurl').attr('url');
+    if (baseUrlEl) {
+      return baseUrlEl;
+    } else {
+      return 'http://localhost:9000/src';
+    }
   },
   widgetsURL: function () {
     return 'https://rawgit.com/doronzzz/N.js/master/app/src/widget.html';
@@ -10285,7 +10291,10 @@ loginViewCtrl = function (bb, loginTmpl) {
       this.listenToOnce(this.model, 'change', this.render);
     },
     login: function (e) {
-      alert('btn clicked');
+      debugger;
+      $.get(constants.getBaseUrl() + '/login', function (data) {
+        console.log(data);
+      });
     },
     render: function () {
       var html = this.template(this.model.attributes);

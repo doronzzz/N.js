@@ -1,7 +1,12 @@
 define([],function(){
 	return {
-		baseURL:function(){
-			return "http://localhost:9000/src";
+		baseURL:function(){debugger;
+			var baseUrlEl = $("nurego-baseurl").attr('url');
+			if(baseUrlEl){
+				return baseUrlEl;
+			}else{
+				return "http://localhost:9000/src";
+			}
 		},
 		widgetsURL:function(){
 			return "https://rawgit.com/doronzzz/N.js/master/app/src/widget.html";

@@ -16,8 +16,10 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		    this.listenToOnce(this.model, "change", this.render);
 		  },
 
-		  login:function(e){
-		  	alert('btn clicked');
+		  login:function(e){debugger; 
+		  	$.get(constants.getBaseUrl() + "/login",function(data){
+		  		console.log(data);
+		  	})
 		  },
 
 		  render: function(){

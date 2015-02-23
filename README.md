@@ -11,6 +11,7 @@
 ```JavaScript
 Nurego.init({
     "API_key":"32423423",//String || URL
+    "baseURL":"mybaseURL.com",
     "components":{
         "priceList":{
             "parent":"#element",
