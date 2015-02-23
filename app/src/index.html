@@ -78,7 +78,7 @@
 		    display: block;           
 		}
 
-		#ribbon{position:fixed;right:0px; top:0px;}
+		#ribbon{position:fixed;right:0px; top:0px; z-index:99999999;}
 
 		code[class*="language-"].nowrap, pre[class*="language-"].nowrap{
 			white-space: nowrap;
@@ -88,13 +88,59 @@
 			margin-bottom:60px;
 		}
 
+		.codeBox {
+		    margin-top: -23px !important;
+		    border-radius: 0px 0px 4px 4px;
+		}
+
+		.well.white{
+			background:rgba(220, 220, 220, 0.05);
+		}
+		body{
+			padding-top:72px;
+		}
     </style>
   </head>
   <body>
 
+  	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+          <img src="http://www.nurego.com/wp-content/uploads/2014/05/logo.png"/>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Components</a></li>
+            <li><a href="#about">Get started</a></li>
+            <li><a href="#contact">Coverage Reports</a></li>
+            <li><a href="#contact">Plato Reports</a></li>
+            <li><a href="#contact">Tests</a></li>
+            <li><a href="#contact">Workspace setup</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!--li><a href="../navbar/">Default</a></li-->
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
   
 
-  <a href="https://github.com/doronzzz/N.js" id="ribbon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+  <a href="https://github.com/doronzzz/N.js" id="ribbon">
+  
+  <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
+
+  </a>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -185,10 +231,10 @@
 		</p>
 
 		<h3>1.1) Price List Directive</h3>
-		<div style="height:300px;" id="priceList1" class="well">
+		<div style="height:300px;" id="priceList1" class="well white">
 		    <nurego-widget name="priceList" html="http://rawgit.com/doronzzz/N.js/master/app/src/scripts/components/price_list/price_list_demo.html"></nurego-widget>
 		</div>
-		<pre class="language-markup nowrap">
+		<pre class="language-markup nowrap codeBox">
 		  <code class="nowrap">&lt;nurego-widget name="priceList" html="path/to/html/template.html"&gt;
 		  &lt;/nurego-widget&gt;
 		  </code>
@@ -196,9 +242,9 @@
 
 		<h3>1.2) Price list JS</h3>
 		<div class="">
-		    <div style="height:300px;" id="priceList2" class="well"></div>
+		    <div style="height:300px;" id="priceList2" class="well white"></div>
 		</div>
-		<pre class=" language-javascript">
+		<pre class=" language-javascript codeBox">
 		  <code class=" language-javascript">Nurego.init({
 				"token":"32423423",//String || URL
 				"components":{
@@ -240,19 +286,19 @@
 			Description text.. Description text.. Description text.. 
 		</p>
 		<h3>2.1) Login Directive</h3>
-		<div style="height:300px;" id="login1" class="well"> 
+		<div style="height:300px;" id="login1" class="well white"> 
 		    <nurego-widget name="login"></nurego-widget>
 		</div>
-		<pre class="language-markup nowrap">
+		<pre class="language-markup nowrap codeBox">
 		  <code class="nowrap">&lt;nurego-widget name="login"&gt;&lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
 
 		<h3>2.2) Login JS</h3>
 		<div class="">
-			<div id="login2" style="height:300px;" class="well"></div>
+			<div id="login2" style="height:300px;" class="well white"></div>
 		</div>
-		<pre class=" language-javascript">
+		<pre class=" language-javascript codeBox">
 		  <code class=" language-javascript">Nurego.init({
 				"token":"32423423",//String || URL
 				"components":{
@@ -276,10 +322,12 @@
     </script>
     <script> 
 
+    $(document).ready(function(){
     	$('body').scrollspy({
 		    target: '.bs-docs-sidebar',
     		offset: 40
 		});
+    });
 
 
     Nurego.init({
