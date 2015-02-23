@@ -2,8 +2,8 @@
 
 ###API DEMO
 ```JavaScript
-var myNurego = {
-    "token":"32423423",//String || URL
+Nurego.init({
+    "API_key":"32423423",//String || URL
     "components":{
         "priceList":{
             "parent":"#element",
@@ -20,7 +20,7 @@ var myNurego = {
             }
         }
     }
-}
+})
 
 ```
 
