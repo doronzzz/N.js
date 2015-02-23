@@ -15,14 +15,15 @@ require.config({
         underscore: '../../bower_components/underscore/underscore',
         constants: '../services/constants',
         utils: '../services/utils',
-        widgetInjector: '../services/widget_injector',
+        widgetFactory: '../services/widget_factory',
         loginModel: '../models/login',
         priceListModel: '../models/price_list',
         loginViewCtrl: '../components/login/login.ctrl',
         priceListViewCtrl: '../components/price_list/price_list.ctrl',
         loginHTML: '../components/login/login.html',
         priceListHTML: '../components/price_list/price_list.html',
-        main_app: '../app'
+        Nurego: '../app',
+        almond: '../../bower_components/almond/almond'
     },
     shim: {
         backbone: {
@@ -37,15 +38,10 @@ require.config({
 
     ]
 });
-
  
+
 // Start loading the main app file. Put all of
 // your application logic in there.
-require(['main_app'],function(app){
-	var url = window.location.href;
-	if(app.utils.URLToArray(url).widget){
-		app.start();
-	}else{
-		//we are running in the injector scope 
-	}
-});
+/*require(['Nurego'],function(app){
+	
+});*/

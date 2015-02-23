@@ -1,40 +1,47 @@
 var Nurego = window.Nurego = {
 	options:{},
-	init:function(opt){
+	init:function(opt){debugger;
 		this.options = opt;
-		this.loadScripts();
+		this.safeLoadNurego();
 	},
-	loadScripts:function(){
+
+	initNurego:function(){
+		var script = document.createElement('script');
+		script.type="text/javascript";
+		script.src = "dist/bin.js"
+		document.body.appendChild(script);
+	},
+	safeLoadNurego:function(){
 		//LOAD NUREGO LIB IN IFRAME
-		var iframe = document.createElement('iframe');
-		var clientUrl = window.location.origin;
-		iframe.src = "http://localhost:9000/lib.js?clientUrl=" + clientUrl;
+		var iframe,clientUrl,zis;
+
+		iframe = document.createElement('iframe');
+		clientUrl = window.location.href;
+		iframe.src = "/src/injector.html?clientURL=" + clientUrl;
 		iframe.style.setProperty('display','none');
-		document.body.appendChild(iframe);
-		window.addEventListener("messsage",function(e){
+		zis = this;
+
+		var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+		var eventer = window[eventMethod];
+		var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+		// Listen to message from child window
+		eventer(messageEvent,function(e) {debugger;
+		    var key = e.message ? "message" : "data";
+		    var data = e[key];
+		    //run function//
+		    var NuregoLib = e.data;
+			NuregoLib.widgetsFactory.build(zis.options);
+		},false);
+
+/*		window.addEventListener("messsage",function(e){debugger;
 				var NuregoLib = e.data;
-				NuregoLib.widgetsFactory.build(this.options);
-		});
+				NuregoLib.widgetsFactory.build(zis.options);
+		});*/
+
+		document.body.appendChild(iframe);
 	}
 };
-
-
-	Nurego.init({
-		"token":"32423423",//String || URL
-		"components":{
-			"priceList":{
-				"parent":"#element",
-				"css":"",
-				"html":""
-			},
-			"login":{
-				"parent":"#element",
-				"css":"",
-				"html":""
-			}
-		}
-	})
-
 
 
 /**

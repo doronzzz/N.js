@@ -7,7 +7,10 @@ define(["backbone","text!components/price_list/price_list.html"],function(bb,tmp
 		    "click .button":   "login"
 		  },
 
-		  initialize: function(model){
+		  initialize: function(model,customTmpl){
+		  	if(customTmpl){
+		  		this.template = _.template(customTmpl);
+		  	}
 		  	this.model = model;
 		    this.listenToOnce(this.model, "change", this.render);
 		  },

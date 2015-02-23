@@ -1,10 +1,29 @@
+* seperate to ingnitor N widgetInjector from the iframe app.
+* injector script
+* js_hub
+* parsers
+* routing
+* default tempaltes
+* cover old api
+* html resources managment
+* css managment
+
+* sandbox demo page
+* scss
+* yoeman generator for the workspace
+* mobile
+
+* angular
+* allow iframes and html 
+
+
 - camelCase or camel_case (best practices)
 - css html, do we need to inc version to see default templates changes. 
   or do we want to allow external loading of resources, or both.
 
 - lodash and 3rd party libs - dont cross the 100kb benchmark.
 - one request benchmarks. (whats the optimal size)
-- replace bower components to vendors
+- replace bower components to vendors (no need since bower is configrable and not in source control)
 
 - move each model to its component folder.
 - base classes for models and views
@@ -17,7 +36,7 @@
 LOGIN{
 	
 	- ask for server url and pass plan 
-	- redirecto to the server url
+	- redirecto to callback url
 
 }
 

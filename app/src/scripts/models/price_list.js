@@ -11,7 +11,7 @@ define(["backbone","constants"],function(Backbone,constants){
         },
         /*fetch:function(){
             this.model = $.http('nurego.com/pricelist.json');
-        }*/
+        }*/ 
         fetch:function(){
             constants.baseURL() + "/prices"
         },

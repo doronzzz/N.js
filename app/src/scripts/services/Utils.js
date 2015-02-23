@@ -15,6 +15,12 @@ define(["underscore"],function(_){
 		    request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 		  }
 		  return request;
+		},
+		listen:function(fn){debugger
+			var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+			var eventer = window[eventMethod];
+			var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+			eventer(messageEvent,fn,false);
 		}
 	};
 

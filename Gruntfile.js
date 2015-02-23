@@ -19,6 +19,7 @@ module.exports = function (grunt){
   grunt.loadNpmTasks('grunt-plato');
   grunt.loadNpmTasks('grunt-bower-requirejs');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-kss');
 
 
   // Configurable paths for the application
@@ -41,20 +42,61 @@ module.exports = function (grunt){
       }
     },
 
+    kss: {
+        options: {
+          //css: '/path/to/style.css',
+        },
+        dist: {
+            files: {
+              'tmp': ['app/src/styles/_brand.scss']
+            }
+        }
+    },
+
     requirejs: {
-        compile: {
+        dev: {
+          options: {
+            onModuleBundleComplete: function (data){
+              var fs = module.require('fs'),
+                amdclean = module.require('amdclean'),
+                outputFile = data.path,
+                cleanedCode = amdclean.clean({
+                  'filePath': outputFile,
+                  'globalModules':["Nurego"]
+                });
+
+              fs.writeFileSync(outputFile, cleanedCode);
+            },
+            baseUrl: 'app/src/scripts/config',
+            mainConfigFile: "app/src/scripts/config/config.js",
+            out: "app/dist/bin.js",
+            paths:{ //Include require js lib in our optimized super script.
+              //requireLib: 'app/src/bower_components/requirejs/require'
+              //requireLib: '../../bower_components/requirejs/require'
+            },
+            include: ["Nurego"],
+            //include:["requireLib"],
+            stubModules: ['text'],
+            //findNestedDependencies: true,
+            //include: 'requireLib',
+            optimize: 'none'
+          }
+      },
+      prod: {
           options: {
             baseUrl: 'app/src/scripts/config',
             mainConfigFile: "app/src/scripts/config/config.js",
             name: "config",
             out: "app/dist/bin.js",
-            paths: { //Include require js lib in our optimized super script.
+            wrap: true,
+            /*paths:{ //Include require js lib in our optimized super script.
               //requireLib: 'app/src/bower_components/requirejs/require'
-              requireLib: '../../bower_components/requirejs/require'
-            },
+              //requireLib: '../../bower_components/requirejs/require'
+            },*/
+            include: ["../../bower_components/almond/almond","main_app"],
             stubModules: ['text'],
-            findNestedDependencies: true,
-            include: 'requireLib',
+            //findNestedDependencies: true,
+            //include: 'requireLib',
             //optimize: 'none'
           }
       }
@@ -88,7 +130,7 @@ module.exports = function (grunt){
       },
       js: {
         files: ['<%= yeoman.app %>/src/scripts/{,*/}{,*/}*.js'],
-        tasks: ['karma','requirejs'], //'newer:jshint:all'
+        tasks: ['karma','requirejs:dev'], //'newer:jshint:all'
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -106,7 +148,8 @@ module.exports = function (grunt){
         tasks: ['compass:server', 'autoprefixer']
       },
       gruntfile: {
-        files: ['Gruntfile.js']
+        files: ['Gruntfile.js'],
+        tasks: ['karma','requirejs:dev'], //'newer:jshint:all'
       },
       livereload: {
         options: {

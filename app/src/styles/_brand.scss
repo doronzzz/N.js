@@ -1,3 +1,20 @@
-div{
-	font-size:12px;
+// A button suitable for giving a star to someone.
+//
+// :hover             - Subtle hover highlight.
+// .star-given        - A highlight indicating you've already given a star.
+// .star-given:hover  - Subtle hover highlight on top of star-given styling.
+// .disabled          - Dims the button to indicate it cannot be used.
+//
+// Styleguide 1.1
+a.button.star{
+  background:blue;
+  width:100px;
+  height:100px;
+  text-align:center;
+  &.star-given{
+    background:red;
+  }
+  &.disabled{
+    background:gray;
+  }
 }

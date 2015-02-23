@@ -1,0 +1,11 @@
+<div>
+	<h3>see our price plans with a different template</h3>
+	<div>
+		{{  for(var plan in plans.plans.data) { }}
+		<div class="alert alert-info" role="alert">
+			{{=plans.plans.data[plan].name}}
+		</div>
+		{{ } }}
+	</div>
+	<button class="button btn btn-success btn-lg">this is a different html</button>
+</div>

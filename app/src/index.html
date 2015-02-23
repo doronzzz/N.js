@@ -5,14 +5,77 @@
     <title>Nurego JS Library Sandbox</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- <link rel="stylesheet" href="styles/main.css"> -->
+
+
     <!-- endbuild -->
+
+    <style>
+
+		/* sidebar */
+		.bs-docs-sidebar {
+		    padding-left: 20px;
+		    margin-top: 20px;
+		    margin-bottom: 20px;
+		}
+
+		/* all links */
+		.bs-docs-sidebar .nav>li>a {
+		    color: #999;
+		    border-left: 2px solid transparent;
+		    padding: 4px 20px;
+		    font-size: 13px;
+		    font-weight: 400;
+		}
+
+		/* nested links */
+		.bs-docs-sidebar .nav .nav>li>a {
+		    padding-top: 1px;
+		    padding-bottom: 1px;
+		    padding-left: 30px;
+		    font-size: 12px;
+		}
+
+		/* active & hover links */
+		.bs-docs-sidebar .nav>.active>a, 
+		.bs-docs-sidebar .nav>li>a:hover, 
+		.bs-docs-sidebar .nav>li>a:focus {
+		    color: #563d7c;                 
+		    text-decoration: none;          
+		    background-color: transparent;  
+		    border-left-color: #563d7c; 
+		}
+		/* all active links */
+		.bs-docs-sidebar .nav>.active>a, 
+		.bs-docs-sidebar .nav>.active:hover>a,
+		.bs-docs-sidebar .nav>.active:focus>a {
+		    font-weight: 700;
+		}
+		/* nested active links */
+		.bs-docs-sidebar .nav .nav>.active>a, 
+		.bs-docs-sidebar .nav .nav>.active:hover>a,
+		.bs-docs-sidebar .nav .nav>.active:focus>a {
+		    font-weight: 500;
+		}
+
+		/* hide inactive nested list */
+		.bs-docs-sidebar .nav ul.nav {
+		    display: none;           
+		}
+		/* show active nested list */
+		.bs-docs-sidebar .nav>.active>ul.nav {
+		    display: block;           
+		}
+    </style>
   </head>
   <body>
 
@@ -26,22 +89,161 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <!--script src="bower_components/requirejs/require.js" data-main="scripts/config/config.js"></script-->
-    <link href="template.html"/>
-    <script src="bower_components/requirejs/require.js" data-main="scripts/config/config.js"></script>
+    <!--script src="scripts/src/app.js" type="text/javascript"></script-->
+    
+
+     <nav class="col-xs-3 bs-docs-sidebar">
+        <ul id="sidebar" class="nav nav-stacked fixed"  data-spy="affix" data-offset-top="100" data-offset-bottom="200">
+        	<li>
+                <a href="#gettingStarted">Getting started</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#gettingStarted1">Register to get token</a></li>
+                    <li><a href="#gettingStarted2">JS API</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#priceList">Price List</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#priceList1">Price List Directive</a></li>
+                    <li><a href="#priceList2">Price List Javascript</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#registration">Registration</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#registration1">Registration Directive</a></li>
+                    <li><a href="#registration2">Registration Javascript</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#login">Login</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#login1">Login Directive</a></li>
+                    <li><a href="#login2">Login Javascript</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+<div class="container" style="width:740px;">
+
+	<div class="" id="gettingStarted">
+		<h1 id="gettingStarted1"  class="page-header">Getting started</h1>
+		<p>
+			Getting started with a Nurego Token,..
+			Getting started with a Nurego Token...
+			Getting started with a Nurego Token...
+			Getting started with a Nurego Token...
+			Getting started with a Nurego Token...
+		</p>
+
+		<h1 id="gettingStarted2"  class="page-header">Javascript API</h1>
+		<p>
+			How to inject script to bottom of the body HTML..
+			How to inject script to bottom of the body HTML..
+			How to inject script to bottom of the body HTML..
+			How to inject script to bottom of the body HTML..
+		</p>
+
+
+	</div>
+
+	<div class="" id="priceList">
+		<h1 class="page-header">Nurego Price list</h1>
+		<p>
+			Description text.. Description text.. Description text.. 
+			Description text.. Description text.. Description text.. 
+		</p>
+
+		<h2>Price List Directive</h2>
+		<div style="height:300px;" id="priceList1" class="well">
+		    <nurego-widget name="priceList" html="scripts/components/price_list/price_list_demo.html"></nurego-widget>
+		</div>
+
+		<h2>Price list JS</h2>
+		<div class="">
+		    <div style="height:300px;" id="priceList2" class="well"></div>
+		</div>
+	</div>
+
+
+	<!--div class="" id="registration">
+		<h1  class="page-header">Nurego Registration</h1>
+		<p>
+			Description text.. Description text.. Description text.. 
+			Description text.. Description text.. Description text.. 
+		</p>
+		<h2>Registration Directive</h2>
+		
+		    <div id="registration1" style="height:300px;" class="well"></div>
+		
+
+		<h2>Registration JS</h2>
+		<div class="">
+			<div id="registration2" style="height:300px;" class="well"></div>
+		</div>
+	</div-->
+
+	<div class="" id="login">
+		<h1  class="page-header">Nurego login</h1>
+		<p>
+			Description text.. Description text.. Description text.. 
+			Description text.. Description text.. Description text.. 
+		</p>
+		<h2>Login Directive</h2>
+		<div style="height:300px;" id="login1" class="well"> 
+		    <nurego-widget name="login"></nurego-widget>
+		</div>
+
+		<h2>Login JS</h2>
+		<div class="">
+			<div id="login2" style="height:300px;" class="well"></div>
+		</div>
+	</div>
+	
+</div>
+
+    <script src="../dist/bin.js" type="text/javascript"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript">
+    </script>
+    <script> 
+
+    	$('body').scrollspy({
+		    target: '.bs-docs-sidebar',
+    		offset: 40
+		});
+
+
+    Nurego.init({
+		"token":"32423423",//String || URL
+		"components":{
+			"priceList":{
+				"parent":"#priceList2",
+				"configParams":{
+					"css":"",
+					"html":""
+				}
+			},
+			"login":{
+				"parent":"#login2",
+				"configParams":{
+					"css":"",
+					"html":""
+				}
+			}
+		}
+	})
+		
+    </script>
 
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script>
-    var loaded = function(e){debugger;}
-    </script>
-    
-	<h1>Price List</h1>
-    <iframe src="widget.html?widget=priceList" onload="loaded()"  frameBorder="0"></iframe>
 
-    <h1>Login</h1>
-    <iframe src="widget.html?widget=login"  frameBorder="0"></iframe> 
     <!-- endbuild -->
 	</body>
 </html>

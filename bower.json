@@ -11,7 +11,8 @@
     "backbone": "*",
     "jquery": "*",
     "underscore": "~1.7.0",
-    "json2": "*"
+    "json2": "*",
+    "almond": "~0.3.0"
   },
   "description": "Nurego js",
   "license": "MIT",

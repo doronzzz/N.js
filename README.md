@@ -24,3 +24,11 @@ var myNurego = {
 
 ```
 
+### HTML Directive API:
+```HTML
+<nurego-widget name="priceList" 
+			   css="path/to/css.css"
+			   html="scripts/components/price_list/price_list_demo.html">
+
+</nurego-widget>
+```
