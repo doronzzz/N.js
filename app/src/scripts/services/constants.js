@@ -9,7 +9,7 @@ define([],function(){
 			}
 		},
 		widgetsURL:function(){
-			return "https://rawgit.com/doronzzz/N.js/master/app/src/widget.html";
+			return "http://rawgit.com/doronzzz/N.js/master/app/src/widget.html";
 		},
 		nuregoLibURL:function(){
 			return this.baseURL() + "/dist/bin.js";

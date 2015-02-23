@@ -11,7 +11,7 @@ constants = {
     }
   },
   widgetsURL: function () {
-    return 'https://rawgit.com/doronzzz/N.js/master/app/src/widget.html';
+    return 'http://rawgit.com/doronzzz/N.js/master/app/src/widget.html';
   },
   nuregoLibURL: function () {
     return this.baseURL() + '/dist/bin.js';
@@ -10294,6 +10294,7 @@ loginViewCtrl = function (bb, loginTmpl) {
       debugger;
       var baseURL = this.$el.find('#baseURL').val();
       var endPoint = baseURL ? baseURL : constants.baseURL();
+      console.log('sending req to: ' + endPoint);
       $.get(endPoint + '/login', function (data) {
         console.log(data);
       });
