@@ -1,5 +1,12 @@
 # N.js
 
+####INCLUDE JS LIB
+```HTML
+ <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
+```
+
+
+
 ###API DEMO
 ```JavaScript
 Nurego.init({
