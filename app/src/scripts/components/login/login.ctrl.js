@@ -18,8 +18,9 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
  
 		  login:function(e){debugger; 
 		  	var baseURL = this.$el.find('#baseURL').val();
-		  	alert(baseURL)
-		  	$.get(constants.baseURL() + "/login",function(data){
+		  	var endPoint = (baseURL) ? baseURL : constants.baseURL();
+		  	console.log("sending req to: " + endPoint);
+		  	$.get(endPoint + "/login",function(data){
 		  		console.log(data);
 		  	})
 		  },
