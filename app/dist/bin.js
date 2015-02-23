@@ -10399,7 +10399,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
   
   */
   //selfinvoked fn
-  var initDirectives = function () {
+  $(document).ready(function () {
     var elems = $('nurego-widget');
     if (elems.length) {
       var comps = {};
@@ -10418,7 +10418,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
       console.log(comps);
       app.init({ components: comps });
     }
-  }();
+  });
   /*app.injectWidgets = function(opt){
   	//lib.widgetFactory.build(opt);
   };*/

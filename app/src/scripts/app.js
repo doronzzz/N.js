@@ -80,7 +80,7 @@ define([
 			}
 
 */				//selfinvoked fn
-				var initDirectives = function(){
+				$(document).ready(function(){
 					var elems = $("nurego-widget");
 					if(elems.length){
 						var comps = {};
@@ -101,7 +101,7 @@ define([
 						console.log(comps)
 						app.init({components:comps});
 					}
-				}();
+				});
 
 
 				/*app.injectWidgets = function(opt){

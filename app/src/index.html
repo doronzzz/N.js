@@ -6,6 +6,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/prism/themes/prism.css">
+    <script src="bower_components/prism/prism.js"></script>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -75,9 +77,24 @@
 		.bs-docs-sidebar .nav>.active>ul.nav {
 		    display: block;           
 		}
+
+		#ribbon{position:fixed;right:0px; top:0px;}
+
+		code[class*="language-"].nowrap, pre[class*="language-"].nowrap{
+			white-space: nowrap;
+		}
+
+		.bs-docs-section {
+			margin-bottom:60px;
+		}
+
     </style>
   </head>
   <body>
+
+  
+
+  <a href="https://github.com/doronzzz/N.js" id="ribbon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -130,43 +147,72 @@
 
 <div class="container" style="width:740px;">
 
-	<div class="" id="gettingStarted">
-		<h1 id="gettingStarted1"  class="page-header">Getting started</h1>
-		<p>
-			Getting started with a Nurego Token,..
-			Getting started with a Nurego Token...
-			Getting started with a Nurego Token...
-			Getting started with a Nurego Token...
-			Getting started with a Nurego Token...
-		</p>
+	<div id="gettingStarted">
+		<div class="bs-docs-section">
+			<h1 id="gettingStarted1"  class="page-header">Getting started</h1>
+			<p>
+				Getting started with a Nurego Token,..
+				Getting started with a Nurego Token...
+				Getting started with a Nurego Token...
+				Getting started with a Nurego Token...
+				Getting started with a Nurego Token...
+			</p>
 
-		<h1 id="gettingStarted2"  class="page-header">Javascript API</h1>
-		<p>
-			How to inject script to bottom of the body HTML..
-			How to inject script to bottom of the body HTML..
-			How to inject script to bottom of the body HTML..
-			How to inject script to bottom of the body HTML..
-		</p>
+			<pre class="language-markup nowrap">
+				<code class="nowrap">&lt;script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text javascript"&gt; 
+				&lt;/script&gt;
+			  	</code>
+		  	</pre>
+		</div>
 
+		<!--div class="bs-docs-section">
+			<h1 id="gettingStarted2"  class="page-header">Javascript API</h1>
+			<p>
+				How to inject script to bottom of the body HTML..
+				How to inject script to bottom of the body HTML..
+				How to inject script to bottom of the body HTML..
+				How to inject script to bottom of the body HTML..
+			</p>
+		</div-->
 
 	</div>
 
-	<div class="" id="priceList">
+	<div class="bs-docs-section" id="priceList">
 		<h1 class="page-header">Nurego Price list</h1>
 		<p>
 			Description text.. Description text.. Description text.. 
 			Description text.. Description text.. Description text.. 
 		</p>
 
-		<h2>Price List Directive</h2>
+		<h3>1.1) Price List Directive</h3>
 		<div style="height:300px;" id="priceList1" class="well">
 		    <nurego-widget name="priceList" html="http://rawgit.com/doronzzz/N.js/master/app/src/scripts/components/price_list/price_list_demo.html"></nurego-widget>
 		</div>
+		<pre class="language-markup nowrap">
+		  <code class="nowrap">&lt;nurego-widget name="priceList" html="path/to/html/template.html"&gt;
+		  &lt;/nurego-widget&gt;
+		  </code>
+	  	</pre>
 
-		<h2>Price list JS</h2>
+		<h3>1.2) Price list JS</h3>
 		<div class="">
 		    <div style="height:300px;" id="priceList2" class="well"></div>
 		</div>
+		<pre class=" language-javascript">
+		  <code class=" language-javascript">Nurego.init({
+				"token":"32423423",//String || URL
+				"components":{
+					"priceList":{
+						"parent":"#priceList2",
+						"configParams":{
+							"css":"",
+							"html":""
+						}
+					}
+				}
+			})
+		  </code>
+	  	</pre>
 	</div>
 
 
@@ -187,21 +233,40 @@
 		</div>
 	</div-->
 
-	<div class="" id="login">
-		<h1  class="page-header">Nurego login</h1>
+	<div class="bs-docs-section" id="login">
+		<h1  class="page-header">2) Nurego login</h1>
 		<p>
 			Description text.. Description text.. Description text.. 
 			Description text.. Description text.. Description text.. 
 		</p>
-		<h2>Login Directive</h2>
+		<h3>2.1) Login Directive</h3>
 		<div style="height:300px;" id="login1" class="well"> 
 		    <nurego-widget name="login"></nurego-widget>
 		</div>
+		<pre class="language-markup nowrap">
+		  <code class="nowrap">&lt;nurego-widget name="login"&gt;&lt;/nurego-widget&gt;
+		  </code>
+	  	</pre>
 
-		<h2>Login JS</h2>
+		<h3>2.2) Login JS</h3>
 		<div class="">
 			<div id="login2" style="height:300px;" class="well"></div>
 		</div>
+		<pre class=" language-javascript">
+		  <code class=" language-javascript">Nurego.init({
+				"token":"32423423",//String || URL
+				"components":{
+					"login":{
+						"parent":"#login2",
+						"configParams":{
+							"css":"",
+							"html":""
+						}
+					}
+				}
+			})
+		  </code>
+	  	</pre>
 	</div>
 	
 </div>

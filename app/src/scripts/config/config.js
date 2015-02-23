@@ -23,7 +23,8 @@ require.config({
         loginHTML: '../components/login/login.html',
         priceListHTML: '../components/price_list/price_list.html',
         Nurego: '../app',
-        almond: '../../bower_components/almond/almond'
+        almond: '../../bower_components/almond/almond',
+        prism: '../../bower_components/prism/prism'
     },
     shim: {
         backbone: {
