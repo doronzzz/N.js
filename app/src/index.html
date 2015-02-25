@@ -26,7 +26,7 @@
 		/* sidebar */
 		.bs-docs-sidebar {
 		    padding-left: 20px;
-		    margin-top: 20px;
+		    /*margin-top: 20px;*/
 		    margin-bottom: 20px;
 		}
 
@@ -119,11 +119,11 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Components</a></li>
-            <li><a href="#about">Get started</a></li>
+<!--             <li><a href="#about">Get started</a></li>
             <li><a href="#contact">Coverage Reports</a></li>
             <li><a href="#contact">Plato Reports</a></li>
             <li><a href="#contact">Tests</a></li>
-            <li><a href="#contact">Workspace setup</a></li>
+            <li><a href="#contact">Workspace setup</a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <!--li><a href="../navbar/">Default</a></li-->
@@ -156,7 +156,7 @@
     
 
      <nav class="col-xs-3 bs-docs-sidebar">
-        <ul id="sidebar" class="nav nav-stacked fixed"  data-spy="affix" data-offset-top="100" data-offset-bottom="200">
+        <ul id="sidebar" class="nav nav-stacked fixed"  data-spy="affix" data-offset-top="0">
         	<li>
                 <a href="#gettingStarted">Getting started</a>
                 <ul class="nav nav-stacked">
@@ -197,16 +197,22 @@
 		<div class="bs-docs-section">
 			<h1 id="gettingStarted1"  class="page-header">Getting started</h1>
 			<p>
-				Getting started with a Nurego Token,..
-				Getting started with a Nurego Token...
-				Getting started with a Nurego Token...
-				Getting started with a Nurego Token...
-				Getting started with a Nurego Token...
+				Getting started with a Nurego Token
 			</p>
 
 			<pre class="language-markup nowrap">
 				<code class="nowrap">&lt;script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text javascript"&gt; 
 				&lt;/script&gt;
+			  	</code>
+		  	</pre>
+
+		  	<p>
+		  		To overwrite the widgets API base url use this directive:
+		  	</p>
+		  	<pre class="language-markup nowrap">
+				<code class="nowrap">
+				&lt;nurego-api-baseurl url="http://localhost:31001/"&gt;
+				&lt;/nurego-api-baseurl&gt;
 			  	</code>
 		  	</pre>
 		</div>

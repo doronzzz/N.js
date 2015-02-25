@@ -32,7 +32,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		url:url,
 		  		type:"post",
 		  		//crossDomain: true,
-			    //dataType: 'json',
+			    dataType: 'json',
 			    contentType: "application/x-www-form-urlencoded",
 		  		data:data,
 		  		success:function(data,req){

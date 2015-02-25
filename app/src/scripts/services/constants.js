@@ -1,11 +1,7 @@
 define(['utils'],function(utils){
 	return {
-		isDevMode:function(){
-			return true;
-		},
-
-		baseURL:function(){
-			var baseUrlEl = $("nurego-baseurl").attr('url');
+		jsBaseURL:function(){
+			var baseUrlEl = $("nurego-js-baseurl").attr('url');
 			if(baseUrlEl){
 				return baseUrlEl;
 			}else{
@@ -16,16 +12,15 @@ define(['utils'],function(utils){
 			return utils.URLToArray(window.location.href).apiKey;
 		},
 		nuregoApiUrl:function(){
-			return "https://am-staging.nurego.com/v1";
+			var nuregoApi = $("nurego-api-baseurl").attr('url');
+			if(nuregoApi){
+				return nuregoApi;
+			}else{
+				return "https://am-staging.nurego.com/v1";
+			}
 		},
 		widgetsURL:function(){
-			if(this.isDevMode()){
-				return "http://localhost:9000/src/widget.html";
-			}
-			return "http://rawgit.com/doronzzz/N.js/master/app/src/widget.html";
-		},
-		nuregoLibURL:function(){
-			return this.baseURL() + "/dist/bin.js";
+			return this.jsBaseURL() + "/widget.html";
 		}
 	};
 })
