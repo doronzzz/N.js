@@ -1489,7 +1489,7 @@ widgetFactory = function (_, utils, constants) {
       iframeEl.onload = onWidgetLoad;  //TDB:  //iframe.onload(subscribe to js hub events)
     },
     buildComponentUrl: function (component, opt) {
-      var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
+      var nuregoApiParam = constants.getNuregoApiKey();
       var res = constants.widgetsURL() + '?widget=' + component + '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
       var indx = 0;
       _.each(opt.configParams, function (val, key) {
