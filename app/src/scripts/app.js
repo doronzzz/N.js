@@ -33,7 +33,7 @@ define([
 						lib.widgetFactory.build(k,v);
 					})
 				},
-
+				
 				app.onWidgetLoaded = function(){
 					var params,thisWidget,widgetModel,widgetView;
 					params = lib.utils.URLToArray(window.location.href);

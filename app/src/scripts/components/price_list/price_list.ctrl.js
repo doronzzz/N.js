@@ -26,7 +26,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		email:email
 		  	};
 
-		  	var url = baseURL+'/registrations?api_key=' + constants.nuregoApiKey()+ "&plan_id=" + plan; + "&email=" + email;
+		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan; + "&email=" + email;
 		  	var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	$.ajax({
 		  		url:url,
@@ -37,6 +37,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		data:data,
 		  		success:function(data,req){
 		  			console.log(data);
+		  			alert(JSON.stringify(data));
 		  		}
 		  	})
 

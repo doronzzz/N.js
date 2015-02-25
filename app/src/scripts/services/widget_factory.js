@@ -55,8 +55,9 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			//TDB:  //iframe.onload(subscribe to js hub events)
 		},
 		
-		buildComponentUrl:function(component,opt,apiKey){
-			var res = constants.widgetsURL() + "?widget=" + component + "&apiKey=" + apiKey;
+		buildComponentUrl:function(component,opt,apiKey){			
+			var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
+			var res = constants.widgetsURL() + "?widget=" + component + "&apiKey=" + apiKey + "&apiBaseUrl=" + constants.nuregoApiUrl();
 			var indx = 0;
 			_.each(opt.configParams,function(val,key){
 				var seperator = "&"; //(indx === 0) ? "?" : "&";

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/prism/themes/prism.css">
     <script src="bower_components/prism/prism.js"></script>
+	<nurego-api-key key="l22085b6-7062-4b57-8869-cccb2f66f6fb"> </nurego-api-key>
+	<!-- <nurego-api-baseurl url="http://localhost:31001/myapi/"> </nurego-api-baseurl> -->
+
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -197,7 +200,7 @@
 		<div class="bs-docs-section">
 			<h1 id="gettingStarted1"  class="page-header">Getting started</h1>
 			<p>
-				Getting started with a Nurego Token
+				Start by adding this script to the bottom of you HTML &lt;body&gt;
 			</p>
 
 			<pre class="language-markup nowrap">
@@ -206,8 +209,30 @@
 			  	</code>
 		  	</pre>
 
+
+			<p>
+		  		To set your Nurego API key
+		  	</p>
+		  	<pre class="language-markup nowrap">
+				<code class="nowrap">
+				&lt;nurego-api-key key="000-000-000-000"&gt;
+				&lt;/nurego-api-key&gt;
+			  	</code>
+		  	</pre>
+
+
 		  	<p>
-		  		To overwrite the widgets API base url use this directive:
+		  		To overwrite the Nurego widgets base url use this directive:
+		  	</p>
+		  	<pre class="language-markup nowrap">
+				<code class="nowrap">
+				&lt;nurego-js-baseurl url="http://localhost:31001/"&gt;
+				&lt;/nurego-js-baseurl&gt;
+			  	</code>
+		  	</pre>
+
+		  	<p>
+		  		To overwrite the Nurego API Server base url  (staging/prod/local) use this directive:
 		  	</p>
 		  	<pre class="language-markup nowrap">
 				<code class="nowrap">

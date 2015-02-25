@@ -1411,17 +1411,29 @@ constants = {
     if (baseUrlEl) {
       return baseUrlEl;
     } else {
-      return 'http://localhost:9000/src';
+      return '.';
     }
   },
-  nuregoApiKey: function () {
-    return utils.URLToArray(window.location.href).apiKey;
+  getNuregoApiKey: function () {
+    var apiKey = $('nurego-api-key').attr('key');
+    var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
+    if (apiKey) {
+      return apiKey;
+    }
+    if (apiKeyParam) {
+      return apiKeyParam;
+    }
   },
   nuregoApiUrl: function () {
     var nuregoApi = $('nurego-api-baseurl').attr('url');
+    var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
     if (nuregoApi) {
       return nuregoApi;
+    }
+    if (nuregoApiParam) {
+      return nuregoApiParam;
     } else {
+      //staging is the default
       return 'https://am-staging.nurego.com/v1';
     }
   },
@@ -1477,7 +1489,8 @@ widgetFactory = function (_, utils, constants) {
       iframeEl.onload = onWidgetLoad;  //TDB:  //iframe.onload(subscribe to js hub events)
     },
     buildComponentUrl: function (component, opt, apiKey) {
-      var res = constants.widgetsURL() + '?widget=' + component + '&apiKey=' + apiKey;
+      var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
+      var res = constants.widgetsURL() + '?widget=' + component + '&apiKey=' + apiKey + '&apiBaseUrl=' + constants.nuregoApiUrl();
       var indx = 0;
       _.each(opt.configParams, function (val, key) {
         var seperator = '&';
@@ -10119,7 +10132,7 @@ loginModel = function (Backbone, constants) {
       console.log('init login model');
     },
     url: function () {
-      return constants.nuregoApiUrl() + '/registrations/url/login_url?api_key=' + constants.nuregoApiKey();
+      return constants.nuregoApiUrl() + '/registrations/url/login_url?api_key=' + constants.getNuregoApiKey();
     },
     defaults: {
       user: {
@@ -10758,7 +10771,7 @@ loginViewCtrl = function (bb, loginTmpl) {
   });
   return loginViewCtrl;
 }(backbone, text_loginHTML);
-text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<input type="text" id="email" placeolder="example@email.com" class="form-control"/>\t\r\n\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
+text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<input type="email" id="email" placeolder="example@email.com" class="form-control"/>\t\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
 priceListViewCtrl = function (bb, tmpl) {
   var priceList = Backbone.View.extend({
     tagName: 'div',
@@ -10781,7 +10794,7 @@ priceListViewCtrl = function (bb, tmpl) {
         plan_id: plan,
         email: email
       };
-      var url = baseURL + '/registrations?api_key=' + constants.nuregoApiKey() + '&plan_id=' + plan;
+      var url = baseURL + '/registrations?api_key=' + constants.getNuregoApiKey() + '&plan_id=' + plan;
       +'&email=' + email;
       var data = '&plan_id=' + encodeURI(plan) + '&email=' + encodeURI(email);
       $.ajax({
@@ -10793,6 +10806,7 @@ priceListViewCtrl = function (bb, tmpl) {
         data: data,
         success: function (data, req) {
           console.log(data);
+          alert(JSON.stringify(data));
         }
       });
     },
