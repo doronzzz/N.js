@@ -1,9 +1,15 @@
-<div>
-	see our price plans
-	<ul>
-		{{  for(var plan in plans.plans.data) { }}
-		<li>{{=plans.plans.data[plan].name}}</li>
-		{{ } }}
-	</ul>
+<div style="width:300p;">
+	<div>see our price plans</div>
+	<div>
+		<select>
+			{{  for(var plan in plans.data) { }}
+				<option data-id="{{=plans.data[plan].id}}">
+					{{=plans.data[plan].name}}
+				</option>
+			{{ } }}
+		</select>
+	</div>
+	<input type="text" id="email" placeolder="example@email.com" class="form-control"/>	
+	
 	<button class="button btn">subscribe</button>
 </div>

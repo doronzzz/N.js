@@ -37,12 +37,13 @@ define([
 				app.onWidgetLoaded = function(){
 					var params,thisWidget,widgetModel,widgetView;
 					params = lib.utils.URLToArray(window.location.href);
-					
+					console.log(params)
 					var draw = function(){
 						thisWidget = lib.components[params.widget];
-				    	widgetModel = new thisWidget.model();
+				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
 				    	widgetView = new thisWidget.view(widgetModel).render().$el;
 				    	$('body').append(widgetView);
+				    	widgetModel.fetch({dataType:"jsonp"});
 					}
 
 					var onHTML = function(e){
@@ -50,9 +51,10 @@ define([
 		    			var data = e[key];
 		    			//run function//
 		    			thisWidget = lib.components[params.widget];
-				    	widgetModel = new thisWidget.model();
+				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
 				    	widgetView = new thisWidget.view(widgetModel,data).render().$el;
 				    	$('body').append(widgetView);
+				    	widgetModel.fetch({dataType:"jsonp"});
 					};
 
 					if(params.html && params.html != "null"){//widget with html resource to load before drawing.
@@ -75,7 +77,7 @@ define([
 							comps[nameAttr] = {};
 
 							var comp = comps[nameAttr];
-							comp.parent = elems[i];
+							comp.element = elems[i];
 							comp.configParams = {
 								css:cssAttr,
 								html:htmlAttr

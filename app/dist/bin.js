@@ -1,25 +1,9 @@
 ;(function() {
-var constants, underscore, utils, widgetFactory, jquery, backbone, loginModel, priceListModel, text, text_loginHTML, loginViewCtrl, text_priceListHTML, priceListViewCtrl, Nurego;
-constants = {
-  baseURL: function () {
-    var baseUrlEl = $('nurego-baseurl').attr('url');
-    if (baseUrlEl) {
-      return baseUrlEl;
-    } else {
-      return 'http://localhost:9000/src';
-    }
-  },
-  widgetsURL: function () {
-    return 'http://rawgit.com/doronzzz/N.js/master/app/src/widget.html';
-  },
-  nuregoLibURL: function () {
-    return this.baseURL() + '/dist/bin.js';
-  }
-};
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
+var underscore, utils, constants, widgetFactory, jquery, backbone, loginModel, priceListModel, text, text_loginHTML, loginViewCtrl, text_priceListHTML, priceListViewCtrl, Nurego;
 (function () {
   // Baseline setup
   // --------------
@@ -1421,6 +1405,34 @@ utils = function (_) {
   };
   return Utils;
 }(underscore);
+constants = {
+  isDevMode: function () {
+    return true;
+  },
+  baseURL: function () {
+    var baseUrlEl = $('nurego-baseurl').attr('url');
+    if (baseUrlEl) {
+      return baseUrlEl;
+    } else {
+      return 'http://localhost:9000/src';
+    }
+  },
+  nuregoApiKey: function () {
+    return utils.URLToArray(window.location.href).apiKey;
+  },
+  nuregoApiUrl: function () {
+    return 'https://am-staging.nurego.com/v1';
+  },
+  widgetsURL: function () {
+    if (this.isDevMode()) {
+      return 'http://localhost:9000/src/widget.html';
+    }
+    return 'http://rawgit.com/doronzzz/N.js/master/app/src/widget.html';
+  },
+  nuregoLibURL: function () {
+    return this.baseURL() + '/dist/bin.js';
+  }
+};
 widgetFactory = function (_, utils, constants) {
   var widgetsFactory = {
     options: {
@@ -1435,11 +1447,12 @@ widgetFactory = function (_, utils, constants) {
       this.createWidgetFrame(components, opt);
     },
     createWidgetFrame: function (component, opt) {
-      var compSrc = this.buildComponentUrl(component, opt);
+      var apiKey = 'l22085b6-7062-4b57-8869-cccb2f66f6fb';
+      var compSrc = this.buildComponentUrl(component, opt, apiKey);
       var iframe = document.createElement('iframe');
       iframe.src = compSrc;
       this.decorateIframe(iframe);
-      $(opt.parent).append(iframe);
+      $(opt.element).append(iframe);
     },
     decorateIframe: function (iframeEl) {
       /*var style ={"width","100%"}
@@ -1467,8 +1480,8 @@ widgetFactory = function (_, utils, constants) {
       };
       iframeEl.onload = onWidgetLoad;  //TDB:  //iframe.onload(subscribe to js hub events)
     },
-    buildComponentUrl: function (component, opt) {
-      var res = constants.widgetsURL() + '?widget=' + component;
+    buildComponentUrl: function (component, opt, apiKey) {
+      var res = constants.widgetsURL() + '?widget=' + component + '&apiKey=' + apiKey;
       var indx = 0;
       _.each(opt.configParams, function (val, key) {
         var seperator = '&';
@@ -10109,6 +10122,9 @@ loginModel = function (Backbone, constants) {
     initialize: function () {
       console.log('init login model');
     },
+    url: function () {
+      return constants.nuregoApiUrl() + '/registrations/url/login_url?api_key=' + constants.nuregoApiKey();
+    },
     defaults: {
       user: {
         name: 'john',
@@ -10126,145 +10142,585 @@ priceListModel = function (Backbone, constants) {
   })
   */
   var priceListModel = Backbone.Model.extend({
-    initialize: function () {
+    initialize: function (opt) {
       console.log('init pricelist model');
+      this.opt = opt;
+    },
+    url: function () {
+      console.log(this.opt);
+      return constants.nuregoApiUrl() + '/offerings?api_key=' + this.opt.apiKey;  //return "https://api.nurego.com/v1/offerings?api_key=lc14de81-587e-49d8-ba0e-487498ae297a&callback=jQuery19108296897902619094_1424775818134&_=1424775818135";
     },
     /*fetch:function(){
         this.model = $.http('nurego.com/pricelist.json');
     }*/
-    fetch: function () {
-      constants.baseURL() + '/prices';
-    },
-    parse: function () {
-      if (json.plans.data == undefined) {
-      } else {
-      }
+    /*fetch:function(){
+                $.get(constants.nuregoApiUrl() + "/offerings",function(data){
+    
+                })
+            },*/
+    parse: function (data, req) {
+      debugger;
+      return data;
     },
     defaults: {
-      plans: {
-        'object': 'offering',
-        'id': 'ser_17da-ea3a-45c2-9f03-ad3b4474c101',
-        'name': 'Stripe LIVE Offering',
-        'description': null,
-        'revision': 1,
-        'created_by': 'prod',
-        'updated_at': '2014-10-15T13:56:52+00:00',
-        'status': 'assigned',
-        'plans': {
-          'data': [
-            {
-              'object': 'plan',
-              'id': 'pla_037c-6c0e-4fac-814f-ab773efa067b',
-              'name': '$4.99 per month',
-              'description': null,
-              'plan_status': 'active',
-              'credit_card': true,
-              'plan_order': 0,
-              'discounts': [],
-              'external_id': 'monthly0499',
-              'features': {
-                'data': [{
-                    'object': 'feature',
-                    'id': 'id',
-                    'name': 'Stripe element',
-                    'element_type': 'recurring',
-                    'price': 4.99,
-                    'min_unit': null,
-                    'max_unit': null,
-                    'period': 'monthly',
-                    'billing_period_interval': 1
-                  }],
-                'object': 'list',
-                'count': 1,
-                'url': '/v1/plans/pla_037c-6c0e-4fac-814f-ab773efa067b/features'
-              }
+      'object': 'offering',
+      'id': '176952c0-020f-41ea-b1c1-c2e17b6432a3',
+      'name': 'recurly test LIVE Offering',
+      'description': null,
+      'revision': 1,
+      'created_by': 'prod',
+      'updated_at': '2014-08-17T07:30:13+00:00',
+      'status': 'assigned',
+      'plans': {
+        'data': [
+          {
+            'object': 'plan',
+            'id': '2aac6c29-0d8e-4667-b390-54cbac49b0c9',
+            'name': 'Free Plan',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': false,
+            'plan_order': 0,
+            'external_id': 'ww000',
+            'features': {
+              'data': [{
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 0,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/2aac6c29-0d8e-4667-b390-54cbac49b0c9/features'
             },
-            {
-              'object': 'plan',
-              'id': 'pla_bd0a-009c-400b-be8a-39a45d9bbf8d',
-              'name': '$7.99 per month',
-              'description': null,
-              'plan_status': 'active',
-              'credit_card': true,
-              'plan_order': 1,
-              'discounts': [],
-              'external_id': 'monthly0799',
-              'features': {
-                'data': [{
-                    'object': 'feature',
-                    'id': 'id',
-                    'name': 'Stripe element',
-                    'element_type': 'recurring',
-                    'price': 7.99,
-                    'min_unit': null,
-                    'max_unit': null,
-                    'period': 'monthly',
-                    'billing_period_interval': 1
-                  }],
-                'object': 'list',
-                'count': 1,
-                'url': '/v1/plans/pla_bd0a-009c-400b-be8a-39a45d9bbf8d/features'
-              }
-            },
-            {
-              'object': 'plan',
-              'id': 'pla_043a-5ebe-4ac6-a8a9-9fed18115e5f',
-              'name': '$48 Annual Fee',
-              'description': null,
-              'plan_status': 'active',
-              'credit_card': true,
-              'plan_order': 2,
-              'discounts': [],
-              'external_id': 'yearly4800',
-              'features': {
-                'data': [{
-                    'object': 'feature',
-                    'id': 'id',
-                    'name': 'Stripe element',
-                    'element_type': 'recurring',
-                    'price': 48,
-                    'min_unit': null,
-                    'max_unit': null,
-                    'period': 'yearly',
-                    'billing_period_interval': 1
-                  }],
-                'object': 'list',
-                'count': 1,
-                'url': '/v1/plans/pla_043a-5ebe-4ac6-a8a9-9fed18115e5f/features'
-              }
-            },
-            {
-              'object': 'plan',
-              'id': 'pla_30ea-19df-4dd8-aed5-a394eac118ec',
-              'name': '$59.88 Annual Fee',
-              'description': null,
-              'plan_status': 'active',
-              'credit_card': true,
-              'plan_order': 3,
-              'discounts': [],
-              'external_id': 'yearly5988',
-              'features': {
-                'data': [{
-                    'object': 'feature',
-                    'id': 'id',
-                    'name': 'Stripe element',
-                    'element_type': 'recurring',
-                    'price': 59.88,
-                    'min_unit': null,
-                    'max_unit': null,
-                    'period': 'yearly',
-                    'billing_period_interval': 1
-                  }],
-                'object': 'list',
-                'count': 1,
-                'url': '/v1/plans/pla_30ea-19df-4dd8-aed5-a394eac118ec/features'
-              }
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Free Plan',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 0,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'dis_c1a5-714e-48bb-ba4d-1684732b8033'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/2aac6c29-0d8e-4667-b390-54cbac49b0c9/discounts'
             }
-          ],
-          'object': 'list',
-          'count': 4,
-          'url': '/v1/offerings/ser_17da-ea3a-45c2-9f03-ad3b4474c101/plans'
-        }
+          },
+          {
+            'object': 'plan',
+            'id': '11d6ca95-5818-4aa6-af8a-799a62775aee',
+            'name': 'Plan with Trial',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': false,
+            'plan_order': 1,
+            'external_id': 'zz050',
+            'features': {
+              'data': [{
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 0,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/11d6ca95-5818-4aa6-af8a-799a62775aee/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Plan with Trial',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 1000,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': '75e86237-1174-4840-8367-fc6cad8832be'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/11d6ca95-5818-4aa6-af8a-799a62775aee/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': '556c1d96-da01-479f-ad33-ab56039fad82',
+            'name': 'Gold Plan',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 2,
+            'external_id': 'ww190',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'support tickets',
+                  'element_type': 'overage',
+                  'price': 0.1,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 2.99,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/556c1d96-da01-479f-ad33-ab56039fad82/features'
+            },
+            'discounts': {
+              'data': [
+                {
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': '10 Percent Off',
+                  'discount_type': 'coupon',
+                  'price': 0,
+                  'percent': 10,
+                  'max_redemptions': 200,
+                  'redeem_by': '2015-07-01T23:59:59+00:00',
+                  'times_to_apply': 3,
+                  'days_to_apply': 0,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'a69a2036-b9d9-4fd4-a013-339c590d4726'
+                },
+                {
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Gold Plan',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 14,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': '8469162f-f842-49f5-9b8a-b8e5f6f1e21e'
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/556c1d96-da01-479f-ad33-ab56039fad82/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': '66aa6ae2-c430-43c7-bea9-2625fce0b71a',
+            'name': 'nurego_origin',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 3,
+            'external_id': '0df0702b-bbc5-447d-be07-1f3cb3b012ce',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 4.49,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'calls',
+                  'element_type': 'overage',
+                  'price': 0,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/66aa6ae2-c430-43c7-bea9-2625fce0b71a/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'nurego_origin',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 2,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'f12bbfdd-8dbf-4d8b-a479-77136c2d7954'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/66aa6ae2-c430-43c7-bea9-2625fce0b71a/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': 'a4b2023f-8331-426f-9cbb-e0c4d6f627a7',
+            'name': 'Basic',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 4,
+            'external_id': 'basic_plan',
+            'features': {
+              'data': [{
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 5.99,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/a4b2023f-8331-426f-9cbb-e0c4d6f627a7/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Basic',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 0,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'dis_7e0a-4010-40e6-8ea9-51bbcb3892e4'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/a4b2023f-8331-426f-9cbb-e0c4d6f627a7/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': '81e77d3d-47e4-4b1f-9ac2-6eb531cd6508',
+            'name': 'Plan for incremental import',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 6,
+            'external_id': 'pfii',
+            'features': {
+              'data': [{
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 7.65,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/81e77d3d-47e4-4b1f-9ac2-6eb531cd6508/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Plan for incremental import',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 7,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'bc9e0ca6-cc97-4cf1-8625-893e1f751c5d'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/81e77d3d-47e4-4b1f-9ac2-6eb531cd6508/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': 'b13a912d-63f2-4abf-ab95-d009d8d6646f',
+            'name': 'TestPlan (2014-08-31 16:32:39 -0700) pid 27700',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 7,
+            'external_id': '12894190-f841-4476-8b03-113f94f9a906',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Support Tickets TEST',
+                  'element_type': 'overage',
+                  'price': 0.1,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 14.88,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/b13a912d-63f2-4abf-ab95-d009d8d6646f/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'TestPlan (2014-08-31 16:32:39 -0700) pid 27700',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 45,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'df631c4e-d887-4590-a290-815f152c5aec'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/b13a912d-63f2-4abf-ab95-d009d8d6646f/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': 'pla_c890-739a-493d-9ad6-68fc33799d4d',
+            'name': 'TestPlan (2014-09-25 10:45:29 -0700) pid 27150',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 8,
+            'external_id': '3502d09c-9dc4-4804-828e-ef2ed2d9384d',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Support Tickets TEST',
+                  'element_type': 'overage',
+                  'price': 0.1,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 14.88,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/pla_c890-739a-493d-9ad6-68fc33799d4d/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'TestPlan (2014-09-25 10:45:29 -0700) pid 27150',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 45,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'dis_baae-3142-4204-a5b2-ee9b119bdf12'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/pla_c890-739a-493d-9ad6-68fc33799d4d/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': 'pla_2e09-cef2-4a2b-ac96-27c27ea2045a',
+            'name': 'TestPlan (2014-12-29 15:21:24 +0000) pid 1141',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 9,
+            'external_id': '74d5b881-27b3-4f37-b1b0-50b1f63099a8',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Support Tickets TEST',
+                  'element_type': 'overage',
+                  'price': 0.1,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 14.88,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/pla_2e09-cef2-4a2b-ac96-27c27ea2045a/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'TestPlan (2014-12-29 15:21:24 +0000) pid 1141',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 45,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': 'dis_b669-e73e-4f68-81d1-95adeb3cffaf'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/pla_2e09-cef2-4a2b-ac96-27c27ea2045a/discounts'
+            }
+          },
+          {
+            'object': 'plan',
+            'id': '4fcb0d1a-bd48-4eee-8a49-ef39b38a8686',
+            'name': 'Bronze 2',
+            'description': null,
+            'plan_status': 'modified',
+            'credit_card': true,
+            'plan_order': 342,
+            'external_id': 'bdc4ec80-5e64-439a-a683-0756e0a1334d',
+            'features': {
+              'data': [
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Support Calls',
+                  'element_type': 'overage',
+                  'price': 0,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                },
+                {
+                  'object': 'feature',
+                  'id': 'id',
+                  'name': 'Recurly element',
+                  'element_type': 'recurring',
+                  'price': 19.98,
+                  'min_unit': null,
+                  'max_unit': null,
+                  'period': 'monthly',
+                  'billing_period_interval': 1
+                }
+              ],
+              'object': 'list',
+              'count': 2,
+              'url': '/v1/plans/4fcb0d1a-bd48-4eee-8a49-ef39b38a8686/features'
+            },
+            'discounts': {
+              'data': [{
+                  'object': 'discount',
+                  'id': 'id',
+                  'name': 'Bronze 2',
+                  'discount_type': 'trial',
+                  'price': 0,
+                  'percent': 100,
+                  'max_redemptions': 0,
+                  'redeem_by': null,
+                  'times_to_apply': 0,
+                  'days_to_apply': 10,
+                  'provider_id': '5e2ced99-e07c-4704-a0b0-f4c8d9853103',
+                  'guid': '70ca846b-c587-41b7-ad00-12d3b036d7ce'
+                }],
+              'object': 'list',
+              'count': 1,
+              'url': '/v1/plans/4fcb0d1a-bd48-4eee-8a49-ef39b38a8686/discounts'
+            }
+          }
+        ],
+        'object': 'list',
+        'count': 10,
+        'url': '/v1/offerings/176952c0-020f-41ea-b1c1-c2e17b6432a3/plans'
       }
     }
   });
@@ -10306,21 +10762,43 @@ loginViewCtrl = function (bb, loginTmpl) {
   });
   return loginViewCtrl;
 }(backbone, text_loginHTML);
-text_priceListHTML = '<div>\r\n\tsee our price plans\r\n\t<ul>\r\n\t\t{{  for(var plan in plans.plans.data) { }}\r\n\t\t<li>{{=plans.plans.data[plan].name}}</li>\r\n\t\t{{ } }}\r\n\t</ul>\r\n\t<button class="button btn">subscribe</button>\r\n</div>';
+text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<input type="text" id="email" placeolder="example@email.com" class="form-control"/>\t\r\n\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
 priceListViewCtrl = function (bb, tmpl) {
   var priceList = Backbone.View.extend({
     tagName: 'div',
     className: 'login',
     template: _.template(tmpl),
-    events: { 'click .button': 'login' },
+    events: { 'click .button': 'registration' },
     initialize: function (model, customTmpl) {
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
       this.model = model;  //this.listenToOnce(this.model, "change", this.render);
     },
-    login: function (e) {
-      alert('subscribe btn clicked');  //alert($(window.top).width())
+    registration: function (e) {
+      //https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
+      //alert($(window.top).width())
+      var plan = this.$el.find('select option:selected').attr('data-id');
+      var baseURL = constants.nuregoApiUrl();
+      var email = this.$el.find('input').val();
+      var params = {
+        plan_id: plan,
+        email: email
+      };
+      var url = baseURL + '/registrations?api_key=' + constants.nuregoApiKey() + '&plan_id=' + plan;
+      +'&email=' + email;
+      var data = '&plan_id=' + encodeURI(plan) + '&email=' + encodeURI(email);
+      $.ajax({
+        url: url,
+        type: 'post',
+        //crossDomain: true,
+        //dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded',
+        data: data,
+        success: function (data, req) {
+          console.log(data);
+        }
+      });
     },
     render: function () {
       var html = this.template(this.model.attributes);
@@ -10357,20 +10835,23 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
   }, app.onWidgetLoaded = function () {
     var params, thisWidget, widgetModel, widgetView;
     params = lib.utils.URLToArray(window.location.href);
+    console.log(params);
     var draw = function () {
       thisWidget = lib.components[params.widget];
-      widgetModel = new thisWidget.model();
+      widgetModel = new thisWidget.model({ apiKey: params.apiKey });
       widgetView = new thisWidget.view(widgetModel).render().$el;
       $('body').append(widgetView);
+      widgetModel.fetch({ dataType: 'jsonp' });
     };
     var onHTML = function (e) {
       var key = e.message ? 'message' : 'data';
       var data = e[key];
       //run function//
       thisWidget = lib.components[params.widget];
-      widgetModel = new thisWidget.model();
+      widgetModel = new thisWidget.model({ apiKey: params.apiKey });
       widgetView = new thisWidget.view(widgetModel, data).render().$el;
       $('body').append(widgetView);
+      widgetModel.fetch({ dataType: 'jsonp' });
     };
     if (params.html && params.html != 'null') {
       //widget with html resource to load before drawing.
@@ -10390,7 +10871,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
         var htmlAttr = elems[i].getAttribute('html');
         comps[nameAttr] = {};
         var comp = comps[nameAttr];
-        comp.parent = elems[i];
+        comp.element = elems[i];
         comp.configParams = {
           css: cssAttr,
           html: htmlAttr

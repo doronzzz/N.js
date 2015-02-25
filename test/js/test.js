@@ -1,5 +1,5 @@
 'use strict';
-define(['Nurego', 'jquery', 'underscore'], function(App, $, _) {
+/*define(['Nurego', 'jquery', 'underscore'], function(App, $, _) {*/
 
 
 	describe('Constants: Colors', function(){
@@ -9,4 +9,4 @@ define(['Nurego', 'jquery', 'underscore'], function(App, $, _) {
 	});
 
 
-})
+/*})*/

@@ -15,12 +15,13 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 		},
 
 		createWidgetFrame:function(component,opt){
-			var compSrc = this.buildComponentUrl(component,opt);
+			var apiKey = "l22085b6-7062-4b57-8869-cccb2f66f6fb";
+			var compSrc = this.buildComponentUrl(component,opt,apiKey);
 			var iframe = document.createElement('iframe');
 			iframe.src = compSrc;
 
 			this.decorateIframe(iframe);
-			$(opt.parent).append(iframe);
+			$(opt.element).append(iframe);
 		},
 
 		decorateIframe:function(iframeEl){
@@ -54,8 +55,8 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			//TDB:  //iframe.onload(subscribe to js hub events)
 		},
 		
-		buildComponentUrl:function(component,opt){
-			var res = constants.widgetsURL() + "?widget=" + component;
+		buildComponentUrl:function(component,opt,apiKey){
+			var res = constants.widgetsURL() + "?widget=" + component + "&apiKey=" + apiKey;
 			var indx = 0;
 			_.each(opt.configParams,function(val,key){
 				var seperator = "&"; //(indx === 0) ? "?" : "&";

@@ -4,6 +4,11 @@ define(["backbone","constants"],function(Backbone,constants){
         initialize:function(){
             console.log('init login model');
         },
+
+        url:function(){
+        	return constants.nuregoApiUrl() + "/registrations/url/login_url?api_key=" + constants.nuregoApiKey();
+        },
+
         defaults: {
             user:{
                 name:"john",
