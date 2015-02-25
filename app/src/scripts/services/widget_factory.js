@@ -15,8 +15,7 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 		},
 
 		createWidgetFrame:function(component,opt){
-			var apiKey = "l22085b6-7062-4b57-8869-cccb2f66f6fb";
-			var compSrc = this.buildComponentUrl(component,opt,apiKey);
+			var compSrc = this.buildComponentUrl(component,opt);
 			var iframe = document.createElement('iframe');
 			iframe.src = compSrc;
 
@@ -55,9 +54,9 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			//TDB:  //iframe.onload(subscribe to js hub events)
 		},
 		
-		buildComponentUrl:function(component,opt,apiKey){			
+		buildComponentUrl:function(component,opt){			
 			var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
-			var res = constants.widgetsURL() + "?widget=" + component + "&apiKey=" + apiKey + "&apiBaseUrl=" + constants.nuregoApiUrl();
+			var res = constants.widgetsURL() + "?widget=" + component + "&apiKey=" + nuregoApiParam + "&apiBaseUrl=" + constants.nuregoApiUrl();
 			var indx = 0;
 			_.each(opt.configParams,function(val,key){
 				var seperator = "&"; //(indx === 0) ? "?" : "&";
