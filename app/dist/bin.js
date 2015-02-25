@@ -10771,7 +10771,7 @@ loginViewCtrl = function (bb, loginTmpl) {
   });
   return loginViewCtrl;
 }(backbone, text_loginHTML);
-text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<input type="email" id="email" placeolder="example@email.com" class="form-control"/>\t\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
+text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<label>\r\n\t\tEmail: <input type="email" id="email" placeolder="example@email.com" class="form-control"/>\t\r\n\t</label>\r\n\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
 priceListViewCtrl = function (bb, tmpl) {
   var priceList = Backbone.View.extend({
     tagName: 'div',
