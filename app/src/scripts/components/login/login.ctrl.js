@@ -16,7 +16,7 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		    this.listenToOnce(this.model, "change", this.render);
 		  },
  
-		  login:function(e){debugger; 
+		  login:function(e){
 		  	var baseURL = this.$el.find('#baseURL').val();
 		  	var endPoint = (baseURL) ? baseURL : constants.baseURL();
 		  	console.log("sending req to: " + endPoint);

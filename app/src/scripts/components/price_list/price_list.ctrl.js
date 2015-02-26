@@ -12,7 +12,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		this.template = _.template(customTmpl);
 		  	}
 		  	this.model = model;
-		    //this.listenToOnce(this.model, "change", this.render);
+		    this.listenToOnce(this.model, "change", this.render);
 		  },
 
 		  registration:function(e){
@@ -26,15 +26,18 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		email:email
 		  	};
 
-		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan; + "&email=" + email;
-		  	var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
+		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan;
+		  	if(email.indexOf("@") != -1){
+		  		url += "&email=" + email;
+		  	}
+		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	$.ajax({
 		  		url:url,
 		  		type:"post",
 		  		//crossDomain: true,
 			    dataType: 'json',
 			    contentType: "application/x-www-form-urlencoded",
-		  		data:data,
+		  		//data:data,
 		  		success:function(data,req){
 		  			console.log(data);
 		  			alert(JSON.stringify(data));
