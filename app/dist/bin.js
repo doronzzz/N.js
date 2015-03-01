@@ -10810,7 +10810,7 @@ priceListViewCtrl = function (bb, tmpl, utils) {
         } else {
           url += '&registrationId=' + data.id;
         }
-        window.top.location.href = url;
+        window.top.location.href = window.top.location.href + url;
         console.log(data);  //alert(JSON.stringify(data));
       };
       $.ajax({
