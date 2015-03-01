@@ -68,11 +68,13 @@ define([
 				$(document).ready(function(){
 					var elems = $("nurego-widget");
 					if(elems.length){
-						var comps = {};
+						var comps = {};debugger;
 						for(var i = 0; i<elems.length; i++){
 							var nameAttr = elems[i].getAttribute("name");
 							var cssAttr = elems[i].getAttribute("css");
 							var htmlAttr = elems[i].getAttribute("html");
+
+							var ssoRedirect = elems[i].getAttribute("redirect-url");
 
 							comps[nameAttr] = {};
 
@@ -81,6 +83,9 @@ define([
 							comp.configParams = {
 								css:cssAttr,
 								html:htmlAttr
+							}
+							if(ssoRedirect){
+								comp.configParams.redirectUrl = ssoRedirect;
 							}
 						}
 						console.log(comps)

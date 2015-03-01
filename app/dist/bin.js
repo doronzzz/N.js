@@ -10771,17 +10771,18 @@ loginViewCtrl = function (bb, loginTmpl) {
   return loginViewCtrl;
 }(backbone, text_loginHTML);
 text_priceListHTML = '<div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<label>\r\n\t\tEmail: <input type="email" id="email" placeolder="example@email.com" class="form-control"/>\t\r\n\t</label>\r\n\t\r\n\t<button class="button btn">subscribe</button>\r\n</div>\r\n';
-priceListViewCtrl = function (bb, tmpl) {
+priceListViewCtrl = function (bb, tmpl, utils) {
   var priceList = Backbone.View.extend({
     tagName: 'div',
     className: 'login',
     template: _.template(tmpl),
     events: { 'click .button': 'registration' },
-    initialize: function (model, customTmpl) {
+    initialize: function (model, customTmpl, oAuthCallbackUrl) {
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
       this.model = model;
+      this.params = utils.URLToArray(window.location.href);
       this.listenToOnce(this.model, 'change', this.render);
     },
     registration: function (e) {
@@ -10799,6 +10800,19 @@ priceListViewCtrl = function (bb, tmpl) {
         url += '&email=' + email;
       }
       //var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
+      var zis = this;
+      var callback = function (data, req) {
+        var url, redirectUrl;
+        redirectUrl = zis.params.redirectUrl;
+        url = redirectUrl;
+        if (redirectUrl.indexOf('?') == -1) {
+          url += '?registrationId=' + data.id;
+        } else {
+          url += '&registrationId=' + data.id;
+        }
+        window.top.location.href = url;
+        console.log(data);  //alert(JSON.stringify(data));
+      };
       $.ajax({
         url: url,
         type: 'post',
@@ -10806,10 +10820,7 @@ priceListViewCtrl = function (bb, tmpl) {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
         //data:data,
-        success: function (data, req) {
-          console.log(data);
-          alert(JSON.stringify(data));
-        }
+        success: callback
       });
     },
     render: function () {
@@ -10819,7 +10830,7 @@ priceListViewCtrl = function (bb, tmpl) {
     }
   });
   return priceList;
-}(backbone, text_priceListHTML);
+}(backbone, text_priceListHTML, utils);
 Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, loginViewCtrl, priceListViewCtrl) {
   var app, lib;
   app = {};
@@ -10877,10 +10888,12 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
     var elems = $('nurego-widget');
     if (elems.length) {
       var comps = {};
+      debugger;
       for (var i = 0; i < elems.length; i++) {
         var nameAttr = elems[i].getAttribute('name');
         var cssAttr = elems[i].getAttribute('css');
         var htmlAttr = elems[i].getAttribute('html');
+        var ssoRedirect = elems[i].getAttribute('redirect-url');
         comps[nameAttr] = {};
         var comp = comps[nameAttr];
         comp.element = elems[i];
@@ -10888,6 +10901,9 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
           css: cssAttr,
           html: htmlAttr
         };
+        if (ssoRedirect) {
+          comp.configParams.redirectUrl = ssoRedirect;
+        }
       }
       console.log(comps);
       app.init({ components: comps });

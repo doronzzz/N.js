@@ -1,4 +1,4 @@
-define(["backbone","text!priceListHTML"],function(bb,tmpl){
+define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		var priceList = Backbone.View.extend({
 		  tagName: "div",
 		  className: "login",
@@ -7,11 +7,12 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		    "click .button":   "registration"
 		  },
 
-		  initialize: function(model,customTmpl){
+		  initialize: function(model,customTmpl,oAuthCallbackUrl){
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}
 		  	this.model = model;
+		  	this.params = utils.URLToArray(window.location.href);
 		    this.listenToOnce(this.model, "change", this.render);
 		  },
 
@@ -31,6 +32,22 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 		  		url += "&email=" + email;
 		  	}
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
+		  	var zis = this;
+		  	var callback = function(data,req){
+		  		var url,redirectUrl;
+		  		redirectUrl = zis.params.redirectUrl;
+		  		url = redirectUrl;
+		  		if(redirectUrl.indexOf("?") == -1){
+		  			url += "?registrationId=" + data.id;
+		  		}else{
+		  			url += "&registrationId=" + data.id;
+		  		};
+ 
+	  			window.top.location.href = url;
+	  			console.log(data);
+	  			//alert(JSON.stringify(data));
+		  	};
+
 		  	$.ajax({
 		  		url:url,
 		  		type:"post",
@@ -38,10 +55,7 @@ define(["backbone","text!priceListHTML"],function(bb,tmpl){
 			    dataType: 'json',
 			    contentType: "application/x-www-form-urlencoded",
 		  		//data:data,
-		  		success:function(data,req){
-		  			console.log(data);
-		  			alert(JSON.stringify(data));
-		  		}
+		  		success:callback
 		  	})
 
 		  },

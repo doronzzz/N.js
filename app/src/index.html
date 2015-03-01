@@ -263,10 +263,10 @@
 
 		<h3>1.1) Price List Directive</h3>
 		<div style="height:300px;" id="priceList1" class="well white">
-		    <nurego-widget name="priceList" html="./scripts/components/price_list/price_list_demo.html"></nurego-widget>
+		    <nurego-widget name="priceList" html="./scripts/components/price_list/price_list_demo.html" redirect-url="/myLogin"></nurego-widget>
 		</div>
 		<pre class="language-markup nowrap codeBox">
-		  <code class="nowrap">&lt;nurego-widget name="priceList" html="path/to/html/template.html"&gt;
+		  <code class="nowrap">&lt;nurego-widget name="priceList" html="path/to/html/template.html" redirect-url="/loginSuccess" &gt;
 		  &lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
@@ -283,7 +283,8 @@
 						"element":"#priceList2",
 						"configParams":{
 							"css":"",
-							"html":""
+							"html":"",
+							"redirectUrl":""
 						}
 					}
 				}
@@ -370,7 +371,8 @@
 				"element":"#priceList2",
 				"configParams":{
 					"css":"",
-					"html":""
+					"html":"",
+					"redirectUrl":"/login"
 				}
 			},
 			"login":{
