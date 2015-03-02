@@ -43,7 +43,7 @@ define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		  			url += "&registrationId=" + data.id;
 		  		};
  
-	  			window.top.location.href = window.top.location.href + url;
+	  			window.top.location.href = url;
 	  			console.log(data);
 	  			//alert(JSON.stringify(data));
 		  	};
