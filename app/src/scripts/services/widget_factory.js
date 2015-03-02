@@ -58,7 +58,7 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			var nuregoApiParam = constants.getNuregoApiKey();
 			var res = constants.widgetsURL() + "?widget=" + component;
 			res += "&apiKey=" + nuregoApiParam + "&apiBaseUrl=" + constants.nuregoApiUrl();
-			res += "&parent=" + window.location.href;
+			res += "&parent=" + window.location.origin;
 			var indx = 0;
 			_.each(opt.configParams,function(val,key){
 				var seperator = "&"; //(indx === 0) ? "?" : "&";

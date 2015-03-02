@@ -6,9 +6,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/prism/themes/prism.css">
-    <script src="bower_components/prism/prism.js"></script>
-	<nurego-api-key key="l22085b6-7062-4b57-8869-cccb2f66f6fb"> </nurego-api-key>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+	<nurego-public-customer-id id="l22085b6-7062-4b57-8869-cccb2f66f6fb"> </nurego-public-customer-id>
 	<!-- <nurego-api-baseurl url="http://localhost:31001/myapi/"> </nurego-api-baseurl> -->
 
 
@@ -25,7 +25,9 @@
     <!-- endbuild -->
 
     <style>
-
+    body pre[class*=language-]>code[data-language]{
+    	overflow: auto !important;
+    }
 		/* sidebar */
 		.bs-docs-sidebar {
 		    padding-left: 20px;
@@ -99,6 +101,11 @@
 		.well.white{
 			background:rgba(220, 220, 220, 0.05);
 		}
+
+		body .token.tab:not(:empty):before {
+			display: none;
+		}
+
 		body{
 			padding-top:72px;
 		}
@@ -204,8 +211,9 @@
 			</p>
 
 			<pre class="language-markup nowrap">
-				<code class="nowrap">&lt;script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"&gt; 
-				&lt;/script&gt;
+				<code class="nowrap">
+&lt;script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"&gt; 
+&lt;/script&gt;
 			  	</code>
 		  	</pre>
 
@@ -215,8 +223,8 @@
 		  	</p>
 		  	<pre class="language-markup nowrap">
 				<code class="nowrap">
-				&lt;nurego-api-key key="000-000-000-000"&gt;
-				&lt;/nurego-api-key&gt;
+&lt;nurego-public-customer-id id="000-000-000-000"&gt;
+&lt;/nurego-public-customer-id&gt;
 			  	</code>
 		  	</pre>
 
@@ -226,8 +234,8 @@
 		  	</p>
 		  	<pre class="language-markup nowrap">
 				<code class="nowrap">
-				&lt;nurego-js-baseurl url="http://localhost:31001/"&gt;
-				&lt;/nurego-js-baseurl&gt;
+&lt;nurego-js-baseurl url="http://localhost:31001/"&gt;
+&lt;/nurego-js-baseurl&gt;
 			  	</code>
 		  	</pre>
 
@@ -236,8 +244,8 @@
 		  	</p>
 		  	<pre class="language-markup nowrap">
 				<code class="nowrap">
-				&lt;nurego-api-baseurl url="http://localhost:31001/"&gt;
-				&lt;/nurego-api-baseurl&gt;
+&lt;nurego-api-baseurl url="http://localhost:31001/"&gt;
+&lt;/nurego-api-baseurl&gt;
 			  	</code>
 		  	</pre>
 		</div>
@@ -266,8 +274,9 @@
 		    <nurego-widget name="priceList" html="./scripts/components/price_list/price_list_demo.html" redirect-url="/myLogin"></nurego-widget>
 		</div>
 		<pre class="language-markup nowrap codeBox">
-		  <code class="nowrap">&lt;nurego-widget name="priceList" html="path/to/html/template.html" redirect-url="/loginSuccess" &gt;
-		  &lt;/nurego-widget&gt;
+		  <code class="nowrap">
+&lt;nurego-widget name="priceList" html="path/to/html/template.html" redirect-url="/loginSuccess" &gt;
+&lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
 

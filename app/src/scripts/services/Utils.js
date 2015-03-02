@@ -6,6 +6,11 @@ define(["underscore"],function(_){
     	evaluate: /\{\{(.+?)\}\}/g,
 	};
  
+ 	//polyfill for location.origin
+	if (!window.location.origin) {
+  		window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+	}
+
 	var Utils = {
 		URLToArray:function(url) {
 		  var request = {};

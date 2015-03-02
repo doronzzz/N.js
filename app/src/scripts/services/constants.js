@@ -10,8 +10,7 @@ define(['utils'],function(utils){
 		},
 
 		getNuregoApiKey:function(){
-			///example key //var apiKey = "l22085b6-7062-4b57-8869-cccb2f66f6fb";
-			var apiKey = $("nurego-api-key").attr('key');
+			var apiKey = $("nurego-public-customer-id").attr('id');
 			var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
 			if(apiKey){
 				return apiKey;

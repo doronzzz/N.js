@@ -1385,6 +1385,10 @@ utils = function (_) {
     interpolate: /\{\{=(.+?)\}\}/g,
     evaluate: /\{\{(.+?)\}\}/g
   };
+  //polyfill for location.origin
+  if (!window.location.origin) {
+    window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+  }
   var Utils = {
     URLToArray: function (url) {
       var request = {};
@@ -1415,8 +1419,7 @@ constants = {
     }
   },
   getNuregoApiKey: function () {
-    ///example key //var apiKey = "l22085b6-7062-4b57-8869-cccb2f66f6fb";
-    var apiKey = $('nurego-api-key').attr('key');
+    var apiKey = $('nurego-public-customer-id').attr('id');
     var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
     if (apiKey) {
       return apiKey;
@@ -1492,7 +1495,7 @@ widgetFactory = function (_, utils, constants) {
       var nuregoApiParam = constants.getNuregoApiKey();
       var res = constants.widgetsURL() + '?widget=' + component;
       res += '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
-      res += '&parent=' + window.location.href;
+      res += '&parent=' + window.location.origin;
       var indx = 0;
       _.each(opt.configParams, function (val, key) {
         var seperator = '&';
