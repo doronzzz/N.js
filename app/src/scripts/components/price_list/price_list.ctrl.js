@@ -42,7 +42,7 @@ define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		  		}else{
 		  			url += "&registrationId=" + data.id;
 		  		};
- 
+
 	  			window.top.location.href = url;
 	  			console.log(data);
 	  			//alert(JSON.stringify(data));

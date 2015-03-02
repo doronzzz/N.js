@@ -1411,7 +1411,7 @@ constants = {
     if (baseUrlEl) {
       return baseUrlEl;
     } else {
-      return 'https://rawgit.com/doronzzz/N.js/master/app/src';
+      return 'http://rawgit.com/doronzzz/N.js/master/app/src';
     }
   },
   getNuregoApiKey: function () {
