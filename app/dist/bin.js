@@ -1490,7 +1490,9 @@ widgetFactory = function (_, utils, constants) {
     },
     buildComponentUrl: function (component, opt) {
       var nuregoApiParam = constants.getNuregoApiKey();
-      var res = constants.widgetsURL() + '?widget=' + component + '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
+      var res = constants.widgetsURL() + '?widget=' + component;
+      res += '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
+      res += '&parent=' + window.location.href;
       var indx = 0;
       _.each(opt.configParams, function (val, key) {
         var seperator = '&';
@@ -10801,6 +10803,7 @@ priceListViewCtrl = function (bb, tmpl, utils) {
       }
       //var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
       var zis = this;
+      var parent = utils.URLToArray(window.location.href).parent;
       var callback = function (data, req) {
         var url, redirectUrl;
         redirectUrl = zis.params.redirectUrl;
@@ -10810,7 +10813,7 @@ priceListViewCtrl = function (bb, tmpl, utils) {
         } else {
           url += '&registrationId=' + data.id;
         }
-        window.top.location.href = url;
+        window.top.location.href = parent + url;
         console.log(data);  //alert(JSON.stringify(data));
       };
       $.ajax({

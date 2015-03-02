@@ -33,6 +33,7 @@ define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		  	}
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	var zis = this;
+		  	var parent = utils.URLToArray(window.location.href).parent;
 		  	var callback = function(data,req){
 		  		var url,redirectUrl;
 		  		redirectUrl = zis.params.redirectUrl;
@@ -43,7 +44,7 @@ define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		  			url += "&registrationId=" + data.id;
 		  		};
 
-	  			window.top.location.href = url;
+	  			window.top.location.href = parent + url;
 	  			console.log(data);
 	  			//alert(JSON.stringify(data));
 		  	};
