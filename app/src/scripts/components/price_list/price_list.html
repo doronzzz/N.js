@@ -7,7 +7,7 @@
 		      	<th></th>
 
 		      	{{  for(var plan in plans.data) { }}
-					<td class="nr-plan-name" style="display:none">
+					<td class="nr-plan-name">
 					{{=plans.data[plan].name}}
 					</td>
 				{{ } }}
@@ -41,9 +41,9 @@
 		        <th class="nr-cc-title">Credit Card</th>
 		        {{  for(var plan in plans.data) { }}
 		        	{{ if(plans.data[plan].credit_card) { 	}}
-				<td><span class="nr-check nr-yes"></span></td>
+				<td><span class="nr-check nr-yes ion-checkmark"></span></td>
 					{{ }else { }}
-				<td><span class="nr-check nr-no"></span></td>
+				<td><span class="nr-check nr-no ion-close"></span></td>
 					{{ } }}
 				{{ } }}
 		      </tr>

@@ -17,7 +17,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		    this.listenToOnce(this.model, "change", this.render);
 		    this.addStyle();
 		  },
-
+		  
 		  addStyle:function(){debugger;
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
