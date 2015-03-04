@@ -1,4 +1,4 @@
-define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
+define(["backbone","text!priceListHTML","utils","text!../components/price_list/price_list.css"],function(bb,tmpl,utils,css){
 		var priceList = Backbone.View.extend({
 		  tagName: "div",
 		  className: "login",
@@ -7,13 +7,21 @@ define(["backbone","text!priceListHTML","utils"],function(bb,tmpl,utils){
 		    "click .button":   "registration"
 		  },
 
-		  initialize: function(model,customTmpl,oAuthCallbackUrl){
+		  initialize: function(model,customTmpl){
+		  	debugger;
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
 		    this.listenToOnce(this.model, "change", this.render);
+		    this.addStyle();
+		  },
+
+		  addStyle:function(){debugger;
+		  	var styleEl = document.createElement('style');
+		  	styleEl.innerHTML = css;
+		  	$('body').append(styleEl);
 		  },
 
 		  registration:function(e){
