@@ -50,13 +50,17 @@
 		    </tbody>
 		    <tfoot>
 
+		    <tr class="nr-select-row">
+		      	
 		      	{{  for(var plan in plans.data) { }}
-				<tr class="nr-select-row">
+				
 			      <td class="nr-select-cell">
-			        <a href="" class="nr-plan-select" data-id="{{=plans.data[plan].id}}">Select</a>
+			        <a href="javascript:void(0)" class="nr-plan-select" data-id="{{=plans.data[plan].id}}">Select</a>
 			      </td>
-		     	</tr>
 				{{ } }}
+
+			</tr>
+
 				<tr class="nr-trial">
 	        		<th></th>
 	        		{{  for(var plan in plans.data) { }}
