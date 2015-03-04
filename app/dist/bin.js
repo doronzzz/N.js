@@ -1419,7 +1419,7 @@ constants = {
     }
   },
   getNuregoApiKey: function () {
-    return 'l402b7a9-dc19-43fd-89cd-64e8fe101347';
+    //return "l402b7a9-dc19-43fd-89cd-64e8fe101347";
     var apiKey = $('nurego-public-customer-id').attr('id');
     var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
     if (apiKey) {
