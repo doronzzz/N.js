@@ -4,7 +4,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  className: "login",
 		  template: _.template(tmpl),
 		  events: {
-		    "click .button":   "registration"
+		    "click .nr-plan-select":   "registration"
 		  },
 
 		  initialize: function(model,customTmpl){
@@ -17,7 +17,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		    this.listenToOnce(this.model, "change", this.render);
 		    this.addStyle();
 		  },
-		  
+
 		  addStyle:function(){debugger;
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
@@ -27,7 +27,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  registration:function(e){
 		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
 		  	//alert($(window.top).width())
-		  	var plan = this.$el.find('select option:selected').attr('data-id');
+		  	var plan = $(e.target).attr('data-id'); 
 		  	var baseURL = constants.nuregoApiUrl();
 		  	var email = this.$el.find('input').val()
 		  	var params = {

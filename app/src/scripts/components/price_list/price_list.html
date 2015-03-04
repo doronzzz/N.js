@@ -49,11 +49,21 @@
 		      </tr>
 		    </tbody>
 		    <tfoot>
-		      <tr class="nr-select-row" style="display: none;">
-			      <td class="nr-select-cell" style="display:none">
-			        <a href="" class="nr-plan-select" data-id="" data-external-id="">Select</a>
+
+		      	{{  for(var plan in plans.data) { }}
+				<tr class="nr-select-row">
+			      <td class="nr-select-cell">
+			        <a href="" class="nr-plan-select" data-id="{{=plans.data[plan].id}}">Select</a>
 			      </td>
-		     </tr>
+		     	</tr>
+				{{ } }}
+				<tr class="nr-trial">
+	        		<th></th>
+	        		{{  for(var plan in plans.data) { }}
+	        			<th></th>
+	        		{{ } }}
+      			</tr>
+		      
 		    </tfoot>
 		  </table>
 		</div>
