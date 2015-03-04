@@ -5,7 +5,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  template: _.template(tmpl),
 		  events: {
 		    "click .button":   "registration"
-		  },
+		  }, 
 
 		  initialize: function(model,customTmpl){
 		  	debugger;
