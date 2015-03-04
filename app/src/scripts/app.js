@@ -43,7 +43,7 @@ define([
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
 				    	
 				    	callback = function(req,data){
-				    		widgetView = new thisWidget.view(widgetModel,data).render().$el;
+				    		widgetView = new thisWidget.view(widgetModel).render().$el;
 				    		$('body').append(widgetView);	
 				    	};
 				    	
@@ -56,7 +56,7 @@ define([
 		    			//run function//
 		    			thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
-				    	callback = function(req,data){
+				    	callback = function(req,rawData){
 				    		widgetView = new thisWidget.view(widgetModel,data).render().$el;
 				    		$('body').append(widgetView);	
 				    	};
