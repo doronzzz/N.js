@@ -10309,7 +10309,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
     var draw = function () {
       thisWidget = lib.components[params.widget];
       widgetModel = new thisWidget.model({ apiKey: params.apiKey });
-      callback = function (data, req) {
+      callback = function (req, data) {
         widgetView = new thisWidget.view(widgetModel, data).render().$el;
         $('body').append(widgetView);
       };
@@ -10324,7 +10324,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
       //run function//
       thisWidget = lib.components[params.widget];
       widgetModel = new thisWidget.model({ apiKey: params.apiKey });
-      callback = function () {
+      callback = function (req, data) {
         widgetView = new thisWidget.view(widgetModel, data).render().$el;
         $('body').append(widgetView);
       };
