@@ -85,7 +85,7 @@
     height: 16px;
     display: block;
     margin: 0 auto;
-    background: url("https://raw.githubusercontent.com/Nurego/nurego-js/master/lib/images/ico-sprite.gif") 0 0 no-repeat;
+    background: url("http://raw.githubusercontent.com/Nurego/nurego-js/master/lib/images/ico-sprite.gif") 0 0 no-repeat;
 }
 .simple_3_tier .nr-check.nr-yes { background-position: 0 0; }
 .simple_3_tier .nr-check.nr-no { background-position: -16px 0; }
