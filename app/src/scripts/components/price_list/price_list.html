@@ -4,11 +4,15 @@
 		  <table>
 		    <thead>
 		      <tr>
-		        <td class="nr-plan-name" style="display:none">PLAN_NAME (e.g. Premium)</td>
-		      	<td class="nr-plan-name plan-plan no recurring" style="display: table-cell;">plan no recurring</td>
-		      	<td class="nr-plan-name plan-platinum" style="display: table-cell;">platinum</td>
-		      	<td class="nr-plan-name plan-Plan_9nplev19" style="display: table-cell;">Plan_9nplev19</td>
-		      	<td class="nr-plan-name plan-gold" style="display: table-cell;">gold</td>
+		      	<th></th>
+
+		      	{{  for(var plan in plans.data) { }}
+					<td class="nr-plan-name" style="display:none">
+					{{=plans.data[plan].name}}
+					</td>
+				{{ } }}
+
+		        
 		      </tr>
 		    </thead>
 		    <tbody>
