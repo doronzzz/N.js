@@ -24,7 +24,8 @@
 		        	{{  for(var feature in plans.data[plan].features.data) { }} 
 		        	
 		        	<td class="nr-price" style="display: table-cell;">
-						{{=plans.data[plan].features.data[feature].price}}
+		        		${{=plans.data[plan].features.data[feature].price}}
+						<span class="nr-price-period">/month</span>
 		        	</td>
 		        	
 		        	{{	 }	}}

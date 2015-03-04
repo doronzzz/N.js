@@ -35,15 +35,19 @@ define([
 				},
 				
 				app.onWidgetLoaded = function(){
-					var params,thisWidget,widgetModel,widgetView;
+					var params,thisWidget,widgetModel,widgetView,callback;
 					params = lib.utils.URLToArray(window.location.href);
 					console.log(params)
 					var draw = function(){
 						thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
-				    	widgetView = new thisWidget.view(widgetModel).render().$el;
-				    	$('body').append(widgetView);
-				    	widgetModel.fetch({dataType:"jsonp"});
+				    	
+				    	callback = function(){
+				    		widgetView = new thisWidget.view(widgetModel,data).render().$el;
+				    		$('body').append(widgetView);	
+				    	};
+				    	
+				    	widgetModel.fetch({dataType:"jsonp",success:callback});
 					}
 
 					var onHTML = function(e){
@@ -52,9 +56,12 @@ define([
 		    			//run function//
 		    			thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
-				    	widgetView = new thisWidget.view(widgetModel,data).render().$el;
-				    	$('body').append(widgetView);
-				    	widgetModel.fetch({dataType:"jsonp"});
+				    	callback = function(){
+				    		widgetView = new thisWidget.view(widgetModel,data).render().$el;
+				    		$('body').append(widgetView);	
+				    	};
+				    	
+				    	widgetModel.fetch({dataType:"jsonp",success:callback});
 					};
 
 					if(params.html && params.html != "null"){//widget with html resource to load before drawing.
