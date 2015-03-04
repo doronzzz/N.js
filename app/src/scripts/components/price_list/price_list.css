@@ -80,6 +80,7 @@
 
 .simple_3_tier tfoot a:hover {
     background: #959595;
+    text-decoration:underline;
 }
 
 .simple_3_tier .nr-check {
@@ -89,8 +90,8 @@
     margin: 0 auto;
 }
 
-.simple_3_tier .nr-check.nr-yes {font-size:16px; color:'lightgreen'; }
-.simple_3_tier .nr-check.nr-no { font-size:16px; color:'red';  }
+.simple_3_tier .nr-check.nr-yes {font-size:16px; color:#69be28; }
+.simple_3_tier .nr-check.nr-no { font-size:16px; color:#f26522;  }
 .simple_3_tier .nr-notify {
     font-size: 14px;
     font-weight: bold;
