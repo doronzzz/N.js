@@ -22,11 +22,14 @@
 		        {{  for(var plan in plans.data) { }}
 		        	
 		        	{{  for(var feature in plans.data[plan].features.data) { }} 
-		        	
-		        	<td class="nr-price" style="display: table-cell;">
-		        		${{=plans.data[plan].features.data[feature].price}}
-						<span class="nr-price-period">/month</span>
-		        	</td>
+		        		{{ if(plans.data[plan].features.data[feature].price >= 1) { }}
+
+		        		<td class="nr-price" style="display: table-cell;">
+		        			$	{{=plans.data[plan].features.data[feature].price}}
+							<span class="nr-price-period">/month</span>
+		        		</td>
+
+		        		{{	}	}}
 		        	
 		        	{{	 }	}}
 
@@ -50,9 +53,8 @@
 		      </tr>
 		    </tbody>
 		    <tfoot>
-
 		    <tr class="nr-select-row">
-		      	
+		      	<td></td>
 		      	{{  for(var plan in plans.data) { }}
 				
 			      <td class="nr-select-cell">
