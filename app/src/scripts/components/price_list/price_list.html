@@ -1,4 +1,66 @@
-<div style="width:300p;">
+<div id="pricing-table">
+	<div class="simple_3_tier">
+		<div>
+		  <table>
+		    <thead>
+		      <tr>
+		        <td class="nr-plan-name" style="display:none">PLAN_NAME (e.g. Premium)</td>
+		      	<td class="nr-plan-name plan-plan no recurring" style="display: table-cell;">plan no recurring</td>
+		      	<td class="nr-plan-name plan-platinum" style="display: table-cell;">platinum</td>
+		      	<td class="nr-plan-name plan-Plan_9nplev19" style="display: table-cell;">Plan_9nplev19</td>
+		      	<td class="nr-plan-name plan-gold" style="display: table-cell;">gold</td>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr class="nr-price-row">
+		        <th class="nr-price-label">Price</th>
+		     	
+		        {{  for(var plan in plans.data) { }}
+		        	
+		        	{{  for(var price in plans.data[plan].billing_elements) { }} 
+		        	
+		        	<td class="nr-price" style="display: table-cell;">
+						{{=plans.data[plan].billing_elements[price].billing_element.price}}
+		        	</td>
+		        	
+		        	{{	 }	}}
+
+		        {{  } }}
+
+		     	
+		     	<!--td class="nr-price plan-gold" style="display: table-cell;">
+		     		$10<span class="nr-price-period">/month</span>
+		     	</td-->
+		      </tr>
+
+		      <tr class="nr-cc" style="display: table-row;">
+		        <th class="nr-cc-title">Credit Card</th>
+		        {{  for(var plan in plans.data) { }}
+		        	{{ if(plans.data[plan].credit_card) { 	}}
+				<td><span class="nr-check nr-yes"></span></td>
+					{{ }else { }}
+				<td><span class="nr-check nr-no"></span></td>
+					{{ } }}
+				{{ } }}
+		      </tr>
+		    </tbody>
+		    <tfoot>
+		      <tr class="nr-select-row" style="display: none;">
+			      <td class="nr-select-cell" style="display:none">
+			        <a href="" class="nr-plan-select" data-id="" data-external-id="">Select</a>
+			      </td>
+		     </tr>
+		    </tfoot>
+		  </table>
+		</div>
+		<div class="nr-nurego-tag-line">
+			Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
+		</div>
+	</div>
+</div>
+
+
+<!--div style="width:300p;">
 	<div>see our price plans</div>
 	<div>
 		<select>
@@ -14,4 +76,4 @@
 	</label>
 	
 	<button class="button btn">subscribe</button>
-</div>
+</div-->
