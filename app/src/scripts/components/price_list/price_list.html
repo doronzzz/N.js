@@ -17,10 +17,10 @@
 		     	
 		        {{  for(var plan in plans.data) { }}
 		        	
-		        	{{  for(var price in plans.data[plan].billing_elements) { }} 
+		        	{{  for(var feature in plans.data[plan].features.data) { }} 
 		        	
 		        	<td class="nr-price" style="display: table-cell;">
-						{{=plans.data[plan].billing_elements[price].billing_element.price}}
+						{{=plans.data[plan].features.data[feature].price}}
 		        	</td>
 		        	
 		        	{{	 }	}}
