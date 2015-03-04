@@ -10309,7 +10309,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, priceListModel, 
     var draw = function () {
       thisWidget = lib.components[params.widget];
       widgetModel = new thisWidget.model({ apiKey: params.apiKey });
-      callback = function () {
+      callback = function (data, req) {
         widgetView = new thisWidget.view(widgetModel, data).render().$el;
         $('body').append(widgetView);
       };
