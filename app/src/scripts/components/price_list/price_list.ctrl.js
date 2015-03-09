@@ -8,7 +8,6 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  },
 
 		  initialize: function(model,customTmpl){
-		  	debugger;
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}
@@ -18,7 +17,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		    this.addStyle();
 		  },
 
-		  addStyle:function(){debugger;
+		  addStyle:function(){
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
 		  	$('body').append(styleEl);
@@ -31,12 +30,11 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  	var baseURL = constants.nuregoApiUrl();
 		  	var email = this.$el.find('input').val()
 		  	var params = {
-		  		plan_id:plan,
-		  		email:email
+		  		plan_id:plan
 		  	};
 
 		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan;
-		  	/*if(email.indexOf("@") != -1){
+		  	/*if(email.indexOf("@"x) != -1){
 		  		url += "&email=" + email; 
 		  	}*/
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
@@ -61,9 +59,9 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  		url:url,
 		  		type:"post",
 		  		//crossDomain: true,
-			    dataType: 'json',
+			    dataType: 'json', 
 			    contentType: "application/x-www-form-urlencoded",
-		  		//data:data,
+		  		data:params,
 		  		success:callback
 		  	})
 

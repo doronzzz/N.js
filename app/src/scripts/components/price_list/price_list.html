@@ -1,100 +1,109 @@
-<div id="pricing-table">
-	<div class="simple_3_tier">
-		<div>
-		  <table>
-		    <thead>
-		      <tr>
-		      	<th></th>
+<h1>different template</h1>
 
-		      	{{  for(var plan in plans.data) { }}
-					<td class="nr-plan-name">
-					{{=plans.data[plan].name}}
-					</td>
-				{{ } }}
+<style>
+	.headers,
+	.tableWrapper{
+		display:flex;
+	}
 
-		        
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr class="nr-price-row">
-		        <th class="nr-price-label">Price</th>
-		     	
-		        {{  for(var plan in plans.data) { }}
-		        	
-		        	{{  for(var feature in plans.data[plan].features.data) { }} 
-		        		{{ if(plans.data[plan].features.data[feature].price >= 1) { }}
+	.headers div,
+	.tableWrapper div{
+		flex:1;
+	}
 
-		        		<td class="nr-price" style="display: table-cell;">
-		        			$	{{=plans.data[plan].features.data[feature].price}}
-							<span class="nr-price-period">/month</span>
-		        		</td>
+</style>
 
-		        		{{	}	}}
-		        	
-		        	{{	 }	}}
-
-		        {{  } }}
-
-		     	
-		     	<!--td class="nr-price plan-gold" style="display: table-cell;">
-		     		$10<span class="nr-price-period">/month</span>
-		     	</td-->
-		      </tr>
-
-		      <tr class="nr-cc" style="display: table-row;">
-		        <th class="nr-cc-title">Credit Card</th>
-		        {{  for(var plan in plans.data) { }}
-		        	{{ if(plans.data[plan].credit_card) { 	}}
-				<td><span class="nr-check nr-yes ion-checkmark"></span></td>
-					{{ }else { }}
-				<td><span class="nr-check nr-no ion-close"></span></td>
-					{{ } }}
-				{{ } }}
-		      </tr>
-		    </tbody>
-		    <tfoot>
-		    <tr class="nr-select-row">
-		      	<td></td>
-		      	{{  for(var plan in plans.data) { }}
+<div class="plansHeader headers"  style="border:3px solid black;">
+			<div class="featuresHeader header">
 				
-			      <td class="nr-select-cell">
-			        <a href="javascript:void(0)" class="nr-plan-select" data-id="{{=plans.data[plan].id}}">Select</a>
-			      </td>
-				{{ } }}
+			</div>
+	{{  for(var plan in plans) { }}		        		
+    		<div class="header">
+				{{=plans[plan].name}}
+    		</div>
 
-			</tr>
+	{{ 	}	}}
+</div>
 
-				<tr class="nr-trial">
-	        		<th></th>
-	        		{{  for(var plan in plans.data) { }}
-	        			<th></th>
-	        		{{ } }}
-      			</tr>
-		      
-		    </tfoot>
-		  </table>
-		</div>
-		<div class="nr-nurego-tag-line">
-			Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
-		</div>
-	</div>
+<div class="priceHeaders headers"  style="border:3px solid black;">
+			<div class="price header">
+				Price
+			</div>
+	{{  for(var plan in plans) { }}		        		
+    		<div class="header">
+				{{=plans[plan].features.map["recurring"].price}} $ 
+    		</div>
+
+	{{ 	}	}}
+</div>
+
+<div class="ccHeaders headers"  style="border:3px solid black;">
+			<div class="price header">
+				Credit Cards
+			</div>
+	{{  for(var plan in plans) { }}		        		
+    		<div class="header">
+				{{=plans[plan].credit_card}} 
+    		</div>
+
+	{{ 	}	}}
 </div>
 
 
-<!--div style="width:300p;">
-	<div>see our price plans</div>
-	<div>
-		<select>
-			{{  for(var plan in plans.data) { }}
-				<option data-id="{{=plans.data[plan].id}}">
-					{{=plans.data[plan].name}}
-				</option>
-			{{ } }}
-		</select>
-	</div>
-	<label>
-		Email: <input type="email" id="email" placeolder="example@email.com" class="form-control"/>	
-	</label>
+<div class="tableWrapper">
+			
+			<div class="featuresCol" style="border:3px solid black;">
+				{{  for(var item in features) { }}
+		        			        		
+		        		<div>
+							{{=features[item]}}
+		        		</div>
+
+		        {{  } }}
 	
-	<button class="button btn">subscribe</button>
-</div-->
+			</div>
+
+
+
+			
+	{{  for(var plan in plans) { }}
+			<div class="planCol"  style="border:3px solid black;">
+		        			        		
+
+		        		<div class="features">
+		        			{{  for(var item in features) { }}
+
+		        				
+		        					{{	if(plans[plan].features.map[features[item]].name) {	 }}
+
+			        					<div class="featureItem">
+			        						<span class="nr-check nr-yes ion-checkmark"></span>
+				        				</div>
+
+			        				{{	}	}}
+
+			        				{{	if(plans[plan].features.map[features[item]].missingFeature){	}}
+										<div class="featureItemMissing">
+											<span class="nr-check nr-no ion-close"></span>
+			        					</div>
+									{{	}	}}			        						        				
+
+
+		        			{{	}	}}
+		        		</div>
+
+		        		<div class="discount" style="border:1px solid gray;">
+		        			<div class="header">
+		        			</div>
+		        			{{for (item in plans[plan].discounts.data) { }}
+								<div class="header">
+									<div>{{=plans[plan].discounts.data[item].days_to_apply}} days</div>
+									<div>FREE TRIAL</div>
+					    		</div>
+							{{	}	}}
+		        		</div>
+	
+			</div>
+	{{  } }}
+	
+</div>

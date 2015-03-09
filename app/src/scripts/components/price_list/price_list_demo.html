@@ -1,11 +1,125 @@
-<div>
-	<h1>different template</h1>
-	<div>
-		{{  for(var plan in plans.data) { }}
-		<div class="alert alert-info" role="alert">
-			{{=plans.data[plan].name}}
+		
+
+
+
+<div id="pricing-table">
+	<div class="simple_3_tier">
+		<div>
+		  <table>
+		    <thead>
+		      <tr>
+		      	<th></th>
+
+		      	{{  for(var plan in plans) { }}
+					<td class="nr-plan-name">
+					{{=plans[plan].name}}
+					</td>
+				{{ } }}
+
+		        
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr class="nr-price-row">
+		        <th class="nr-price-label">Price</th>
+		     	
+		        {{  for(var plan in plans) { }}
+		        			        		
+
+		        		<td class="nr-price" style="display: table-cell;">
+		        			$	{{=plans[plan].price}}
+							<span class="nr-price-period">/month</span>
+		        		</td>
+
+
+		        {{  } }}
+		      </tr>
+
+
+		      <tr class="nr-cc" style="display: table-row;">
+		      	<th class="nr-cc-title">Credit Card</th>
+		        {{  for(var plan in plans) { }}
+		        	{{ if(plans[plan].credit_card) { 	}}
+				<td><span class="nr-check nr-yes ion-checkmark"></span></td>
+					{{ }else { }}
+				<td><span class="nr-check nr-no ion-close"></span></td>
+					{{ } }}
+				{{ } }}
+		      </tr>
+
+
+		      {{  for(var feature in features) { }}
+
+		   			{{  for(var plan in plans) { }}
+		   				
+		   				{{  for(var planFeature in plans[plan].features) { }}
+
+				      	<tr class="nr-feature" style="display: table-row;">
+
+						      <th class="nr-cc-title">{{=features[feature]}}</th>
+
+						        	
+
+						        		<!-- || {{=plans[plan].features[planFeature]}} === {{=features[feature]}} || -->
+								        {{ if(plans[plan].features[planFeature].name === features[feature]) { 	}}
+											<td><span class="nr-check nr-yes ion-checkmark"></span></td>
+										{{ }else { }}
+											<td><span class="nr-check nr-no ion-close"></span></td>
+										{{ } }}
+
+
+						</tr>
+						{{ } }}
+
+					{{ } }}
+
+		      {{ } }}
+
+
+		    </tbody>
+		    <tfoot>
+		    <tr class="nr-select-row">
+		      	<td></td>
+		      	{{  for(var plan in plans) { }}
+				
+			      <td class="nr-select-cell">
+			        <a href="javascript:void(0)" class="nr-plan-select" data-id="{{=plans[plan].id}}">Select</a>
+			      </td>
+				{{ } }}
+
+			</tr>
+
+				<tr class="nr-trial">
+	        		<th></th>
+	        		{{  for(var plan in plans) { }}
+	        			<th></th>
+	        		{{ } }}
+      			</tr>
+		      
+		    </tfoot>
+		  </table>
 		</div>
-		{{ } }}
+		<div class="nr-nurego-tag-line">
+			Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
+		</div>
 	</div>
-	<button class="button btn btn-success btn-lg">this is a different html</button>
 </div>
+
+
+<!--div style="width:300p;">
+	<div>see our price plans</div>
+	<div>
+		<select>
+			{{  for(var plan in plans.data) { }}
+				<option data-id="{{=plans.data[plan].id}}">
+					{{=plans.data[plan].name}}
+				</option>
+			{{ } }}
+		</select>
+	</div>
+	<label>
+		Email: <input type="email" id="email" placeolder="example@email.com" class="form-control"/>	
+	</label>
+	
+	<button class="button btn">subscribe</button>
+</div-->

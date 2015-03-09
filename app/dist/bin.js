@@ -10166,7 +10166,384 @@ priceListModel = function (Backbone, constants) {
       return constants.nuregoApiUrl() + '/offerings?api_key=' + this.opt.apiKey;  //return "https://api.nurego.com/v1/offerings?api_key=lc14de81-587e-49d8-ba0e-487498ae297a&callback=jQuery19108296897902619094_1424775818134&_=1424775818135";
     },
     parse: function (data, req) {
-      return data;
+      var data = {
+        'object': 'offering',
+        'id': 'ser_f960-2778-4a5f-92a8-d53940c97b29',
+        'name': 'Predix ',
+        'description': '',
+        'revision': 1,
+        'created_by': 'anat.birnboim+1_3_4@nurego.com',
+        'updated_at': '2015-03-04T06:09:07-08:00',
+        'status': 'assigned',
+        'plans': {
+          'data': [
+            {
+              'object': 'plan',
+              'id': 'pla_fb74-b970-41b0-9af5-e83c42309e53',
+              'name': 'basic',
+              'description': '',
+              'plan_status': 'active',
+              'credit_card': false,
+              'plan_order': 0,
+              'features': {
+                'data': [
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'nim',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'nim',
+                      'description': 'nim',
+                      'feature_id': 'nim',
+                      'measurable': false,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_fcfc-02ef-4769-9f80-7148ddc354a4'
+                    },
+                    'description': 'nim'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'recurring',
+                    'element_type': 'recurring',
+                    'price': 1,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': 1
+                  }
+                ],
+                'object': 'list',
+                'count': 2,
+                'url': '/v1/plans/pla_fb74-b970-41b0-9af5-e83c42309e53/features'
+              },
+              'discounts': {
+                'data': [{
+                    'object': 'discount',
+                    'id': 'id',
+                    'name': 'basic',
+                    'discount_type': 'trial',
+                    'price': 0,
+                    'percent': 100,
+                    'max_redemptions': 0,
+                    'redeem_by': null,
+                    'times_to_apply': 0,
+                    'days_to_apply': 30,
+                    'provider_id': 'org_3628-ae16-4b84-89c0-6b318a17c76b',
+                    'guid': 'dis_2e05-b780-4895-9588-3d7633de1c00'
+                  }],
+                'object': 'list',
+                'count': 1,
+                'url': '/v1/plans/pla_fb74-b970-41b0-9af5-e83c42309e53/discounts'
+              }
+            },
+            {
+              'object': 'plan',
+              'id': 'pla_9604-fb76-483d-92b8-6ff18d9c4a34',
+              'name': 'advanced',
+              'description': '',
+              'plan_status': 'active',
+              'credit_card': true,
+              'plan_order': 1,
+              'features': {
+                'data': [
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'cpu',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'cpu',
+                      'description': 'cpu',
+                      'feature_id': 'cpu',
+                      'measurable': true,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_484e-3d93-4171-9927-7131a9c16f59'
+                    },
+                    'description': 'cpu'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'memory',
+                    'element_type': 'overage',
+                    'price': 0.01,
+                    'min_unit': 0,
+                    'max_unit': 1000,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'memory',
+                      'description': 'memory',
+                      'feature_id': 'memory',
+                      'measurable': true,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_5cec-4ee5-4a0a-8952-74d6209b8016'
+                    },
+                    'description': 'memory'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'nim',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'nim',
+                      'description': 'nim',
+                      'feature_id': 'nim',
+                      'measurable': false,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_fcfc-02ef-4769-9f80-7148ddc354a4'
+                    },
+                    'description': 'nim'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'recurring',
+                    'element_type': 'recurring',
+                    'price': 100,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': 1
+                  }
+                ],
+                'object': 'list',
+                'count': 4,
+                'url': '/v1/plans/pla_9604-fb76-483d-92b8-6ff18d9c4a34/features'
+              },
+              'discounts': {
+                'data': [{
+                    'object': 'discount',
+                    'id': 'id',
+                    'name': 'advanced',
+                    'discount_type': 'trial',
+                    'price': 0,
+                    'percent': 100,
+                    'max_redemptions': 0,
+                    'redeem_by': null,
+                    'times_to_apply': 0,
+                    'days_to_apply': 30,
+                    'provider_id': 'org_3628-ae16-4b84-89c0-6b318a17c76b',
+                    'guid': 'dis_5cfe-deeb-4e39-b32a-c0385df7e7f1'
+                  }],
+                'object': 'list',
+                'count': 1,
+                'url': '/v1/plans/pla_9604-fb76-483d-92b8-6ff18d9c4a34/discounts'
+              }
+            },
+            {
+              'object': 'plan',
+              'id': 'pla_898d-6e09-45c8-b8a5-461099037a5b',
+              'name': 'expert',
+              'description': '',
+              'plan_status': 'active',
+              'credit_card': false,
+              'plan_order': 2,
+              'features': {
+                'data': [
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'cpu',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'cpu',
+                      'description': 'cpu',
+                      'feature_id': 'cpu',
+                      'measurable': true,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_484e-3d93-4171-9927-7131a9c16f59'
+                    },
+                    'description': 'cpu'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'memory',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 10000,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'memory',
+                      'description': 'memory',
+                      'feature_id': 'memory',
+                      'measurable': true,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_5cec-4ee5-4a0a-8952-74d6209b8016'
+                    },
+                    'description': 'memory'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'support',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'support',
+                      'description': 'support',
+                      'feature_id': 'support',
+                      'measurable': false,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_c3d3-b0ba-419c-8248-30a6fb7adb58'
+                    },
+                    'description': 'support'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'nim',
+                    'element_type': 'feature',
+                    'price': 0,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': null,
+                    'service_feature': {
+                      'name': 'nim',
+                      'description': 'nim',
+                      'feature_id': 'nim',
+                      'measurable': false,
+                      'demo_content': null,
+                      'feature_order': 0,
+                      'webhook_type': '',
+                      'guid': 'fea_fcfc-02ef-4769-9f80-7148ddc354a4'
+                    },
+                    'description': 'nim'
+                  },
+                  {
+                    'object': 'feature',
+                    'id': 'id',
+                    'name': 'recurring',
+                    'element_type': 'recurring',
+                    'price': 500,
+                    'min_unit': 0,
+                    'max_unit': 0,
+                    'period': 'monthly',
+                    'billing_period_interval': 1
+                  }
+                ],
+                'object': 'list',
+                'count': 5,
+                'url': '/v1/plans/pla_898d-6e09-45c8-b8a5-461099037a5b/features'
+              },
+              'discounts': {
+                'data': [{
+                    'object': 'discount',
+                    'id': 'id',
+                    'name': 'expert',
+                    'discount_type': 'trial',
+                    'price': 0,
+                    'percent': 100,
+                    'max_redemptions': 0,
+                    'redeem_by': null,
+                    'times_to_apply': 0,
+                    'days_to_apply': 45,
+                    'provider_id': 'org_3628-ae16-4b84-89c0-6b318a17c76b',
+                    'guid': 'dis_3d4f-ed58-4acc-a5a4-c61fe3331566'
+                  }],
+                'object': 'list',
+                'count': 1,
+                'url': '/v1/plans/pla_898d-6e09-45c8-b8a5-461099037a5b/discounts'
+              }
+            }
+          ],
+          'object': 'list',
+          'count': 3,
+          'url': '/v1/offerings/ser_f960-2778-4a5f-92a8-d53940c97b29/plans'
+        }
+      };
+      function containsFeature(featuresArr, featuresObj) {
+        var ans = false;
+        _.each(featuresArr, function (feature) {
+          if (feature === featuresObj.name) {
+            ans = true;
+          }
+        });
+        return ans;
+      }
+      function getMissingFeatures(plan_features, featuresArr) {
+        console.log('difference:::');
+        console.log(_.difference(featuresArr, plan_features));
+        return _.difference(featuresArr, plan_features);
+      }
+      function customParser(response) {
+        var raw_plans = response.plans.data;
+        var features = [];
+        var plans = [];
+        //Get all features
+        for (var i = 0; i < raw_plans.length; i++) {
+          var plan_features = raw_plans[i].features.data;
+          raw_plans[i].features.map = {};
+          for (j = 0; j < plan_features.length; j++) {
+            raw_plans[i].features.map[plan_features[j].name] = plan_features[j];
+            if (!containsFeature(features, plan_features[j])) {
+              features.push(plan_features[j].name);
+            }
+          }
+        }
+        //_.reduce(data, function (o, item) { o[item.key] = item.value; return o }, {})
+        // add empty features to plans
+        for (var i = 0; i < raw_plans.length; i++) {
+          var featuresList = _.keys(raw_plans[i].features.map);
+          var featuresArr = getMissingFeatures(featuresList, features);
+          _.each(featuresArr, function (item) {
+            raw_plans[i].features.map[item] = { missingFeature: item };
+          });
+        }
+        return {
+          offering_description: response.description,
+          features: features,
+          plans: raw_plans
+        };
+      }
+      var parsed = customParser(data);
+      console.log(parsed);
+      return parsed;
     }
   });
   return priceListModel;
@@ -10206,7 +10583,7 @@ loginViewCtrl = function (bb, loginTmpl) {
   });
   return loginViewCtrl;
 }(backbone, text_loginHTML);
-text_priceListHTML = '<div id="pricing-table">\r\n\t<div class="simple_3_tier">\r\n\t\t<div>\r\n\t\t  <table>\r\n\t\t    <thead>\r\n\t\t      <tr>\r\n\t\t      \t<th></th>\r\n\r\n\t\t      \t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t\t<td class="nr-plan-name">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t\t</td>\r\n\t\t\t\t{{ } }}\r\n\r\n\t\t        \r\n\t\t      </tr>\r\n\t\t    </thead>\r\n\t\t    <tbody>\r\n\t\t      <tr class="nr-price-row">\r\n\t\t        <th class="nr-price-label">Price</th>\r\n\t\t     \t\r\n\t\t        {{  for(var plan in plans.data) { }}\r\n\t\t        \t\r\n\t\t        \t{{  for(var feature in plans.data[plan].features.data) { }} \r\n\t\t        \t\t{{ if(plans.data[plan].features.data[feature].price >= 1) { }}\r\n\r\n\t\t        \t\t<td class="nr-price" style="display: table-cell;">\r\n\t\t        \t\t\t$\t{{=plans.data[plan].features.data[feature].price}}\r\n\t\t\t\t\t\t\t<span class="nr-price-period">/month</span>\r\n\t\t        \t\t</td>\r\n\r\n\t\t        \t\t{{\t}\t}}\r\n\t\t        \t\r\n\t\t        \t{{\t }\t}}\r\n\r\n\t\t        {{  } }}\r\n\r\n\t\t     \t\r\n\t\t     \t<!--td class="nr-price plan-gold" style="display: table-cell;">\r\n\t\t     \t\t$10<span class="nr-price-period">/month</span>\r\n\t\t     \t</td-->\r\n\t\t      </tr>\r\n\r\n\t\t      <tr class="nr-cc" style="display: table-row;">\r\n\t\t        <th class="nr-cc-title">Credit Card</th>\r\n\t\t        {{  for(var plan in plans.data) { }}\r\n\t\t        \t{{ if(plans.data[plan].credit_card) { \t}}\r\n\t\t\t\t<td><span class="nr-check nr-yes ion-checkmark"></span></td>\r\n\t\t\t\t\t{{ }else { }}\r\n\t\t\t\t<td><span class="nr-check nr-no ion-close"></span></td>\r\n\t\t\t\t\t{{ } }}\r\n\t\t\t\t{{ } }}\r\n\t\t      </tr>\r\n\t\t    </tbody>\r\n\t\t    <tfoot>\r\n\t\t    <tr class="nr-select-row">\r\n\t\t      \t<td></td>\r\n\t\t      \t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t\r\n\t\t\t      <td class="nr-select-cell">\r\n\t\t\t        <a href="javascript:void(0)" class="nr-plan-select" data-id="{{=plans.data[plan].id}}">Select</a>\r\n\t\t\t      </td>\r\n\t\t\t\t{{ } }}\r\n\r\n\t\t\t</tr>\r\n\r\n\t\t\t\t<tr class="nr-trial">\r\n\t        \t\t<th></th>\r\n\t        \t\t{{  for(var plan in plans.data) { }}\r\n\t        \t\t\t<th></th>\r\n\t        \t\t{{ } }}\r\n      \t\t\t</tr>\r\n\t\t      \r\n\t\t    </tfoot>\r\n\t\t  </table>\r\n\t\t</div>\r\n\t\t<div class="nr-nurego-tag-line">\r\n\t\t\tPricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n<!--div style="width:300p;">\r\n\t<div>see our price plans</div>\r\n\t<div>\r\n\t\t<select>\r\n\t\t\t{{  for(var plan in plans.data) { }}\r\n\t\t\t\t<option data-id="{{=plans.data[plan].id}}">\r\n\t\t\t\t\t{{=plans.data[plan].name}}\r\n\t\t\t\t</option>\r\n\t\t\t{{ } }}\r\n\t\t</select>\r\n\t</div>\r\n\t<label>\r\n\t\tEmail: <input type="email" id="email" placeolder="example@email.com" class="form-control"/>\t\r\n\t</label>\r\n\t\r\n\t<button class="button btn">subscribe</button>\r\n</div-->\r\n';
+text_priceListHTML = '<h1>different template</h1>\r\n\r\n<style>\r\n\t.headers,\r\n\t.tableWrapper{\r\n\t\tdisplay:flex;\r\n\t}\r\n\r\n\t.headers div,\r\n\t.tableWrapper div{\r\n\t\tflex:1;\r\n\t}\r\n\r\n</style>\r\n\r\n<div class="plansHeader headers"  style="border:3px solid black;">\r\n\t\t\t<div class="featuresHeader header">\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t<div class="header">\r\n\t\t\t\t{{=plans[plan].name}}\r\n    \t\t</div>\r\n\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n<div class="priceHeaders headers"  style="border:3px solid black;">\r\n\t\t\t<div class="price header">\r\n\t\t\t\tPrice\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t<div class="header">\r\n\t\t\t\t{{=plans[plan].features.map["recurring"].price}} $ \r\n    \t\t</div>\r\n\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n<div class="ccHeaders headers"  style="border:3px solid black;">\r\n\t\t\t<div class="price header">\r\n\t\t\t\tCredit Cards\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t<div class="header">\r\n\t\t\t\t{{=plans[plan].credit_card}} \r\n    \t\t</div>\r\n\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n\r\n<div class="tableWrapper">\r\n\t\t\t\r\n\t\t\t<div class="featuresCol" style="border:3px solid black;">\r\n\t\t\t\t{{  for(var item in features) { }}\r\n\t\t        \t\t\t        \t\t\r\n\t\t        \t\t<div>\r\n\t\t\t\t\t\t\t{{=features[item]}}\r\n\t\t        \t\t</div>\r\n\r\n\t\t        {{  } }}\r\n\t\r\n\t\t\t</div>\r\n\r\n\r\n\r\n\t\t\t\r\n\t{{  for(var plan in plans) { }}\r\n\t\t\t<div class="planCol"  style="border:3px solid black;">\r\n\t\t        \t\t\t        \t\t\r\n\r\n\t\t        \t\t<div class="features">\r\n\t\t        \t\t\t{{  for(var item in features) { }}\r\n\r\n\t\t        \t\t\t\t\r\n\t\t        \t\t\t\t\t{{\tif(plans[plan].features.map[features[item]].name) {\t }}\r\n\r\n\t\t\t        \t\t\t\t\t<div class="featureItem">\r\n\t\t\t        \t\t\t\t\t\t<span class="nr-check nr-yes ion-checkmark"></span>\r\n\t\t\t\t        \t\t\t\t</div>\r\n\r\n\t\t\t        \t\t\t\t{{\t}\t}}\r\n\r\n\t\t\t        \t\t\t\t{{\tif(plans[plan].features.map[features[item]].missingFeature){\t}}\r\n\t\t\t\t\t\t\t\t\t\t<div class="featureItemMissing">\r\n\t\t\t\t\t\t\t\t\t\t\t<span class="nr-check nr-no ion-close"></span>\r\n\t\t\t        \t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t{{\t}\t}}\t\t\t        \t\t\t\t\t\t        \t\t\t\t\r\n\r\n\r\n\t\t        \t\t\t{{\t}\t}}\r\n\t\t        \t\t</div>\r\n\r\n\t\t        \t\t<div class="discount" style="border:1px solid gray;">\r\n\t\t        \t\t\t<div class="header">\r\n\t\t        \t\t\t</div>\r\n\t\t        \t\t\t{{for (item in plans[plan].discounts.data) { }}\r\n\t\t\t\t\t\t\t\t<div class="header">\r\n\t\t\t\t\t\t\t\t\t<div>{{=plans[plan].discounts.data[item].days_to_apply}} days</div>\r\n\t\t\t\t\t\t\t\t\t<div>FREE TRIAL</div>\r\n\t\t\t\t\t    \t\t</div>\r\n\t\t\t\t\t\t\t{{\t}\t}}\r\n\t\t        \t\t</div>\r\n\t\r\n\t\t\t</div>\r\n\t{{  } }}\r\n\t\r\n</div>\r\n';
 text__components_price_list_price_listcss = '.simple_3_tier {\r\n    font-family:"Lato",Helvetica,Arial,sans-serif;\r\n    float: left;\r\n    margin: 0 auto;\r\n}\r\n.simple_3_tier table {\r\n    width: auto;\r\n    border-collapse: collapse;\r\n    background: #fff;\r\n}\r\n.simple_3_tier td,\r\n.simple_3_tier th {\r\n    border: 1px solid #e8e8e8;\r\n    vertical-align: middle;\r\n}\r\n.simple_3_tier td {\r\n    color: #707383;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n}\r\n.simple_3_tier thead th,\r\n.simple_3_tier tfoot th {\r\n    border: none;\r\n}\r\n.simple_3_tier thead td {\r\n    height: 30px;\r\n    background: #fff;\r\n    font-size: 11px;\r\n    color: #9799a2;\r\n    text-transform: uppercase;\r\n    text-align: center;\r\n    font-weight: bold;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tbody th {\r\n    text-align: left;\r\n    font-size: 12px;\r\n    padding: 10px 20px;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier tbody td {\r\n    text-align: center;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tfoot td {\r\n    text-align: center;\r\n    padding: 12px 0;\r\n}\r\n.simple_3_tier th.nr-price {\r\n    color: #666;\r\n    height: 32px;\r\n    background-color: #fff;\r\n    text-align: left;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier td.nr-price {\r\n    color: #f26522;\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    background-color: #fff;\r\n}\r\n.simple_3_tier tfoot a {\r\n    display: inline-block;\r\n    color: #fff;\r\n    background: #9799A2;\r\n    height: 32px;\r\n    line-height: 32px;\r\n    text-align: center;\r\n    padding: 0 15px;\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n    font-size: 10px;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    -webkit-border-radius: 4px;\r\n    -moz-border-radius: 4px;\r\n    border-radius: 4px;\r\n}\r\n\r\n.simple_3_tier tfoot a:hover {\r\n    background: #959595;\r\n    text-decoration:underline;\r\n}\r\n\r\n.simple_3_tier .nr-check {\r\n    width: 16px;\r\n    height: 16px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.simple_3_tier .nr-check.nr-yes {font-size:16px; color:#69be28; }\r\n.simple_3_tier .nr-check.nr-no { font-size:16px; color:#f26522;  }\r\n.simple_3_tier .nr-notify {\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    padding: 20px;\r\n    margin: 0 0 15px;\r\n    font-family: Tahoma, Verdana, Segoe, sans-serif;\r\n    letter-spacing: 1px;\r\n}\r\n.simple_3_tier .nr-notify.nr-red {\r\n    background: #f2dede;\r\n    color: #a94442;\r\n}\r\n.simple_3_tier .nr-notify.nr-yellow {\r\n    background: #fcf8e3;\r\n    color: #986d3b;\r\n}\r\n.simple_3_tier .nr-container {\r\n    height: 304px;\r\n    margin: 0 auto 10px;\r\n}\r\n.simple_3_tier .nr-container.nr-loading {\r\n    background: url("../images/loader.gif") 50% 50% no-repeat;\r\n}\r\n.simple_3_tier .nr-container.nr-empty {\r\n    background: url("../images/empty.gif") 50% 50% no-repeat;\r\n}\r\n\r\n.nr-signup-div {\r\n    margin: 40px auto;\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.nr-signup, .nr-go-signup, .nr-go-update {\r\n    text-decoration: none;\r\n    background: transparent;\r\n    border: 2px solid #dfe1e6;\r\n    min-width: 120px;\r\n    font-weight: 400;\r\n    margin-top: 0.5em;\r\n    color: #565a6b;\r\n    text-transform: uppercase;\r\n    padding: 0.625em 1.125em;\r\n    font-size: 0.857em;\r\n    margin-left: 5px;\r\n}\r\n\r\n.nr-signup:hover, .nr-go-signup:hover {\r\n    color: white;\r\n    background: #565a6b;\r\n    border: 2px solid white;\r\n}\r\n\r\n.simple_3_tier .nr-plan-selected {\r\n    background: #f26522; \r\n}\r\n\r\n.simple_3_tier .nr-plan-selected:hover {\r\n    background: #f26522; \r\n}\r\n\r\n.nr-discount {\r\n  text-transform:uppercase;\r\n  padding: 10px 10px 10px 10px !important;\r\n  background-color: #f26522;\r\n  color: wheat !important;\r\n}\r\n.nr-trial-days {\r\n  font-size: 10px;\r\n}\r\n\r\n.nr-price-period {\r\n  font-size: 14px;\r\n  font-weight: normal;\r\n  color: #69be28;\r\n}\r\n\r\n.nr-nurego-tag-line{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 12px;\r\n}\r\n\r\n.nr-nurego-cc-require{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 14px;\r\n}\r\n\r\n.nr-nurego-tag-line a{\r\n  color: #69be28;\r\n}\r\n\r\n.nr-cc td {\r\n  font-size: 12px;  \r\n}\r\n\r\n\r\n.on-offswitch {\r\n    display: inline-block;\r\n    margin-bottom: 15px;\r\n    position: relative; width: 74px;\r\n    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;\r\n}\r\n\r\n.on-offswitch-checkbox {\r\n    display: none;\r\n}\r\n.on-offswitch-label {\r\n    display: block; overflow: hidden; cursor: pointer;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n}\r\n.on-offswitch-inner {\r\n    display: block; width: 200%; margin-left: -100%;\r\n    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;\r\n    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;\r\n}\r\n.on-offswitch-inner:before, .on-offswitch-inner:after {\r\n    display: block; float: left; width: 50%; height: 7px; padding: 0; line-height: 7px;\r\n    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;\r\n    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;\r\n}\r\n.on-offswitch-inner:before {\r\n    content: "";\r\n    padding-left: 10px;\r\n    background-color: #FFFFFF; color: #FFFFFF;\r\n}\r\n.on-offswitch-inner:after {\r\n    content: "";\r\n    padding-right: 10px;\r\n    background-color: #FFFFFF;\r\n    text-align: right;\r\n}\r\n.on-offswitch-switch {\r\n    display: block; width: 37px; margin: 1px;\r\n    background: #C59DD7;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n    position: absolute; top: 0; bottom: 0; left: 35px;\r\n    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;\r\n    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; \r\n}\r\n\r\n.monthly-checked .on-offswitch-inner {\r\n    margin-left: 0;\r\n}\r\n\r\n.monthly-checked .on-offswitch-switch {\r\n    left: 0px; \r\n}\r\n\r\n.switch-monthly {\r\n    padding-right: 13px;\r\n    text-align: -webkit-right;   \r\n    color: #C59DD7;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switch-yearly {\r\n    padding-left: 11px;\r\n    color: #6D6D6E;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switcher-full {\r\n    display: none;\r\n    margin-left: 620px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n@media only screen and (max-width: 1260px) {\r\n  .switcher-full {\r\n    margin-left: 542px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1150px) {\r\n  .switcher-full {\r\n    margin-left: 475px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1050px) {\r\n  .switcher-full {\r\n    margin-left: 455px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1020px) {\r\n  .switcher-full {\r\n    margin-left: 426px;\r\n  }\r\n}\r\n@media only screen and (max-width: 980px) {\r\n  .switcher-full {\r\n    margin-left: 400px;\r\n  }\r\n}\r\n@media only screen and (max-width: 913px) {\r\n  .switcher-full {\r\n    margin-left: 340px;\r\n  }\r\n}\r\n@media only screen and (max-width: 825px) {\r\n  .switcher-full {\r\n    margin-left: 200px;\r\n  }\r\n}\r\n\r\n';
 priceListViewCtrl = function (bb, tmpl, utils, css) {
   var priceList = Backbone.View.extend({
@@ -10215,7 +10592,6 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
     template: _.template(tmpl),
     events: { 'click .nr-plan-select': 'registration' },
     initialize: function (model, customTmpl) {
-      debugger;
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
@@ -10225,7 +10601,6 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
       this.addStyle();
     },
     addStyle: function () {
-      debugger;
       var styleEl = document.createElement('style');
       styleEl.innerHTML = css;
       $('body').append(styleEl);
@@ -10236,12 +10611,9 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
       var plan = $(e.target).attr('data-id');
       var baseURL = constants.nuregoApiUrl();
       var email = this.$el.find('input').val();
-      var params = {
-        plan_id: plan,
-        email: email
-      };
+      var params = { plan_id: plan };
       var url = baseURL + '/registrations?api_key=' + constants.getNuregoApiKey() + '&plan_id=' + plan;
-      /*if(email.indexOf("@") != -1){
+      /*if(email.indexOf("@"x) != -1){
       		url += "&email=" + email; 
       	}*/
       //var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
@@ -10265,7 +10637,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
         //crossDomain: true,
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
-        //data:data,
+        data: params,
         success: callback
       });
     },
