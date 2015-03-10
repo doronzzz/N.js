@@ -6,44 +6,110 @@
 		display:flex;
 	}
 
+	.cell {
+    	padding: 8px;
+	}
+
 	.headers div,
 	.tableWrapper div{
 		flex:1;
+		text-align:center;
+		border:1px solid #E8E8E8;
+		color:#9799A2;
+	}
+
+	.plansHeader .header{
+		text-transform:uppercase;
+		color:#9799A2;
+		font-weight:bold;
+		font-size:14px;
+	}
+
+	.priceRecurrence{
+		color:#8EBE2E;
+		font-size:14px;
+	}
+
+	.planPrice{
+		color:#F26522;
+		font-size:16px;
+		font-weight:bold;
+	}
+
+	.planDiscount{
+		background: #F26522;
+		font-weight: bold;
+	}
+
+	.planDiscount span{
+		color: #fff !important;
+		border:0px;
+		display:block;
+	}
+
+	.nr-check.nr-no {
+		color:#FB6B5B;
+	}
+
+	.nr-check.nr-yes {
+		color:#92CF5C;
+	}
+
+	.features > div,
+	.plansCol,
+	.featuresCol {
+ 	   border-top: 0px !important;
+	}
+
+	.planCol .features div:nth-of-type(odd),
+	.featuresCol .featureName:nth-of-type(odd){
+		background: #F9F9F9;
 	}
 
 </style>
 
-<div class="plansHeader headers"  style="border:3px solid black;">
-			<div class="featuresHeader header">
+<div class="plansHeader headers">
+			<div class="featuresHeader header cell">
 				
 			</div>
 	{{  for(var plan in plans) { }}		        		
-    		<div class="header">
+    		<div class="header cell">
 				{{=plans[plan].name}}
     		</div>
 
 	{{ 	}	}}
 </div>
 
-<div class="priceHeaders headers"  style="border:3px solid black;">
-			<div class="price header">
+<div class="priceHeaders headers">
+			<div class="price header cell">
 				Price
 			</div>
 	{{  for(var plan in plans) { }}		        		
-    		<div class="header">
-				{{=plans[plan].features.map["recurring"].price}} $ 
+    		<div class="header cell">
+				<span class="planPrice">{{=plans[plan].features.map["recurring"].price}}$</span>
+				<span class="priceRecurrence">/Month</span>
     		</div>
 
 	{{ 	}	}}
 </div>
 
-<div class="ccHeaders headers"  style="border:3px solid black;">
-			<div class="price header">
+<div class="ccHeaders headers">
+			<div class="price header cell">
 				Credit Cards
 			</div>
 	{{  for(var plan in plans) { }}		        		
-    		<div class="header">
-				{{=plans[plan].credit_card}} 
+    		
+    		<div class="header cell">
+				{{if (plans[plan].credit_card) { }} 
+				
+					<span class="nr-check nr-yes ion-checkmark"></span>
+
+    			{{	}else{	}}
+
+    				<span class="nr-check nr-no ion-close "></span>
+
+    			{{	}	}}
+
     		</div>
 
 	{{ 	}	}}
@@ -52,12 +118,14 @@
 
 <div class="tableWrapper">
 			
-			<div class="featuresCol" style="border:3px solid black;">
+			<div class="featuresCol">
 				{{  for(var item in features) { }}
-		        			        		
-		        		<div>
+		        	
+		        	{{	if([features[item]] != 'recurring') {	 }}
+		        		<div class="featureName cell">
 							{{=features[item]}}
 		        		</div>
+		        	{{	}	}}
 
 		        {{  } }}
 	
@@ -67,38 +135,54 @@
 
 			
 	{{  for(var plan in plans) { }}
-			<div class="planCol"  style="border:3px solid black;">
+			<div class="planCol">
 		        			        		
 
 		        		<div class="features">
 		        			{{  for(var item in features) { }}
 
-		        				
-		        					{{	if(plans[plan].features.map[features[item]].name) {	 }}
 
-			        					<div class="featureItem">
-			        						<span class="nr-check nr-yes ion-checkmark"></span>
-				        				</div>
 
-			        				{{	}	}}
+			        			{{	if([features[item]] != 'recurring') {	 }}		        				
 
-			        				{{	if(plans[plan].features.map[features[item]].missingFeature){	}}
-										<div class="featureItemMissing">
-											<span class="nr-check nr-no ion-close"></span>
-			        					</div>
-									{{	}	}}			        						        				
+
+			        					{{	if(plans[plan].features.map[features[item]].name) {	 }}
+
+			        						{{	if(plans[plan].features.map[features[item]].max_unit) {	 }}
+				        						<div class="featureItem cell">
+					        						<span>
+					        							{{=plans[plan].features.map[features[item]].max_unit}}
+					        						</span>
+						        				</div>
+			        						{{	}else{ 	}}
+
+					        					<div class="featureItem cell">
+					        						<span class="nr-check nr-yes ion-checkmark"></span>
+						        				</div>
+
+					        				{{	}	}}
+
+				        				{{	}	}}
+
+				        				{{	if(plans[plan].features.map[features[item]].missingFeature){	}}
+											<div class="featureItemMissing cell">
+												<span class="nr-check nr-no ion-close "></span>
+				        					</div>
+										{{	}	}}			        						        			
+
+								{{	}	}}
+
 
 
 		        			{{	}	}}
 		        		</div>
 
-		        		<div class="discount" style="border:1px solid gray;">
-		        			<div class="header">
-		        			</div>
+		        		<div class="discount">
+		        			
 		        			{{for (item in plans[plan].discounts.data) { }}
-								<div class="header">
-									<div>{{=plans[plan].discounts.data[item].days_to_apply}} days</div>
-									<div>FREE TRIAL</div>
+								<div class="header planDiscount cell">
+									<span>{{=plans[plan].discounts.data[item].days_to_apply}} days</span>
+									<span>FREE TRIAL</span>
 					    		</div>
 							{{	}	}}
 		        		</div>
@@ -106,4 +190,9 @@
 			</div>
 	{{  } }}
 	
+</div>
+
+
+<div class="nr-nurego-tag-line">
+	Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
 </div>

@@ -60,7 +60,7 @@ define([
 				    		widgetView = new thisWidget.view(widgetModel,data).render().$el;
 				    		$('body').append(widgetView);	
 				    	};
-				    	
+				    	//callback()
 				    	widgetModel.fetch({dataType:"jsonp",success:callback});
 					};
 
