@@ -3,11 +3,13 @@ define([
 		"utils",
 		"widgetFactory",
 		"loginModel",
+		"activationModel",
 		"priceListModel",
 		"loginViewCtrl",
-		"priceListViewCtrl"
+		"priceListViewCtrl",
+		"activationViewCtrl",
 		],
-	function(constants,utils,widgetFactory,loginModel,priceListModel,loginViewCtrl,priceListViewCtrl){
+	function(constants,utils,widgetFactory,loginModel,activationModel,priceListModel,loginViewCtrl,priceListViewCtrl,activationViewCtrl){
 				var app,lib;
 				app = {};
 				lib = {
@@ -22,6 +24,10 @@ define([
 						priceList:{
 							view:priceListViewCtrl,
 							model:priceListModel
+						},
+						priceList:{
+							view:activationViewCtrl,
+							model:activationModel
 						}
 					}
 				};
