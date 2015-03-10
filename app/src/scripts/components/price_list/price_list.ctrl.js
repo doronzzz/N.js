@@ -4,7 +4,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  className: "login",
 		  template: _.template(tmpl),
 		  events: {
-		    "click .nr-plan-select":   "registration"
+		    "click .plan-select":   "registration"
 		  },
 
 		  initialize: function(model,customTmpl){
@@ -61,7 +61,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  		//crossDomain: true,
 			    dataType: 'json', 
 			    contentType: "application/x-www-form-urlencoded",
-		  		data:params,
+		  		//data:params,
 		  		success:callback
 		  	})
 
