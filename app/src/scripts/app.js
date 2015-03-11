@@ -23,9 +23,9 @@ define([
 						},
 						priceList:{
 							view:priceListViewCtrl,
-							model:priceListModel
+							model:priceListModel 
 						},
-						priceList:{
+						activation:{
 							view:activationViewCtrl,
 							model:activationModel
 						}

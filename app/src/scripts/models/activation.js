@@ -6,7 +6,7 @@ define(["backbone","constants"],function(Backbone,constants){
         },
          
         url:function(){
-        	//return constants.nuregoApiUrl() + "/registrations/url/login_url?api_key=" + constants.getNuregoApiKey();
+        	return constants.nuregoApiUrl() + "/registrations/url/login_url?api_key=" + constants.getNuregoApiKey();
         },
 
         defaults: {

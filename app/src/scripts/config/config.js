@@ -24,7 +24,7 @@ require.config({
         activationViewCtrl: '../components/activation/activation.ctrl',
         loginHTML: '../components/login/login.html',
         priceListHTML: '../components/price_list/price_list.html',
-        activationHTML:'../components/activation/activation.html',
+        activationHTML: '../components/activation/activation.html',
         Nurego: '../app',
         almond: '../../bower_components/almond/almond',
         prism: '../../bower_components/prism/prism'
