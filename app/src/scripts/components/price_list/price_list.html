@@ -81,7 +81,12 @@
 	}
 
 	.noSSO .emailWrapper{
-		display:block;
+		display: block;
+		position: absolute;
+		width: 200px;
+		top: 50%;
+		left: 50%;
+		margin-left: -100px;
 	}
 
 	.emailWrapper{
@@ -113,13 +118,23 @@
 				<span class="planPrice">{{=plans[plan].features.map["recurring"].price}}$</span>
 				<span class="priceRecurrence">/Month</span>
 
-			{{	}else{ }}
+			{{	}else if(plans[plan].price){ }}
 				
 				<span class="planPrice">{{=plans[plan].price}}$</span>
 
+			{{	}else{	}}
+
+				{{  for(var item in plans[plan].features.data) { }}		        		
+
+					{{	if(plans[plan].features.data[item].element_type === "recurring"){	}}
+							<span class="planPrice">{{=plans[plan].features.data[item].price}}$</span>
+					{{	}	}}
+
+				{{	}	}}
+
 			{{	}	}}
     		</div>
-
+    		
 	{{ 	}	}}
 </div>
 
