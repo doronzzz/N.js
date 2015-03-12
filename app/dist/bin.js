@@ -10631,7 +10631,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
       var params = { plan_id: plan };
       var url = baseURL + '/registrations?api_key=' + constants.getNuregoApiKey() + '&plan_id=' + plan;
       if (this.$el.hasClass('noSSO') && email.indexOf('@') != -1) {
-        url += '&email=' + email;
+        url += '&email=' + encodeURI(email);
       }
       //var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
       var zis = this;
@@ -10651,10 +10651,10 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
       $.ajax({
         url: url,
         type: 'post',
-        //crossDomain: true,
+        crossDomain: true,
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
-        //data:params,
+        data: JSON.stringify(params),
         success: callback
       });
     },
