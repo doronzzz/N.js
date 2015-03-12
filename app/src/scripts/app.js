@@ -3,13 +3,13 @@ define([
 		"utils",
 		"widgetFactory",
 		"loginModel",
-		"activationModel",
+		"registrationModel",
 		"priceListModel",
 		"loginViewCtrl",
 		"priceListViewCtrl",
-		"activationViewCtrl",
+		"registrationViewCtrl",
 		],
-	function(constants,utils,widgetFactory,loginModel,activationModel,priceListModel,loginViewCtrl,priceListViewCtrl,activationViewCtrl){
+	function(constants,utils,widgetFactory,loginModel,registrationModel,priceListModel,loginViewCtrl,priceListViewCtrl,registrationViewCtrl){
 				var app,lib;
 				app = {};
 				lib = {
@@ -25,9 +25,9 @@ define([
 							view:priceListViewCtrl,
 							model:priceListModel 
 						},
-						activation:{
-							view:activationViewCtrl,
-							model:activationModel
+						registration:{ 
+							view:registrationViewCtrl,
+							model:registrationModel
 						}
 					}
 				};
@@ -83,23 +83,14 @@ define([
 					if(elems.length){
 						var comps = {};debugger;
 						for(var i = 0; i<elems.length; i++){
-							var nameAttr = elems[i].getAttribute("name");
-							var cssAttr = elems[i].getAttribute("css");
-							var htmlAttr = elems[i].getAttribute("html");
+							var widgetAttrs = {};
+							_.each(elems[i].attributes,function(node){
+								widgetAttrs[node.nodeName] = node.value;
+							});
 
-							var ssoRedirect = elems[i].getAttribute("redirect-url");
-
-							comps[nameAttr] = {};
-
-							var comp = comps[nameAttr];
+							var comp = comps[ widgetAttrs.name ] = {};
 							comp.element = elems[i];
-							comp.configParams = {
-								css:cssAttr,
-								html:htmlAttr
-							}
-							if(ssoRedirect){
-								comp.configParams.redirectUrl = ssoRedirect;
-							}
+							comp.configParams = widgetAttrs;
 						}
 						console.log(comps)
 						app.init({components:comps});

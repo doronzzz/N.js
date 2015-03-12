@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 	<nurego-public-customer-id id="l402b7a9-dc19-43fd-89cd-64e8fe101347"> </nurego-public-customer-id>
-	<!--nurego-js-baseurl url="http://localhost:9000/src"></nurego-js-baseurl-->
+	<nurego-js-baseurl url="http://localhost:9000/src"></nurego-js-baseurl>
 	<!-- <nurego-api-baseurl url="http://localhost:31001/myapi/"> </nurego-api-baseurl> -->
 
 
@@ -179,15 +179,6 @@
                 <a href="#priceList">Price List</a>
                 <ul class="nav nav-stacked">
                     <li><a href="#priceList1">Price List Directive</a></li>
-                    <li><a href="#priceList2">Price List Javascript</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#registration">Registration</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#registration1">Registration Directive</a></li>
-                    <li><a href="#registration2">Registration Javascript</a></li>
                 </ul>
             </li>
 
@@ -195,7 +186,13 @@
                 <a href="#login">Login</a>
                 <ul class="nav nav-stacked">
                     <li><a href="#login1">Login Directive</a></li>
-                    <li><a href="#login2">Login Javascript</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#registration">Registration</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#login1">Login Directive</a></li>
                 </ul>
             </li>
         </ul>
@@ -271,8 +268,8 @@
 		</p>
 
 		<h3>1.1) Price List Directive</h3>
-		<div style="height:300px;" id="priceList1" class="well white">
-		    <nurego-widget name="priceList" html="./scripts/components/price_list/price_list_demo.html" redirect-url="/myLogin"></nurego-widget>
+		<div style="height:450px;" id="priceList1" class="well white">
+		    <nurego-widget name="priceList" sso="false" redirect-url="/myLogin"></nurego-widget>
 		</div>
 		<pre class="language-markup nowrap codeBox">
 		  <code class="nowrap">
@@ -280,46 +277,8 @@
 &lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
-
-		<h3>1.2) Price list JS</h3>
-		<div class="">
-		    <div style="height:475px;" id="priceList2" class="well white"></div>
-		</div>
-		<pre class=" language-javascript codeBox">
-		  <code class=" language-javascript">Nurego.init({
-				"token":"32423423",//String || URL
-				"components":{
-					"priceList":{
-						"element":"#priceList2",
-						"configParams":{
-							"css":"",
-							"html":"",
-							"redirectUrl":""
-						}
-					}
-				}
-			})
-		  </code>
-	  	</pre>
 	</div>
 
-
-	<!--div class="" id="registration">
-		<h1  class="page-header">Nurego Registration</h1>
-		<p>
-			Description text.. Description text.. Description text.. 
-			Description text.. Description text.. Description text.. 
-		</p>
-		<h2>Registration Directive</h2>
-		
-		    <div id="registration1" style="height:300px;" class="well"></div>
-		
-
-		<h2>Registration JS</h2>
-		<div class="">
-			<div id="registration2" style="height:300px;" class="well"></div>
-		</div>
-	</div-->
 
 	<div class="bs-docs-section" id="login">
 		<h1  class="page-header">2) Nurego login</h1>
@@ -335,30 +294,35 @@
 		  <code class="nowrap">&lt;nurego-widget name="login"&gt;&lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
+		
+	</div>
 
-		<h3>2.2) Login JS</h3>
-		<div class="">
-			<div id="login2" style="height:300px;" class="well white"></div>
+
+
+	<div class="bs-docs-section" id="registration">
+		<h1  class="page-header">3) Nurego Activation</h1>
+		<p>
+			Description text.. Description text.. Description text.. 
+			Description text.. Description text.. Description text.. 
+		</p>
+		<h3>3.1) registration Directive</h3>
+		<div style="height:300px;" id="login1" class="well white"> 
+		    <nurego-widget name="registration" 
+			   registration-url="/register"
+			   request-email="false"
+			   registration-id="000-000"> </nurego-widget>
 		</div>
-		<pre class=" language-javascript codeBox">
-		  <code class=" language-javascript">Nurego.init({
-				"token":"32423423",//String || URL
-				"components":{
-					"login":{
-						"element":"#login2",
-						"configParams":{
-							"css":"",
-							"html":""
-						}
-					}
-				}
-			})
+		<pre class="language-markup nowrap codeBox">
+		  <code class="nowrap">&lt;nurego-widget name="registration" registration-url="/register" request-email="true" registration-id="0000"&gt;&lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
+		
+		
 	</div>
+
+
 	
 </div>
-	<nurego-baseurl url="https://mybaseurl.com"></nurego-baseurl>
     <!--script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"></script-->
 
     <script src="../dist/bin.js" type="text/javascript"></script>

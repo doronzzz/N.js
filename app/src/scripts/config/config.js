@@ -17,14 +17,14 @@ require.config({
         utils: '../services/utils',
         widgetFactory: '../services/widget_factory',
         loginModel: '../models/login',
-        activationModel: '../models/activation',
+        registrationModel: '../models/registration',
         priceListModel: '../models/price_list',
         loginViewCtrl: '../components/login/login.ctrl',
         priceListViewCtrl: '../components/price_list/price_list.ctrl',
-        activationViewCtrl: '../components/activation/activation.ctrl',
+        registrationViewCtrl: '../components/registration/registration.ctrl',
         loginHTML: '../components/login/login.html',
         priceListHTML: '../components/price_list/price_list.html',
-        activationHTML: '../components/activation/activation.html',
+        registrationHTML: '../components/registration/registration.html',
         Nurego: '../app',
         almond: '../../bower_components/almond/almond',
         prism: '../../bower_components/prism/prism'
@@ -42,10 +42,3 @@ require.config({
 
     ]
 });
- 
-
-// Start loading the main app file. Put all of
-// your application logic in there.
-/*require(['Nurego'],function(app){
-	
-});*/

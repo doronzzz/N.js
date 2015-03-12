@@ -21,28 +21,28 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
 		  	$('body').append(styleEl);
-		  },
+		  }, 
 
 		  registration:function(e){
 		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
 		  	//alert($(window.top).width())
 		  	var plan = $(e.target).attr('data-id'); 
 		  	var baseURL = constants.nuregoApiUrl();
-		  	var email = this.$el.find('input').val()
+		  	var email = this.$el.find('input.email').val()
 		  	var params = {
 		  		plan_id:plan
 		  	};
 
 		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan;
-		  	/*if(email.indexOf("@"x) != -1){
+		  	if(this.$el.hasClass('noSSO') && email.indexOf("@") != -1){
 		  		url += "&email=" + email; 
-		  	}*/
+		  	}
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	var zis = this;
 		  	var parent = utils.URLToArray(window.location.href).parent;
 		  	var callback = function(data,req){
 		  		var url,redirectUrl;
-		  		redirectUrl = zis.params.redirectUrl;
+		  		redirectUrl = zis.params['redirect-url'];
 		  		url = redirectUrl;
 		  		if(redirectUrl.indexOf("?") == -1){
 		  			url += "?registrationId=" + data.id;
@@ -68,8 +68,12 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  },
 
 		  render: function(){
+		  	var sso = utils.URLToArray(window.location.href).sso;
 		  	var html = this.template(this.model.attributes);
 		    this.$el.html(	html );
+		    if(sso && sso === "false"){
+		    	this.$el.addClass('noSSO');
+		    }
 		    return this;
 		  }
 

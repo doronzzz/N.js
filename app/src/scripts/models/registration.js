@@ -1,10 +1,10 @@
 define(["backbone","constants"],function(Backbone,constants){
 	
-    var activationModel = Backbone.Model.extend({
+    var registrationModel = Backbone.Model.extend({
         initialize:function(){
             console.log('init activationModel');
         },
-         
+
         url:function(){
         	return constants.nuregoApiUrl() + "/registrations/url/login_url?api_key=" + constants.getNuregoApiKey();
         },
@@ -17,6 +17,6 @@ define(["backbone","constants"],function(Backbone,constants){
         }
     });
 
-    return activationModel;
+    return registrationModel;
 
 });

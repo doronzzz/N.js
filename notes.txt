@@ -1,3 +1,8 @@
+*** add isSSo flag to priceList
+*** pricelist stylesheet.
+*** parse client jsons keep in mind that this parser will be used for html templates.
+_______________________
+
 V* seperate to ingnitor N widgetInjector from the iframe app.
 V* support html directive to inject widget with options <nurego-widget height="" html="res" css="res">
 * injector script

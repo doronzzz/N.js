@@ -7,7 +7,7 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		  events: {
 		    "click .button":   "login"
 		  },
-
+		  
 		  initialize: function(model,customTmpl){
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
@@ -17,8 +17,8 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		  },
 		
 		  login:function(e){
-		  	var baseURL = this.$el.find('#baseURL').val();
-		  	var endPoint = (baseURL) ? baseURL : constants.baseURL();
+		  	//var baseURL = this.$el.find('#baseURL').val();
+		  	var endPoint = constants.nuregoApiUrl();
 		  	console.log("sending req to: " + endPoint);
 		  	$.get(endPoint + "/login",function(data){
 		  		console.log(data);
