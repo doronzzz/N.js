@@ -62,7 +62,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  		crossDomain: true,
 			    dataType: 'json', 
 			    contentType: "application/x-www-form-urlencoded",
-		  		data:JSON.stringify(params),
+		  		data:"plan_id=" + params.plan_id + "&email=" + params.email,
 		  		success:callback
 		  	})
 
