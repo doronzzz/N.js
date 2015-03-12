@@ -10324,7 +10324,8 @@ priceListViewCtrl = function (bb, tmpl, utils, css) {
         crossDomain: true,
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
-        data: 'plan_id=' + params.plan_id + '&email=' + params.email,
+        //data:"plan_id=" + params.plan_id + "&email=" + params.email,
+        //data: { plan_id: params.plan_id, email:params.email},
         success: callback
       });
     },
