@@ -35,8 +35,8 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 
 		  	var url = baseURL+'/registrations?api_key=' + constants.getNuregoApiKey()+ "&plan_id=" + plan;
 		  	if(this.$el.hasClass('noSSO') && email.indexOf("@") != -1){
-		  		url += "&email=" + encodeURI(email); 
-		  		params.email =  encodeURI(email);
+		  		url += "&email=" + encodeURIComponent(email); 
+		  		params.email =  encodeURIComponent(email);
 		  	}
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	var zis = this;
