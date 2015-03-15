@@ -36,6 +36,8 @@ define(["backbone","text!tosHTML","utils",
 
   		  acceptTerms:function(){
   		  	var docs = this.model.get('legal_docs');
+  		  	var redirectURL = this.params['redirect-url'];
+  		  	
   		  	for(var i = 0; i <docs.data.length; i++){
   		  		var doc_id = docs.data[i].id;
 	  		  	var url = constants.nuregoApiUrl() + "legaldocs/" + doc_id + "/accept";
@@ -54,6 +56,9 @@ define(["backbone","text!tosHTML","utils",
 			  		}
 			  	})
   		  	}
+
+			window.top.location.href = params.parent + redirectURL;
+
           },
 
 		  render: function(){

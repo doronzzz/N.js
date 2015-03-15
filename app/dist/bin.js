@@ -10475,6 +10475,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel) {
     },
     acceptTerms: function () {
       var docs = this.model.get('legal_docs');
+      var redirectURL = this.params['redirect-url'];
       for (var i = 0; i < docs.data.length; i++) {
         var doc_id = docs.data[i].id;
         var url = constants.nuregoApiUrl() + 'legaldocs/' + doc_id + '/accept';
@@ -10493,6 +10494,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel) {
           }
         });
       }
+      window.top.location.href = params.parent + redirectURL;
     },
     render: function () {
       var html = this.template(this.model.toJSON());
