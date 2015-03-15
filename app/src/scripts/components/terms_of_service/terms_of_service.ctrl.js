@@ -35,16 +35,16 @@ define(["backbone","text!tosHTML","utils",
 		  },
 
 		  redirect:function(){
-		  	window.top.location.href = params.parent + redirectURL;
+		  	var redirectURL = this.params['redirect-url'];
+		  	window.top.location.href = this.params.parent + redirectURL;
 		  },
 
   		  acceptTerms:function(){
   		  	var docs = this.model.get('legal_docs');
-  		  	var redirectURL = this.params['redirect-url'];
 
   		  	for(var i = 0; i <docs.data.length; i++){
   		  		var doc_id = docs.data[i].id;
-	  		  	var url = constants.nuregoApiUrl() + "legaldocs/" + doc_id + "/accept";
+	  		  	var url = constants.nuregoApiUrl() + "/legaldocs/" + doc_id + "/accept";
 	            $.ajax({
 			  		url:url,
 			  		type:"PUT",

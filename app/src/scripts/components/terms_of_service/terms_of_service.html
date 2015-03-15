@@ -1,7 +1,10 @@
 <div>
 	<h2>Terms of Service</h2>
 	{{	if(obj['doc_html']){	}}
-		{{=	obj['doc_html']	}}
+		
+		<h3>{{=obj.name}}</h3>
+		<div>{{=	obj['doc_html']	}}</div>
+
 	{{	}else if(obj['legal_docs'])	{	}}
 
 		{{ for(doc in obj.legal_docs.data){	}}
@@ -10,7 +13,6 @@
 				<br/>
 				<br/>
 		{{	}	}}
-
 
 	<div class="btn btn-primary acceptTerms">
 		Accept
