@@ -34,10 +34,14 @@ define(["backbone","text!tosHTML","utils",
 		  	$('body').append(styleEl);
 		  },
 
+		  redirect:function(){
+		  	window.top.location.href = params.parent + redirectURL;
+		  },
+
   		  acceptTerms:function(){
   		  	var docs = this.model.get('legal_docs');
   		  	var redirectURL = this.params['redirect-url'];
-  		  	
+
   		  	for(var i = 0; i <docs.data.length; i++){
   		  		var doc_id = docs.data[i].id;
 	  		  	var url = constants.nuregoApiUrl() + "legaldocs/" + doc_id + "/accept";
@@ -57,11 +61,14 @@ define(["backbone","text!tosHTML","utils",
 			  	})
   		  	}
 
-			window.top.location.href = params.parent + redirectURL;
+			this.redirect()
 
           },
 
 		  render: function(){
+		  	if(	_.isEmpty(this.model.toJSON())	){
+		  		this.redirect(); // redirect cause there are no terms to show
+		  	}
 		  	var html = this.template(this.model.toJSON());
 		    this.$el.html(	html );
 		    return this;

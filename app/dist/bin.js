@@ -10475,6 +10475,9 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel) {
       styleEl.innerHTML = css;
       $('body').append(styleEl);
     },
+    redirect: function () {
+      window.top.location.href = params.parent + redirectURL;
+    },
     acceptTerms: function () {
       var docs = this.model.get('legal_docs');
       var redirectURL = this.params['redirect-url'];
@@ -10496,9 +10499,12 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel) {
           }
         });
       }
-      window.top.location.href = params.parent + redirectURL;
+      this.redirect();
     },
     render: function () {
+      if (_.isEmpty(this.model.toJSON())) {
+        this.redirect();  // redirect cause there are no terms to show
+      }
       var html = this.template(this.model.toJSON());
       this.$el.html(html);
       return this;
