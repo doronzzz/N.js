@@ -10285,12 +10285,12 @@ text__components_price_list_price_listcss = '.simple_3_tier {\r\n    font-family
 tosModel = function (Backbone, constants) {
   var tos = Backbone.Model.extend({
     initialize: function () {
-      console.log('terms of service login model');
+      console.log('terms of service model');
     },
     url: function () {
       var str = constants.nuregoApiUrl() + '/legaldocs/';
       var apiKey = constants.getNuregoApiKey();
-      if (apiKey) {
+      if (apiKey !== 'false') {
         str += '?api_key=' + apiKey;
       }
       return str;
@@ -10311,6 +10311,8 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel) {
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
+      this.tosModel = new tosModel();
+      tosModel.fetch({ dataType: 'jsonp' });
       this.model = model;
       this.params = utils.URLToArray(window.location.href);
       this.listenToOnce(this.model, 'change', this.render);
@@ -10338,7 +10340,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel) {
       //alert($(window.top).width())
       var plan = $(e.target).attr('data-id');
       var baseURL = constants.nuregoApiUrl();
-      var legal_doc_id = 'leg_261e-8d6f-44f9-9f8e-feb0aea47157';
+      var legal_doc_id = tosModel.get('id');
       // need to get this from a model
       var email = this.$el.find('input.email').val();
       var params = { plan_id: plan };
@@ -10435,12 +10437,12 @@ text__components_terms_of_service_terms_of_servicecss = '.simple_3_tier {\r\n   
 tosStatusModel = function (Backbone, constants) {
   var tos = Backbone.Model.extend({
     initialize: function () {
-      console.log('terms of service login model');
+      console.log('terms of service model');
     },
     url: function () {
       var str = constants.nuregoApiUrl() + '/legaldocs/status';
       var apiKey = constants.getNuregoApiKey();
-      if (apiKey != 'false') {
+      if (apiKey !== 'false') {
         str += '?api_key=' + apiKey;
       }
       return str;
