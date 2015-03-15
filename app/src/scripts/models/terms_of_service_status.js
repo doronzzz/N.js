@@ -6,9 +6,9 @@ define(["backbone","constants"],function(Backbone,constants){
         },
          
         url:function(){
-            var str = constants.nuregoApiUrl() + "/legaldocs/status/";
+            var str = constants.nuregoApiUrl() + "/legaldocs/status";
             var apiKey = constants.getNuregoApiKey();
-            if(apiKey){
+            if(apiKey != "false"){
                 str += "?api_key=" + apiKey;
             }
         	return str;
