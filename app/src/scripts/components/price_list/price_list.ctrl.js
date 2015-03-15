@@ -14,7 +14,7 @@ define(["backbone","text!priceListHTML","utils",
 		  		this.template = _.template(customTmpl);
 		  	}
 		  	this.tosModel = new tosModel();
-		    tosModel.fetch({dataType:"jsonp"});
+		    this.tosModel.fetch({dataType:"jsonp"});
 
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
@@ -49,7 +49,7 @@ define(["backbone","text!priceListHTML","utils",
 		  	//alert($(window.top).width())
 		  	var plan = $(e.target).attr('data-id'); 
 		  	var baseURL = constants.nuregoApiUrl();
-		  	var legal_doc_id = tosModel.get('id'); // need to get this from a model
+		  	var legal_doc_id = this.tosModel.get('id'); // need to get this from a model
 		  	var email = this.$el.find('input.email').val()
 		  	var params = {
 		  		plan_id:plan

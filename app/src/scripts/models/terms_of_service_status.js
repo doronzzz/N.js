@@ -1,6 +1,6 @@
 define(["backbone","constants"],function(Backbone,constants){
 	
-    var tos = Backbone.Model.extend({
+    var tosStatus = Backbone.Model.extend({
         initialize:function(){
             console.log('terms of service model');
         },
@@ -15,7 +15,7 @@ define(["backbone","constants"],function(Backbone,constants){
         },
     });
 
-    return tos;
+    return tosStatus;
 
 });
 
