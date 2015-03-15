@@ -1,10 +1,12 @@
-define(["backbone","text!priceListHTML","utils","text!../components/price_list/price_list.css"],function(bb,tmpl,utils,css){
+define(["backbone","text!priceListHTML","utils",
+		"text!../components/price_list/price_list.css","tosModel"],function(bb,tmpl,utils,css,tosModel){
 		var priceList = Backbone.View.extend({
 		  tagName: "div",
 		  className: "login",
 		  template: _.template(tmpl),
 		  events: {
-		    "click .plan-select":   "registration"
+		    "click .plan-select":   "registration",
+		    "click .terms":   "openTerms"
 		  },
 
 		  initialize: function(model,customTmpl){
@@ -14,7 +16,23 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
 		    this.listenToOnce(this.model, "change", this.render);
+		    this.model.fetch({dataType:"jsonp"});
 		    this.addStyle();
+		  },
+		  
+		  openTerms:function(){
+		  	var url = this.params.parent + this.params['terms-of-service-url'];
+		  	var flag = "preRegistration=true";
+		  	
+		  	if(url.indexOf("?") === -1){
+		  		url += "?" + flag;
+		  	}else{
+		  		url += "&" + flag;
+		  	};
+
+		  	var win = window.open(url, '_blank');
+  			win.focus();
+  			
 		  },
 
 		  addStyle:function(){
@@ -28,6 +46,7 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  	//alert($(window.top).width())
 		  	var plan = $(e.target).attr('data-id'); 
 		  	var baseURL = constants.nuregoApiUrl();
+		  	var legal_doc_id = "leg_261e-8d6f-44f9-9f8e-feb0aea47157"; // need to get this from a model
 		  	var email = this.$el.find('input.email').val()
 		  	var params = {
 		  		plan_id:plan
@@ -37,6 +56,10 @@ define(["backbone","text!priceListHTML","utils","text!../components/price_list/p
 		  	if(this.$el.hasClass('noSSO') && email.indexOf("@") != -1){
 		  		url += "&email=" + encodeURIComponent(email); 
 		  		params.email =  encodeURIComponent(email);
+		  	}
+
+		  	if(legal_doc_id){
+		  		url += "&legal_doc_id=" + legal_doc_id;
 		  	}
 		  	//var data = "&plan_id=" + encodeURI(plan) + "&email=" + encodeURI(email);
 		  	var zis = this;

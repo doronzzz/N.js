@@ -61,6 +61,14 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			res += "&parent=" + window.location.origin;
 			var indx = 0;
 			_.each(opt.configParams,function(val,key){
+				if(key !== "urlParams"){
+					var seperator = "&"; //(indx === 0) ? "?" : "&";
+					res += seperator + key + "=" + val;
+					indx++;
+				}
+			})
+
+			_.each(opt.configParams.urlParams,function(val,key){
 				var seperator = "&"; //(indx === 0) ? "?" : "&";
 				res += seperator + key + "=" + val;
 				indx++;

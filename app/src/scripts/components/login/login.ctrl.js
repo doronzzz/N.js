@@ -14,6 +14,7 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		  	}
 		  	this.model = model;
 		    this.listenToOnce(this.model, "change", this.render);
+		  	this.model.fetch({dataType:"jsonp"});
 		  },
 		
 		  login:function(e){

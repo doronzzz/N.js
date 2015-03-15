@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 	<nurego-public-customer-id id="l402b7a9-dc19-43fd-89cd-64e8fe101347"> </nurego-public-customer-id>
-	<!--nurego-js-baseurl url="http://localhost:9000/src"></nurego-js-baseurl-->
+	<nurego-js-baseurl url="http://localhost:9000/src"></nurego-js-baseurl>
 	<!-- <nurego-api-baseurl url="http://localhost:31001/myapi/"> </nurego-api-baseurl> -->
 
 
@@ -195,6 +195,14 @@
                     <li><a href="#login1">Login Directive</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a href="#terms_of_service">Terms of service</a>
+                <ul class="nav nav-stacked">
+                    <li><a href="#terms_of_service1">Terms of service Directive</a></li>
+                </ul>
+            </li>
+
         </ul>
     </nav>
 
@@ -269,11 +277,11 @@
 
 		<h3>1.1) Price List Directive</h3>
 		<div style="height:450px;" id="priceList1" class="well white">
-		    <nurego-widget name="priceList" sso="true" redirect-url="/myLogin"></nurego-widget>
+		    <nurego-widget name="priceList" sso="true" redirect-url="/myLogin" terms-of-service-url="/src/terms.html"></nurego-widget>
 		</div>
 		<pre class="language-markup nowrap codeBox">
 		  <code class="nowrap">
-&lt;nurego-widget name="priceList" html="path/to/html/template.html" redirect-url="/loginSuccess" &gt;
+&lt;nurego-widget name="priceList" html="path/to/html/template.html" terms-of-service-url="/terms.html" redirect-url="/loginSuccess" &gt;
 &lt;/nurego-widget&gt;
 		  </code>
 	  	</pre>
@@ -321,6 +329,27 @@
 	</div>
 
 
+	<div class="bs-docs-section" id="terms_of_service">
+		<h1  class="page-header">4) Nurego Terms Of Service</h1>
+		<p>
+			Description text.. Description text.. Description text.. 
+			Description text.. Description text.. Description text.. 
+		</p>
+		<h3>4.1)Terms Of Service Directive</h3>
+		<div style="height:300px;" id="terms_of_service1" class="well white"> 
+		    <nurego-widget name="terms_of_service" 
+			   redirect-url="/app.html">
+			 </nurego-widget>
+		</div>
+		<pre class="language-markup nowrap codeBox">
+		  <code class="nowrap">&lt;nurego-widget name="terms_of_service" redirect-url="/app.html" &gt;&lt;/nurego-widget&gt;
+		  </code>
+	  	</pre>
+		
+		
+	</div>
+
+
 	
 </div>
     <!--script src="https://rawgit.com/doronzzz/N.js/master/app/dist/bin.js" type="text/javascript"></script-->
@@ -337,7 +366,7 @@
 		});
     });
 
-
+/*
     Nurego.init({
 		"token":"32423423",//String || URL
 		"components":{
@@ -358,7 +387,7 @@
 			}
 		}
 	})
-		
+*/		
     </script>
 
     <!-- endbower -->

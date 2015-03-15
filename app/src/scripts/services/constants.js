@@ -18,7 +18,9 @@ define(['utils'],function(utils){
 			}
 			if(apiKeyParam){
 				return apiKeyParam;
-			}	
+			}else{
+				return false;
+			}
 		},
 		
 		nuregoApiUrl:function(){

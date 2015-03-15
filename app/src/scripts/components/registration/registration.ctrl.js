@@ -11,8 +11,10 @@ define(["backbone","text!registrationHTML","utils","text!../components/registrat
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}
+		  	this.addStyle();
 		  	this.model = model;
-		    this.addStyle();
+		  	this.listenToOnce(this.model, "change", this.render);
+		  	this.model.fetch({dataType:"jsonp"});
 		  },
 
 		  addStyle:function(){
