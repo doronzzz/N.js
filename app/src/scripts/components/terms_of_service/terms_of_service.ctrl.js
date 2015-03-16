@@ -44,10 +44,11 @@ define(["backbone","text!tosHTML","utils",
 
   		  	for(var i = 0; i <docs.data.length; i++){
   		  		var doc_id = docs.data[i].id;
-	  		  	var url = constants.nuregoApiUrl() + "/legaldocs/" + doc_id + "/accept";
+  		  		//POST /v1/legaldocs/accept?api_key=l22085b6-7062-4b57-8869-cccb2f66f6fb&doc_id=leg_0b06-d678-4675-bd16-efd4f60f2b47
+	  		  	var url = constants.nuregoApiUrl() + "/legaldocs/accept?doc_id=" + doc_id;
 	            $.ajax({
 			  		url:url,
-			  		type:"PUT",
+			  		type:"post",
 			  		async:false,
 			  		/*crossDomain: true,
 				    dataType: 'json', 
@@ -67,7 +68,7 @@ define(["backbone","text!tosHTML","utils",
 
 		  render: function(){
 		  	var legalDocs =  this.model.get('legal_docs');
-		  
+
 		  	if(	_.isEmpty(this.model.toJSON()) || legalDocs.count === 0){
 		  		this.redirect(); // redirect cause there are no terms to show
 		  	}
