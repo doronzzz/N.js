@@ -70,6 +70,10 @@ define(["backbone","text!priceListHTML","utils",
 		  	var callback = function(data,req){
 		  		var url,redirectUrl;
 		  		redirectUrl = zis.params['redirect-url'];
+		  		if(!redirectUrl){
+		  			zis.$el.addClass('done');
+		  			return;
+		  		}
 		  		url = redirectUrl;
 		  		if(redirectUrl.indexOf("?") == -1){
 		  			url += "?registrationId=" + data.id;
@@ -97,6 +101,7 @@ define(["backbone","text!priceListHTML","utils",
 
 		  render: function(){
 		  	var sso = utils.URLToArray(window.location.href).sso;
+		  	this.model.set('urlParams',this.params);
 		  	var html = this.template(this.model.attributes);
 		    this.$el.html(	html );
 		    if(sso && sso === "false"){

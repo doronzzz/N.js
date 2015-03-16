@@ -66,7 +66,9 @@ define(["backbone","text!tosHTML","utils",
           },
 
 		  render: function(){
-		  	if(	_.isEmpty(this.model.toJSON())	){
+		  	var legalDocs =  this.model.get('legal_docs');
+		  
+		  	if(	_.isEmpty(this.model.toJSON()) || legalDocs.count === 0){
 		  		this.redirect(); // redirect cause there are no terms to show
 		  	}
 		  	var html = this.template(this.model.toJSON());

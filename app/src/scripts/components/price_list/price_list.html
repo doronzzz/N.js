@@ -93,6 +93,24 @@
 		display:none;
 	}
 
+	.thankYou{
+		display: none;
+	}
+
+	.done .p1 {
+    	font-size: 28px;
+	}
+	.done .thankYou{
+	  display: block;
+	  position: absolute;
+	  top: 0px;
+	  width: 100%;
+	  text-align: center;
+	  background: rgba(255,255,255,1);
+	  height: 100%;
+	  padding: 10%;
+	}
+
 </style>
 
 <div class="plansHeader headers">
@@ -247,12 +265,16 @@
 	<input class="form-control email" type="text" placeholder="example@email.com"/>
 </div>
 
+{{	if(urlParams['terms-of-sevice-url']) {	}}
+	<div class="nr-nurego-tag-line">
+	<input type="checkbox" name="terms" checked="checked">	by subscribing to our services you agree to our <a href="javascript:void(0)" class="terms">Terms of service</a>
+	</div>
+{{	}	}}
 
-<div class="nr-nurego-tag-line">
-<input type="checkbox" name="terms" checked="checked">	by subscribing to our services you agree to our <a href="javascript:void(0)" class="terms">Terms of service</a>
+<div class="thankYou">
+	<div class="p1">Your registration invite has been sent.</div>
+	<div class="p2">Please check your inbox and use the link inside to sign up</div>
 </div>
-
-
 
 <div class="nr-nurego-tag-line">
 	Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
