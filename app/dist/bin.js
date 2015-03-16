@@ -10494,6 +10494,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel) {
           url: url,
           type: 'post',
           async: false,
+          xhrFields: { withCredentials: true },
           /*crossDomain: true,
           dataType: 'json', 
           contentType: "application/x-www-form-urlencoded",*/

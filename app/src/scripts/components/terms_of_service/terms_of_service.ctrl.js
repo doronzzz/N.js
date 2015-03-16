@@ -50,6 +50,9 @@ define(["backbone","text!tosHTML","utils",
 			  		url:url,
 			  		type:"post",
 			  		async:false,
+			  		xhrFields: {
+				        withCredentials: true
+				    },
 			  		/*crossDomain: true,
 				    dataType: 'json', 
 				    contentType: "application/x-www-form-urlencoded",*/
