@@ -1,12 +1,19 @@
-<div>
-	Activation
+<style>
+	
+	button.button.btn.btn-primary.activate {
+  		margin-top: 8px;
+	}
 
+</style>
+
+<div>
+	Finish Registration
 	{{	if(obj['request-email'] === 'true'){	}}
 		<input class="form-control email" type="text" placeholder="email"/>
 	{{	}	}}
 	<input class="form-control pass" type="password" placeholder="password"/>
 
 	<div> 
-		<button class="button btn btn-primary activate">Activate My Account</button>
+		<button class="button btn btn-primary activate">Finish</button>
 	</div>
 </div>
