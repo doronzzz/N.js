@@ -6,7 +6,8 @@ define(["backbone","text!priceListHTML","utils",
 		  template: _.template(tmpl),
 		  events: {
 		    "click .plan-select":   "registration",
-		    "click .terms":   "openTerms"
+		    "click .terms":   "openTerms",
+		    "click .postNoSSo" : "postRegistration"
 		  },
 
 		  initialize: function(model,customTmpl){
@@ -15,7 +16,7 @@ define(["backbone","text!priceListHTML","utils",
 		  	}
 		  	this.tosModel = new tosModel();
 		    this.tosModel.fetch({dataType:"jsonp"});
-
+		    this.selectedPlan = "";
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
 		    this.listenToOnce(this.model, "change", this.render);
@@ -44,10 +45,12 @@ define(["backbone","text!priceListHTML","utils",
 		  	$('body').append(styleEl);
 		  }, 
 
-		  registration:function(e){
-		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
-		  	//alert($(window.top).width())
-		  	var plan = $(e.target).attr('data-id'); 
+		  registerWithSSo:function(){
+		  	this.$el.addClass('fillEmail');
+		  },
+
+		  postRegistration:function(){
+		  	var plan = this.selectedPlan;
 		  	var baseURL = constants.nuregoApiUrl();
 		  	var legal_doc_id = this.tosModel.get('id'); // need to get this from a model
 		  	var email = this.$el.find('input.email').val()
@@ -97,6 +100,17 @@ define(["backbone","text!priceListHTML","utils",
 		  		success:callback
 		  	})
 
+		  },
+
+		  registration:function(e){
+		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
+		  	//alert($(window.top).width())
+		  	this.selectedPlan = $(e.target).attr('data-id');
+		  	if(this.$el.hasClass('noSSO')){
+		  		this.registerWithSSo()
+		  	}else{
+			 	this.postRegistration();
+		  	}
 		  },
 
 		  render: function(){

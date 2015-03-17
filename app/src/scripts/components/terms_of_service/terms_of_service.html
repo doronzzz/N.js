@@ -1,5 +1,40 @@
-<div>
-	<h2>Terms of Service</h2>
+<style type="text/css">
+	body{
+		padding-bottom: 75px;
+	}
+	.termsWrapper{
+		position: fixed;
+		  bottom: 14px;
+		  width: 100%;
+		  background: #fff;
+		  height: auto;
+		  padding: 14px;
+	}
+
+	.acceptTerms{
+		padding:6px;
+	}
+
+	.pageHeader{
+		height: 250px;
+	 	width: 100%;
+		position: relative;
+		background: rgb(216, 216, 216);
+		color: gray;
+	}
+
+	.pageHeader h2{
+		position:absolute;
+		top:100px;
+		width: 100%;
+		text-align: center;
+	}
+</style>
+
+<div class="well container">
+	<div class="pageHeader">
+		<h2>Terms of Service</h2>
+	</div>
 	{{	if(obj['doc_html']){	}}
 		
 		<h3>{{=obj.name}}</h3>
@@ -12,12 +47,27 @@
 				<div>{{=obj.legal_docs.data[doc].doc_html}}</div>
 				<br/>
 				<br/>
+
 		{{	}	}}
 
-	<div class="btn btn-primary acceptTerms">
-		Accept
-	</div>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+
+
+	  	<ul class="nav navbar-nav">
+	        <li class="acceptTerms">
+	        	<span class="btn btn-primary" href="#">Accept</span>
+	        </li>
+	        <li>
+	        	<span class="btn-xs btn btn-default" style="margin-top: 12px;">Decline</span>
+	        </li>
+	    </ul>
+
+	  </div>
+	</nav>
+
 
 	{{	}	}}
+	
 </div>
 

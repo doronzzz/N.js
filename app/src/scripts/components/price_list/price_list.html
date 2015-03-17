@@ -80,17 +80,22 @@
 	    cursor: pointer;
 	}
 
-	.noSSO .emailWrapper{
-		display: block;
-		position: absolute;
-		width: 200px;
-		top: 50%;
-		left: 50%;
-		margin-left: -100px;
+	.noSSO.fillEmail .emailWrapper{
+	  display: block;
+	  position: absolute;
+	  width: 100%;
+	  top: 0px;
+	  background: white;
+	  height: 100%;
+	  padding: 25%;
 	}
 
-	.emailWrapper{
+	.noSSO.fillEmail.done .emailWrapper, .emailWrapper{
 		display:none;
+	}
+
+	.btn.btn-primary.postNoSSo {
+    	margin-top: 10px;
 	}
 
 	.thankYou{
@@ -262,7 +267,9 @@
 
 
 <div class="emailWrapper">
+	<h4 class="">Please enter your Email:</h4>
 	<input class="form-control email" type="text" placeholder="example@email.com"/>
+	<div class="btn btn-primary postNoSSo">Subscribe</div>
 </div>
 
 {{ if(obj.urlParams["terms-of-service-url"]) {	}}
