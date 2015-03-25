@@ -4,16 +4,37 @@
   		margin-top: 8px;
 	}
 
+	.passError{
+		display:none;
+		margin-top:8px;
+	}
+
+	.passError.show{
+		display:none;
+	}
+
+	.passConfirm{
+		margin-top:6px;
+	}
+
 </style>
 
 <div>
-	Finish Registration
+	Complete Registration
 	{{	if(obj['request-email'] === 'true'){	}}
 		<input class="form-control email" type="text" placeholder="email"/>
 	{{	}	}}
-	<input class="form-control pass" type="password" placeholder="password"/>
+	<input class="form-control pass" type="password" placeholder="Password"/>
+
+	<input class="form-control passConfirm" type="password" placeholder="Confirm Password"/>
+
+	<div class="alert alert-danger passError" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">Error:</span>
+	  Passwords do not match, please re-enter your password.
+	</div>
 
 	<div> 
-		<button class="button btn btn-primary activate">Finish</button>
+		<button class="button btn btn-primary activate">Complete</button>
 	</div>
 </div>

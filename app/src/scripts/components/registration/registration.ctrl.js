@@ -13,8 +13,9 @@ define(["backbone","text!registrationHTML","utils","text!../components/registrat
 		  	}
 		  	this.addStyle();
 		  	this.model = model;
-		  	this.listenToOnce(this.model, "change", this.render);
-		  	this.model.fetch({dataType:"jsonp"});
+		  	this.render();
+		  	//this.listenToOnce(this.model, "change", this.render);
+		  	//this.model.fetch({dataType:"jsonp"});
 		  },
 
 		  addStyle:function(){
@@ -23,8 +24,18 @@ define(["backbone","text!registrationHTML","utils","text!../components/registrat
 		  	$('body').append(styleEl);
 		  },
 
+		  passMatch:function(){
+		  	var pass = this.$el.find('input.pass').val();
+		  	var passConfirm = this.$el.find('input.passConfirm').val();
+		  	return (pass === passConfirm);
+		  },
+
 		  completeRegistration:function(){
 		  	//http://localhost:8090/registration/complete?registrationId=<regId>&email=<email>&password=<pass>
+		  	if(!this.passMatch()){
+		  		this.$el.find('.passError').addClass('show');
+		  		return false;
+		  	}
 		  	var baseURL = constants.nuregoApiUrl();
 		  	var email = this.$el.find('input.email').val();
 		  	var pass = this.$el.find('input.pass').val();

@@ -90,7 +90,8 @@
 	  padding: 25%;
 	}
 
-	.noSSO.fillEmail.done .emailWrapper, .emailWrapper{
+	.noSSO.fillEmail.done .emailWrapper, .emailWrapper,
+	.noSSO.fillEmail .nr-nurego-tag-line{
 		display:none;
 	}
 
@@ -115,6 +116,16 @@
 	  height: 100%;
 	  padding: 10%;
 	}
+
+	.unchecked .subscribeToPlan{
+		opacity:0.35;
+	}
+
+	.checked .subscribeToPlan{
+		opacity:1;
+	}
+
+
 
 </style>
 
@@ -274,7 +285,15 @@
 
 {{ if(obj.urlParams["terms-of-service-url"]) {	}}
 	<div class="nr-nurego-tag-line">
-	<input type="checkbox" name="terms" checked="checked">	by subscribing to our services you agree to our <a href="javascript:void(0)" class="terms">Terms of service</a>
+		
+		
+			 <div class="checkbox" id="checkbox">
+			    <label>
+			      <input name="terms" checked="checked" class="termsCheckbox" type="checkbox"> 
+			      by subscribing to our services you agree to our 
+			      <a href="javascript:void(0)" class="terms">Terms of service</a>
+			    </label>
+			  </div>
 	</div>
 {{	}	}}
 

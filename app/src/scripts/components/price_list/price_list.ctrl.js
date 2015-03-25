@@ -106,6 +106,9 @@ define(["backbone","text!priceListHTML","utils",
 		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
 		  	//alert($(window.top).width())
 		  	this.selectedPlan = $(e.target).attr('data-id');
+		  	if(this.$el.hasClass('unchecked')){
+		  		return;
+		  	}
 		  	if(this.$el.hasClass('noSSO')){
 		  		this.registerWithSSo()
 		  	}else{
@@ -113,11 +116,27 @@ define(["backbone","text!priceListHTML","utils",
 		  	}
 		  },
 
+		  bindEvents:function(){
+		  	var zis = this;
+		  	$('#checkbox .termsCheckbox').click(function() {
+			    var $this = $(this);
+			    // $this will contain a reference to the checkbox   
+			    if ($this.is(':checked')) {
+			    	zis.$el.addClass('checked');
+			    	zis.$el.removeClass('unchecked');
+			        // the checkbox was checked 
+			    } else {
+			    	zis.$el.addClass('unchecked');
+			    	zis.$el.removeClass('checked');
+			    }
+			});
+		  },
 		  render: function(){
 		  	var sso = utils.URLToArray(window.location.href).sso;
 		  	this.model.set('urlParams',this.params);
 		  	var html = this.template(this.model.attributes);
 		    this.$el.html(	html );
+		    this.bindEvents()
 		    if(sso && sso === "false"){
 		    	this.$el.addClass('noSSO');
 		    }
