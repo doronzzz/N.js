@@ -35,6 +35,14 @@
 	<div class="pageHeader">
 		<h2>Terms of Service</h2>
 	</div>
+	
+	<div class="alert alert-danger ajaxErrorMsg" role="alert" style="display:none">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">Error:</span>
+	  <span class="txt"></span>
+	</div>
+	
+
 	{{	if(obj['doc_html']){	}}
 		
 		<h3>{{=obj.name}}</h3>
@@ -60,6 +68,9 @@
 	        </li>
 	        <li>
 	        	<span class="btn-xs btn btn-default" style="margin-top: 12px;">Decline</span>
+	        </li>
+	          <li>
+	        	<span class="btn-xs btn btn-default" style="margin-top: 12px;">Remind me later</span>
 	        </li>
 	    </ul>
 

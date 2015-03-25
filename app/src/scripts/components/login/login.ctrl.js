@@ -1,6 +1,6 @@
-define(["backbone","text!loginHTML"],function(bb,loginTmpl){
+define(["backbone","text!loginHTML","absNuregoView"],function(bb,loginTmpl,absNuregoView){
 
-		var loginViewCtrl = Backbone.View.extend({
+		var loginViewCtrl = absNuregoView.extend({
 		  tagName: "div",
 		  className: "login",
 		  template: _.template(loginTmpl),
@@ -14,7 +14,7 @@ define(["backbone","text!loginHTML"],function(bb,loginTmpl){
 		  	}
 		  	this.model = model;
 		    this.listenToOnce(this.model, "change", this.render);
-		  	this.model.fetch({dataType:"jsonp"});
+		  	this.model.fetch({dataType:"jsonp",error:this.modelHttpErrorsHandler});
 		  },
 		
 		  login:function(e){

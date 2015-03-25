@@ -1,8 +1,9 @@
 define(["backbone","text!tosHTML","utils",
 		"text!../components/terms_of_service/terms_of_service.css",
-		"tosStatusModel","tosModel"],function(bb,tmpl,utils,css,tosStatusModel,tosModel){
+		"tosStatusModel","tosModel","absNuregoView"],
+		function(bb,tmpl,utils,css,tosStatusModel,tosModel,absNuregoView){
 
-		var activation = Backbone.View.extend({
+		var activation = absNuregoView.extend({
 		  tagName: "div",
 		  className: "terms_of_service",
 		  template: _.template(tmpl),
@@ -24,7 +25,10 @@ define(["backbone","text!tosHTML","utils",
 		  	}
 
 		  	this.listenToOnce(this.model, "change", this.render);
-		  	this.model.fetch({dataType:"jsonp"});
+		  	this.model.fetch({
+		  			dataType:"jsonp",
+		  			error:this.modelHttpErrorsHandler,
+		  		});
 		    this.addStyle();
 		  },
 
@@ -53,6 +57,7 @@ define(["backbone","text!tosHTML","utils",
 			  		xhrFields: {
 				        withCredentials: true
 				    },
+				    error:this.genericHttpErrorsHandler,
 			  		/*crossDomain: true,
 				    dataType: 'json', 
 				    contentType: "application/x-www-form-urlencoded",*/

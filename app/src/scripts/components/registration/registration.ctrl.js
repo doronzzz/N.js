@@ -1,5 +1,7 @@
-define(["backbone","text!registrationHTML","utils","text!../components/registration/registration.css"],function(bb,tmpl,utils,css){
-		var activation = Backbone.View.extend({
+define(["backbone","text!registrationHTML",
+		"utils","text!../components/registration/registration.css",
+		"absNuregoView"],function(bb,tmpl,utils,css,absNuregoView){
+		var activation = absNuregoView.extend({
 		  tagName: "div",
 		  className: "activation",
 		  template: _.template(tmpl),

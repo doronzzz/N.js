@@ -1,6 +1,6 @@
 define(["backbone","text!priceListHTML","utils",
-		"text!../components/price_list/price_list.css","tosModel"],function(bb,tmpl,utils,css,tosModel){
-		var priceList = Backbone.View.extend({
+		"text!../components/price_list/price_list.css","tosModel","absNuregoView"],function(bb,tmpl,utils,css,tosModel,absNuregoView){
+		var priceList = absNuregoView.extend({
 		  tagName: "div",
 		  className: "login",
 		  template: _.template(tmpl),
@@ -20,7 +20,7 @@ define(["backbone","text!priceListHTML","utils",
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
 		    this.listenToOnce(this.model, "change", this.render);
-		    this.model.fetch({dataType:"jsonp"});
+		    this.model.fetch({dataType:"jsonp",error:this.modelHttpErrorsHandler});
 		    this.addStyle();
 		  },
 		  
@@ -71,6 +71,9 @@ define(["backbone","text!priceListHTML","utils",
 		  	var zis = this;
 		  	var parent = utils.URLToArray(window.location.href).parent;
 		  	var callback = function(data,req){
+		  		if(data.error){
+		  			zis.errorMsgHandler(data);
+		  		}
 		  		var url,redirectUrl;
 		  		redirectUrl = zis.params['redirect-url'];
 		  		if(!redirectUrl){
@@ -97,6 +100,7 @@ define(["backbone","text!priceListHTML","utils",
 			    contentType: "application/x-www-form-urlencoded",
 		  		//data:"plan_id=" + params.plan_id + "&email=" + params.email,
 				//data: { plan_id: params.plan_id, email:params.email},
+				error:this.genericHttpErrorsHandler,
 		  		success:callback
 		  	})
 

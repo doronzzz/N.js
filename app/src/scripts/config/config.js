@@ -29,6 +29,7 @@ require.config({
         registrationHTML: '../components/registration/registration.html',
         tosHTML: '../components/terms_of_service/terms_of_service.html',
         tosViewCtrl: '../components/terms_of_service/terms_of_service.ctrl',
+        absNuregoView: '../components/abstract/abstract.view',
         Nurego: '../app',
         almond: '../../bower_components/almond/almond',
         prism: '../../bower_components/prism/prism'
