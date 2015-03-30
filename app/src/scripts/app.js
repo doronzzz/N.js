@@ -10,11 +10,12 @@ define([
 		"registrationViewCtrl",
 		"tosViewCtrl",
 		"tosModel",
-		"tosStatusModel"
+		"tosStatusModel",
+		"text!absNuregoCss"
 		],
 	function(constants,utils,widgetFactory,loginModel,registrationModel,
 			priceListModel,loginViewCtrl,priceListViewCtrl,registrationViewCtrl,
-			tosViewCtrl,tosModel,tosStatusModel){
+			tosViewCtrl,tosModel,tosStatusModel,absNuregoCss){
 				var app,lib;
 				app = {};
 				lib = {
@@ -82,10 +83,8 @@ define([
 
 				$(document).ready(function(){
 					var elems = $("nurego-widget");
-					var widgetStyle = "nurego-widget {display:block; height:100%; width:100%;} .alert{display:relative; z-index:9999999;}"
 					var styleEl = document.createElement('style');
-
-					styleEl.innerHTML = widgetStyle;
+					styleEl.innerHTML = absNuregoCss;
 					document.body.appendChild(styleEl);
 
 					if(elems.length){

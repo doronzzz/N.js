@@ -3,7 +3,7 @@
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
-var underscore, utils, constants, widgetFactory, jquery, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, Nurego;
+var underscore, utils, constants, widgetFactory, jquery, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, text_absNuregoCss, Nurego;
 (function () {
   // Baseline setup
   // --------------
@@ -10616,7 +10616,8 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
   });
   return activation;
 }(backbone, text_tosHTML, utils, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosModel, absNuregoView);
-Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel) {
+text_absNuregoCss = 'nurego-widget {\r\n\tdisplay:block;\r\n\theight:100%;\r\n\twidth:100%;\r\n}\r\n\r\n.alert{\r\n\tdisplay:relative;\r\n\tz-index:9999999;\r\n}';
+Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, absNuregoCss) {
   var app, lib;
   app = {};
   lib = {
@@ -10677,9 +10678,8 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
   };
   $(document).ready(function () {
     var elems = $('nurego-widget');
-    var widgetStyle = 'nurego-widget {display:block; height:100%; width:100%;} .alert{display:relative; z-index:9999999;}';
     var styleEl = document.createElement('style');
-    styleEl.innerHTML = widgetStyle;
+    styleEl.innerHTML = absNuregoCss;
     document.body.appendChild(styleEl);
     if (elems.length) {
       var comps = {};
@@ -10700,6 +10700,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
     }
   });
   return app;
-}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel);
+}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, text_absNuregoCss);
 window.Nurego = Nurego;
 }());

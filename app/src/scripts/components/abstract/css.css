@@ -1,0 +1,10 @@
+nurego-widget {
+	display:block;
+	height:100%;
+	width:100%;
+}
+
+.alert{
+	display:relative;
+	z-index:9999999;
+}
