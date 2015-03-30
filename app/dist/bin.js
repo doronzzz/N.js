@@ -10361,7 +10361,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
       this.listenToOnce(this.model, 'change', this.render);
       this.model.fetch({
         dataType: 'jsonp',
-        error: this.modelHttpErrorsHandler
+        error: _.bind(this.modelHttpErrorsHandler, this)
       });
       this.addStyle();
     },
@@ -10429,7 +10429,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
         contentType: 'application/x-www-form-urlencoded',
         //data:"plan_id=" + params.plan_id + "&email=" + params.email,
         //data: { plan_id: params.plan_id, email:params.email},
-        error: this.genericHttpErrorsHandler,
+        error: _.bind(this.genericHttpErrorsHandler, this),
         success: callback
       });
     },
@@ -10562,7 +10562,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
       this.listenToOnce(this.model, 'change', this.render);
       this.model.fetch({
         dataType: 'jsonp',
-        error: this.modelHttpErrorsHandler
+        error: _.bind(this.modelHttpErrorsHandler, this)
       });
       this.addStyle();
     },
@@ -10586,7 +10586,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
           type: 'post',
           async: false,
           xhrFields: { withCredentials: true },
-          error: this.genericHttpErrorsHandler,
+          error: _.bind(this.genericHttpErrorsHandler, this),
           /*crossDomain: true,
           dataType: 'json', 
           contentType: "application/x-www-form-urlencoded",*/
@@ -10677,6 +10677,10 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
   };
   $(document).ready(function () {
     var elems = $('nurego-widget');
+    var widgetStyle = 'nurego-widget {display:block; height:100%; width:100%;}';
+    var styleEl = document.createElement('style');
+    styleEl.innerHTML = widgetStyle;
+    document.body.appendChild(styleEl);
     if (elems.length) {
       var comps = {};
       for (var i = 0; i < elems.length; i++) {

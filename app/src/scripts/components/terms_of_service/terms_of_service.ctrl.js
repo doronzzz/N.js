@@ -27,7 +27,7 @@ define(["backbone","text!tosHTML","utils",
 		  	this.listenToOnce(this.model, "change", this.render);
 		  	this.model.fetch({
 		  			dataType:"jsonp",
-		  			error:this.modelHttpErrorsHandler,
+		  			error:_.bind(this.modelHttpErrorsHandler,this),
 		  		});
 		    this.addStyle();
 		  },
@@ -57,7 +57,7 @@ define(["backbone","text!tosHTML","utils",
 			  		xhrFields: {
 				        withCredentials: true
 				    },
-				    error:this.genericHttpErrorsHandler,
+				    error:_.bind(this.genericHttpErrorsHandler,this),
 			  		/*crossDomain: true,
 				    dataType: 'json', 
 				    contentType: "application/x-www-form-urlencoded",*/

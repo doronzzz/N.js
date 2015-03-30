@@ -28,7 +28,7 @@ define(["backbone","text!priceListHTML","utils",
 		  		this.template = _.template(themes[this.params.theme])
 		  	}
 		    this.listenToOnce(this.model, "change", this.render);
-		    this.model.fetch({dataType:"jsonp",error:this.modelHttpErrorsHandler});
+		    this.model.fetch({dataType:"jsonp",error:_.bind(this.modelHttpErrorsHandler,this)});
 		    this.addStyle();
 		  },
 		  
@@ -108,7 +108,7 @@ define(["backbone","text!priceListHTML","utils",
 			    contentType: "application/x-www-form-urlencoded",
 		  		//data:"plan_id=" + params.plan_id + "&email=" + params.email,
 				//data: { plan_id: params.plan_id, email:params.email},
-				error:this.genericHttpErrorsHandler,
+				error:_.bind(this.genericHttpErrorsHandler,this),
 		  		success:callback
 		  	})
 

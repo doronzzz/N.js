@@ -82,6 +82,12 @@ define([
 
 				$(document).ready(function(){
 					var elems = $("nurego-widget");
+					var widgetStyle = "nurego-widget {display:block; height:100%; width:100%;}"
+					var styleEl = document.createElement('style')
+
+					styleEl.innerHTML = widgetStyle;
+					document.body.appendChild(styleEl);
+					
 					if(elems.length){
 						var comps = {};
 						for(var i = 0; i<elems.length; i++){
