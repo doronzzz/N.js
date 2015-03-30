@@ -10686,7 +10686,9 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
       for (var i = 0; i < elems.length; i++) {
         var widgetAttrs = {};
         _.each(elems[i].attributes, function (node) {
-          widgetAttrs[node.nodeName] = node.value;
+          if (node.nodeName != 'style') {
+            widgetAttrs[node.nodeName] = node.value;
+          }
         });
         var comp = comps[widgetAttrs.name] = {};
         comp.element = elems[i];

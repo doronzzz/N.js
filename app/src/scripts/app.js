@@ -83,7 +83,7 @@ define([
 				$(document).ready(function(){
 					var elems = $("nurego-widget");
 					var widgetStyle = "nurego-widget {display:block; height:100%; width:100%;} .alert{display:relative; z-index:9999999;}"
-					var styleEl = document.createElement('style')
+					var styleEl = document.createElement('style');
 
 					styleEl.innerHTML = widgetStyle;
 					document.body.appendChild(styleEl);
@@ -93,7 +93,9 @@ define([
 						for(var i = 0; i<elems.length; i++){
 							var widgetAttrs = {};
 							_.each(elems[i].attributes,function(node){
-								widgetAttrs[node.nodeName] = node.value;
+								if(node.nodeName != "style"){
+									widgetAttrs[node.nodeName] = node.value;
+								}
 							});
 							var comp = comps[ widgetAttrs.name ] = {};
 							comp.element = elems[i];
