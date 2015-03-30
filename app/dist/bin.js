@@ -10629,7 +10629,12 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
         view: loginViewCtrl,
         model: loginModel
       },
+      price_list: {
+        view: priceListViewCtrl,
+        model: priceListModel
+      },
       priceList: {
+        //remove this node after we make sure no one is using this alias anymore.
         view: priceListViewCtrl,
         model: priceListModel
       },
