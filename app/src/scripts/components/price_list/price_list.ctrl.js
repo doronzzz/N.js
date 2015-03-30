@@ -1,5 +1,7 @@
 define(["backbone","text!priceListHTML","utils",
-		"text!../components/price_list/price_list.css","tosModel","absNuregoView"],function(bb,tmpl,utils,css,tosModel,absNuregoView){
+		"text!../components/price_list/price_list.css",
+		"tosModel","absNuregoView","text!priceListSingleTierHTML"],
+		function(bb,tmpl,utils,css,tosModel,absNuregoView,priceListSingleTierHTML){
 		var priceList = absNuregoView.extend({
 		  tagName: "div",
 		  className: "login",
@@ -11,14 +13,20 @@ define(["backbone","text!priceListHTML","utils",
 		  },
 
 		  initialize: function(model,customTmpl){
-		  	if(customTmpl){
-		  		this.template = _.template(customTmpl);
-		  	}
+		  	var themes = {
+		  		singleTier:priceListSingleTierHTML,
+		  		multitier:tmpl
+		  	};
 		  	this.tosModel = new tosModel();
 		    this.tosModel.fetch({dataType:"jsonp"});
 		    this.selectedPlan = "";
 		  	this.model = model;
 		  	this.params = utils.URLToArray(window.location.href);
+		  	if(customTmpl){
+		  		this.template = _.template(customTmpl);
+		  	}else if(this.params.theme && themes[this.params.theme]){
+		  		this.template = _.template(themes[this.params.theme])
+		  	}
 		    this.listenToOnce(this.model, "change", this.render);
 		    this.model.fetch({dataType:"jsonp",error:this.modelHttpErrorsHandler});
 		    this.addStyle();
@@ -113,7 +121,7 @@ define(["backbone","text!priceListHTML","utils",
 		  	if(this.$el.hasClass('unchecked')){
 		  		return;
 		  	}
-		  	if(this.$el.hasClass('noSSO')){
+		  	if(this.$el.hasClass('noSSO') && !this.params.theme){
 		  		this.registerWithSSo()
 		  	}else{
 			 	this.postRegistration();

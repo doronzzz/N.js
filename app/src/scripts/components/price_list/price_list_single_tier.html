@@ -1,0 +1,413 @@
+<style>
+*,*:before,*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+html,html a {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004)
+}
+
+html {
+    font-size: 14px
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,html,body {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background: #fff;
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    height: 100%;
+    position: relative
+}
+
+@media only screen and (min-width: 768px) {
+    .nr-large-16 {
+        position:relative;
+        width: 100%
+    }
+
+    .nr-large-8 {
+        position: relative;
+        width: 50%
+    }
+}
+
+.nr-column {
+    position: relative;
+    padding-left: .9375em;
+    padding-right: .9375em;
+    float: left;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0
+}
+
+.nr-price {
+    text-align: center
+}
+
+.nr-price-plans {
+    background: #565a6b;
+    max-width: 1007px
+}
+
+.nr-price-plans-left {
+    margin-top: 40px;
+    margin-bottom: 40px
+}
+
+.nr-price-plans-right {
+    margin-top: 40px;
+    margin-bottom: 40px
+}
+
+.nr-price-plans-right .nr-title {
+    color: #bdffbd;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    font-weight: lighter;
+    font-size: 2.571em
+}
+
+.nr-price-plans-right .nr-description {
+    margin-left: 20px;
+    color: white;
+    font-size: 1.125em;
+    line-height: 23px;
+    font-weight: normal;
+    margin-bottom: 40px
+}
+
+.nr-bg-white {
+    background: white
+}
+
+.nr-price-value {
+    color: #00be18;
+    margin-top: 30px;
+    font-size: 3.125em;
+    margin-bottom: 10px;
+    font-weight: lighter
+}
+
+.nr-price-info {
+    color: #565a6b;
+    font-weight: bold;
+    font-size: 1.286em
+}
+
+.nr-features {
+    position: relative;
+    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px
+}
+
+.nr-ul li {
+    line-height: 20px;
+    margin-bottom: 10px;
+    list-style-type: none
+}
+
+.nr-ul li .nr-feature-info {
+    margin-left: 100px;
+    margin-bottom: 50px
+}
+
+.nr-ul li .nr-feature-check {
+    color: #00be18;
+    font-size: 15px
+}
+
+.nr-feature-price {
+    margin-left: -120px;
+    float: left;
+    font-size: 40px;
+    line-height: 40px;
+    color: #00be18
+}
+
+.nr-name-per {
+    font-weight: normal
+}
+
+.nr-ul li .nr-feature-info .nr-title {
+    color: black;
+    font-size: 1.8em;
+    line-height: 1.2em;
+    float: left;
+    width: 100%
+}
+
+.nr-price-and-title {
+    margin-left: 40px
+}
+
+.nr-ul li .nr-feature-info .nr-description {
+    color: #565a6b;
+    font-weight: normal;
+    font-size: 1em
+}
+
+.nr-bottom {
+    position: absolute;
+    bottom: 40px;
+    text-align: center
+}
+
+.nr-nurego-cc-require {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    text-align: right;
+    font-size: 14px;
+    color: white
+}
+
+.nr-nurego-tag-line {
+    position: absolute;
+    bottom: -30px;
+    text-align: right;
+    font-size: 12px;
+    color: white
+}
+
+.nr-nurego-tag-line a {
+    color: #bdffbd
+}
+
+.nr-bottom a {
+    border: 1px solid #bdffbd;
+    color: #bdffbd;
+    text-transform: uppercase;
+    padding: 10px 43px;
+    text-decoration: none
+}
+
+.nr-bottom a:hover {
+    background-color: #bdffbd;
+    color: #565a6b
+}
+
+#trial-ribbon {
+    display: none
+}
+
+/*!
+ * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License
+ * https://github.com/simonwhitaker/github-fork-ribbon-css
+*/
+.github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.15)));
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+    background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+    background-image: -ms-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+    background-image: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.15));
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);
+    font: 700 13px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    z-index: 9999;
+    pointer-events: auto
+}
+
+.github-fork-ribbon span,.github-fork-ribbon span:hover {
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 250px;
+    line-height: 30px;
+    display: inline-block;
+    padding: 2px 0;
+    border-width: 1px 0;
+    border-style: dotted;
+    border-color: #fff;
+    border-color: rgba(255,255,255,0.7)
+}
+
+.github-fork-ribbon-wrapper {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    z-index: 9999;
+    pointer-events: none
+}
+
+.github-fork-ribbon-wrapper.fixed {
+    position: fixed
+}
+
+.github-fork-ribbon-wrapper.left {
+    left: 0
+}
+
+.github-fork-ribbon-wrapper.right {
+    right: 0
+}
+
+.github-fork-ribbon-wrapper.left-bottom {
+    position: fixed;
+    top: inherit;
+    bottom: 0;
+    left: 0
+}
+
+.github-fork-ribbon-wrapper.right-bottom {
+    position: fixed;
+    top: inherit;
+    bottom: 0;
+    right: 0
+}
+
+.github-fork-ribbon-wrapper.right .github-fork-ribbon {
+    top: 42px;
+    right: -43px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+.github-fork-ribbon-wrapper.left .github-fork-ribbon {
+    top: 52px;
+    left: -53px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+
+.github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
+    top: 80px;
+    left: -43px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+.github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
+    top: 80px;
+    right: -43px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+}
+
+.nurego-ribbon {
+    background-color: #69be28;
+    font-size: 18px
+}
+
+.nr-description a {
+    color: #bdffbd
+}
+
+.nr-description p {
+    margin-bottom: 20px
+}
+
+.section-header {
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+.cent-symbol {
+    font-size: 26px;
+    margin-top: -5px
+}
+
+</style>
+<div id="pricing-page" class="vc_col-sm-12" style="margin:0 auto;">
+<div class="nr-large-16 nr-column nr-price-plans" data-external-id="7f10c490-cdb5-420b-ad7f-5b31a95144ca"> 
+  <div class="nr-large-8 nr-column nr-price-plans-left" id="nr_pp_left"> 
+    <div class="nr-large-16 nr-column nr-bg-white"> 
+      <div class="nr-large-16 nr-column nr-price"> 
+        <div class="nr-price-value" style="font-size: 20px; font-weight: bold;">Pay per Subscriber</div> 
+        <div class="nr-price-info"></div> 
+      </div> 
+      <div class="nr-large-16 nr-column"> 
+        <div class="nr-features"> 
+          <ul class="nr-ul"> 
+            <li style="display:none" class="nr-feature-item"> 
+              <div class="nr-feature-info">
+                <div class="nr-price-and-title"> 
+                  <span class="nr-feature-price">
+                  </span>
+                  <div class="nr-title">Pay only for what you use</div>
+                  <span class="nr-description"><p>No  monthly or hidden fees. You only pay for the number of subscribers you have.</p><p>More than 200 subscribers?   Send us an email for volume discounts - <a href="mailto:hello@nurego.com">hello@nurego.com</a>.</p></span>
+                </div>  
+              </div> 
+            </li> 
+          <li style="display: list-item;" class="nr-feature-item"> 
+              <div class="nr-feature-info">
+                <div class="nr-price-and-title"> 
+                  <span class="nr-feature-price">&nbsp;&nbsp;5<span class="cent-symbol">¢</span></span>
+                  <div class="nr-title">per </div>
+                  <span class="nr-description">Number of Free Subscribers</span>
+                </div>  
+              </div> 
+            </li><li style="display: list-item;" class="nr-feature-item"> 
+              <div class="nr-feature-info">
+                <div class="nr-price-and-title"> 
+                  <span class="nr-feature-price">&nbsp;&nbsp;50<span class="cent-symbol">¢</span></span>
+                  <div class="nr-title">per </div>
+                  <span class="nr-description">Number of Paid Subscribers</span>
+                </div>  
+              </div> 
+            </li></ul> 
+        </div> 
+      </div> 
+    </div> 
+  </div> 
+  <div class="nr-large-8 nr-column nr-price-plans-right" id="nr_pp_right" style="height: 383px;"> 
+    <div class="nr-large-16 nr-column"> 
+      <div class="nr-title">Pay only for what you use</div> 
+      <div class="nr-description"><p>No  monthly or hidden fees. You only pay for the number of subscribers you have.</p><p>More than 200 subscribers?   Send us an email for volume discounts - <a href="mailto:hello@nurego.com">hello@nurego.com</a>.</p></div> 
+    </div> 
+    <div class="nr-large-16 nr-column nr-bottom"> 
+      <div id="sign-up-button-div" style=""> 
+        <a id="sign-up-button" href="javascript:void(0)" class="nr-plan-select plan-select" data-id="{{=obj.plans[0].id}}">Get Started</a>
+      </div> 
+    </div>
+    <div class="nr-large-16 nr-column nr-nurego-cc-require" style="display: block;"> 
+      No credit card required
+    </div>
+    <div class="nr-large-16 nr-column nr-nurego-tag-line"> 
+      Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
+    </div>
+  </div>
+  
+  <!-- TOP LEFT RIBBON -->
+  <div class="github-fork-ribbon-wrapper left" id="trial-ribbon">
+      <div class="github-fork-ribbon nurego-ribbon">
+          <span href="#" id="trial-ribbon-text">RIBBON TEXT (e.g. 30-day free trial)</span>
+      </div>
+  </div>
+<div class="nr-container nr-loading" style="display: none;"></div><div class="nr-notify nr-yellow" style="display: none;"></div><div class="nr-notify nr-red" style="display: none;"></div><div class="nr-container nr-empty" style="display: none;"></div></div></div>

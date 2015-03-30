@@ -26,6 +26,7 @@ require.config({
         registrationViewCtrl: '../components/registration/registration.ctrl',
         loginHTML: '../components/login/login.html',
         priceListHTML: '../components/price_list/price_list.html',
+        priceListSingleTierHTML: '../components/price_list/price_list_single_tier.html',
         registrationHTML: '../components/registration/registration.html',
         tosHTML: '../components/terms_of_service/terms_of_service.html',
         tosViewCtrl: '../components/terms_of_service/terms_of_service.ctrl',
