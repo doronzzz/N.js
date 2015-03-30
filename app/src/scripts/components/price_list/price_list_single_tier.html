@@ -161,7 +161,7 @@ body {
 .nr-bottom {
     position: absolute;
     bottom: 40px;
-    text-align: center
+    text-align: left;
 }
 
 .nr-nurego-cc-require {
@@ -183,6 +183,18 @@ body {
 
 .nr-nurego-tag-line a {
     color: #bdffbd
+}
+
+.termsWrapper {
+  color:white;
+  font-size: 12px;
+  margin:35px 0px 0px 0px;
+}
+
+.termsWrapper a {
+  color:#bdffbd;
+  border: 0px !important;
+  padding: 0px !important;
 }
 
 .nr-bottom a {
@@ -343,6 +355,10 @@ body {
     margin-top: -5px
 }
 
+.unchecked .plan-select{
+  opacity: 0.3;
+}
+
 </style>
 <div id="pricing-page" class="vc_col-sm-12" style="margin:0 auto;">
 <div class="nr-large-16 nr-column nr-price-plans" data-external-id="7f10c490-cdb5-420b-ad7f-5b31a95144ca"> 
@@ -395,6 +411,17 @@ body {
       <div id="sign-up-button-div" style=""> 
         <a id="sign-up-button" href="javascript:void(0)" class="nr-plan-select plan-select" data-id="{{=obj.plans[0].id}}">Get Started</a>
       </div> 
+
+      {{ if(obj.urlParams["terms-of-service-url"]) {  }}
+           <div class="checkbox termsWrapper" id="checkbox">
+              <label>
+                <input name="terms" checked="checked" class="termsCheckbox" type="checkbox"> 
+                by subscribing to our services you agree to our 
+                <a href="javascript:void(0)" class="terms">Terms of service</a>
+              </label>
+            </div>
+      {{  } }}
+    
     </div>
     <div class="nr-large-16 nr-column nr-nurego-cc-require" style="display: block;"> 
       No credit card required
@@ -402,6 +429,8 @@ body {
     <div class="nr-large-16 nr-column nr-nurego-tag-line"> 
       Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>
     </div>
+
+
   </div>
   
   <!-- TOP LEFT RIBBON -->

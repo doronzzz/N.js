@@ -5,9 +5,14 @@
 	}
 
 	.cell {
-		padding: 8px;
-		border: 1px solid #E8E8E8;
-		min-height: 40px;
+		  padding: 8px;
+		  border: 1px solid #E8E8E8;
+		  min-height: 50px;
+		  max-height: 50px;
+		  overflow: hidden;
+		  white-space: nowrap;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
 	}
 
 	.headers div,
@@ -67,7 +72,7 @@
 		border: 0px;
 		padding: 6px;
 		font-size: 16px;
-		margin: 8px 1px 0px 1px;
+		/*margin: 8px 1px 0px 1px;*/
 	}
 
 	.subscribeToPlan span {
@@ -134,7 +139,7 @@
 				
 			</div>
 	{{  for(var plan in plans) { }}		        		
-    		<div class="header cell">
+    		<div class="header cell" title="{{=plans[plan].name}}">
 				{{=plans[plan].name}}
     		</div>
 
@@ -173,7 +178,7 @@
 </div>
 
 <div class="ccHeaders headers">
-			<div class="price header cell">
+			<div class="price header cell" title="Credit Cards">
 				Credit Cards
 			</div>
 	{{  for(var plan in plans) { }}		        		
@@ -201,7 +206,7 @@
 				{{  for(var item in features) { }}
 		        	
 		        	{{	if([features[item]] != 'recurring') {	 }}
-		        		<div class="featureName cell">
+		        		<div class="featureName cell" title="{{=features[item]}}">
 							{{=features[item]}}
 		        		</div>
 		        	{{	}	}}
@@ -266,10 +271,11 @@
 							{{	}	}}
 		        		</div>
 
+		        		{{	if(!obj.urlParams["preview"]) {	}}
 		        		<div class="subscribeToPlan">
 							<span class="plan-select" data-id="{{=plans[plan].id}}">subscribe</span>
 						</div>
-	
+						{{	}	}}
 			</div>
 	{{  } }}
 
