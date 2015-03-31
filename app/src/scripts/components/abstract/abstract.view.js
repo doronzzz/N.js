@@ -1,10 +1,9 @@
-define(["backbone"],function(bb,loginTmpl){
+define(["backbone","utils"],function(bb,utils){
 		var absNuregoView = Backbone.View.extend({
 		  initialize: function(model,customTmpl){
 		  	this.showErrors = utils.URLToArray(window.location.href)['show-errors'];
 		  	this.params = utils.URLToArray(window.location.href);
-		  	debugger;
-		  	if(this.params.css){debugger;
+		  	if(this.params.css){
 		  		var link = document.createElement('link');
 				link.setAttribute('rel', 'stylesheet');
 				link.setAttribute('type', 'text/css');

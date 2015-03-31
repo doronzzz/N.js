@@ -10250,14 +10250,12 @@ text = {
   }
 };
 text_loginHTML = '<div>\r\n\twelcome {{=user.name}} - {{=user.last}}\r\n\t<input class="form-control" type="text" placeholder="username"/>\r\n\t<input class="form-control" type="text" placeholder="password"/>\r\n\r\n\t<br/>\r\n\t<div>\r\n\t\t<button class="button btn btn-primary">Login</button>\r\n\t</div>\r\n</div>\r\n';
-absNuregoView = function (bb, loginTmpl) {
+absNuregoView = function (bb, utils) {
   var absNuregoView = Backbone.View.extend({
     initialize: function (model, customTmpl) {
       this.showErrors = utils.URLToArray(window.location.href)['show-errors'];
       this.params = utils.URLToArray(window.location.href);
-      debugger;
       if (this.params.css) {
-        debugger;
         var link = document.createElement('link');
         link.setAttribute('rel', 'stylesheet');
         link.setAttribute('type', 'text/css');
@@ -10297,7 +10295,7 @@ absNuregoView = function (bb, loginTmpl) {
     }
   });
   return absNuregoView;
-}(backbone);
+}(backbone, utils);
 loginViewCtrl = function (bb, loginTmpl, absNuregoView) {
   var loginViewCtrl = absNuregoView.extend({
     tagName: 'div',
