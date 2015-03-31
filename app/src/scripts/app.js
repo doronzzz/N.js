@@ -53,6 +53,50 @@ define([
 						lib.widgetFactory.build(k,v);
 					})
 				},
+
+				app.initObserver = function(){
+					// The node to be monitored
+					var target = $( "body" )[0];
+
+					// Create an observer instance
+					var observer = new MutationObserver(function( mutations ) {
+					  mutations.forEach(function( mutation ) {
+					  	console.log(mutation);
+					    var newNodes = mutation.addedNodes; // DOM NodeList
+					    if( newNodes !== null ) { // If there are new nodes added
+					    	var $nodes = $( newNodes ); // jQuery set
+					    	$nodes.each(function() {
+					    		var $node = $( this );
+					    		var comps = {};
+									var widgetAttrs = {};
+									_.each(this.attributes,function(node){
+										if(node.nodeName != "style"){
+											widgetAttrs[node.nodeName] = node.value;
+										}
+									});
+
+									var comp = comps[ widgetAttrs.name ] = {};
+									comp.element = this;
+									comp.configParams = widgetAttrs;
+									comp.configParams.urlParams = lib.utils.URLToArray(window.location.href);
+
+								console.log(comps)
+								app.init({components:comps});
+					    	});
+					    }
+					  });    
+					});
+
+					// Configuration of the observer:
+					var config = { 
+						attributes: true, 
+						childList: true, 
+						characterData: true 
+					};
+					 
+					// Pass in the target node, as well as the observer options
+					observer.observe(target, config);
+				},
 				
 				app.onWidgetLoaded = function(){
 					var params,thisWidget,widgetModel,widgetView,callback;
@@ -108,6 +152,7 @@ define([
 						console.log(comps)
 						app.init({components:comps});
 					}
+					app.initObserver();
 				});
 
 				return app;
