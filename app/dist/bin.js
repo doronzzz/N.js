@@ -10254,6 +10254,16 @@ absNuregoView = function (bb, loginTmpl) {
   var absNuregoView = Backbone.View.extend({
     initialize: function (model, customTmpl) {
       this.showErrors = utils.URLToArray(window.location.href)['show-errors'];
+      this.params = utils.URLToArray(window.location.href);
+      debugger;
+      if (this.params.css) {
+        debugger;
+        var link = document.createElement('link');
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('type', 'text/css');
+        link.setAttribute('href', this.params.css);
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
     },
     errorMsgHandler: function (response) {
       if (this.showErrors && this.showErrors !== 'false') {
