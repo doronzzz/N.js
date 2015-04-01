@@ -10688,19 +10688,21 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
           // jQuery set
           $nodes.each(function () {
             var $node = $(this);
-            var comps = {};
-            var widgetAttrs = {};
-            _.each(this.attributes, function (node) {
-              if (node.nodeName != 'style') {
-                widgetAttrs[node.nodeName] = node.value;
-              }
-            });
-            var comp = comps[widgetAttrs.name] = {};
-            comp.element = this;
-            comp.configParams = widgetAttrs;
-            comp.configParams.urlParams = lib.utils.URLToArray(window.location.href);
-            console.log(comps);
-            app.init({ components: comps });
+            if ($node.prop('tagName') === 'NUREGO-WIDGET') {
+              var comps = {};
+              var widgetAttrs = {};
+              _.each(this.attributes, function (node) {
+                if (node.nodeName != 'style') {
+                  widgetAttrs[node.nodeName] = node.value;
+                }
+              });
+              var comp = comps[widgetAttrs.name] = {};
+              comp.element = this;
+              comp.configParams = widgetAttrs;
+              comp.configParams.urlParams = lib.utils.URLToArray(window.location.href);
+              console.log(comps);
+              app.init({ components: comps });
+            }
           });
         }
       });
