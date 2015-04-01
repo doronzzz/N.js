@@ -13,6 +13,8 @@ define(["backbone","text!priceListHTML","utils",
 		  },
 
 		  initialize: function(model,customTmpl){
+		  	//this.__super__.initialize.apply(this);
+		  	
 		  	var themes = {
 		  		singleTier:priceListSingleTierHTML,
 		  		multitier:tmpl

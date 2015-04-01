@@ -10,6 +10,7 @@ define(["backbone","text!registrationHTML",
 		  },
 
 		  initialize: function(model,customTmpl){
+		  	//this.__super__.initialize.apply(this);
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}

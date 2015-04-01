@@ -12,6 +12,7 @@ define(["backbone","text!tosHTML","utils",
 		  },
 
 		  initialize: function(model,customTmpl){
+		  	//this.__super__.initialize.apply(this);
 		  	this.params = utils.URLToArray(window.location.href);
 		  	
 		  	if(customTmpl){

@@ -67,7 +67,8 @@ define([
 					    	var $nodes = $( newNodes ); // jQuery set
 					    	$nodes.each(function() {
 					    		var $node = $( this );
-					    		var comps = {};
+					    		if($node.prop('tagName') === "NUREGO-WIDGET"){
+					    			var comps = {};
 									var widgetAttrs = {};
 									_.each(this.attributes,function(node){
 										if(node.nodeName != "style"){
@@ -80,8 +81,9 @@ define([
 									comp.configParams = widgetAttrs;
 									comp.configParams.urlParams = lib.utils.URLToArray(window.location.href);
 
-								console.log(comps)
-								app.init({components:comps});
+									console.log(comps)
+									app.init({components:comps});
+					    		}
 					    	});
 					    }
 					  });    

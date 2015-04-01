@@ -10303,6 +10303,7 @@ loginViewCtrl = function (bb, loginTmpl, absNuregoView) {
     template: _.template(loginTmpl),
     events: { 'click .button': 'login' },
     initialize: function (model, customTmpl) {
+      //this.__super__.initialize.apply(this);
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
@@ -10359,6 +10360,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
       'click .postNoSSo': 'postRegistration'
     },
     initialize: function (model, customTmpl) {
+      //this.__super__.initialize.apply(this);
       var themes = {
         singleTier: priceListSingleTierHTML,
         multitier: tmpl
@@ -10498,6 +10500,7 @@ registrationViewCtrl = function (bb, tmpl, utils, css, absNuregoView) {
     template: _.template(tmpl),
     events: { 'click .activate': 'completeRegistration' },
     initialize: function (model, customTmpl) {
+      //this.__super__.initialize.apply(this);
       if (customTmpl) {
         this.template = _.template(customTmpl);
       }
@@ -10565,6 +10568,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
     template: _.template(tmpl),
     events: { 'click .acceptTerms': 'acceptTerms' },
     initialize: function (model, customTmpl) {
+      //this.__super__.initialize.apply(this);
       this.params = utils.URLToArray(window.location.href);
       if (customTmpl) {
         this.template = _.template(customTmpl);
