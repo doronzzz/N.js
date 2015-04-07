@@ -1,3 +1,29 @@
+______________________________
+
+
+***Date: 07/04/15***
+
+- if element type is feature use the feature name and not the billing element name.
+- fix table with horiz scrolling. and cell alignments.
+- fix checkbox alignment.
+- prints errors with response code. (if error code is 400 print response error).
+
+
+catalog :{
+	catalog,
+	sections
+	single section
+	single item
+}
+
+examples: ibm cloud, cardtap,azure,cloudfoundry catalog.
+
+
+
+
+___________________________________
+
+
 *** add isSSo flag to priceList
 *** pricelist stylesheet.
 *** parse client jsons keep in mind that this parser will be used for html templates.

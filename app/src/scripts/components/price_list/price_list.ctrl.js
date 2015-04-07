@@ -14,16 +14,18 @@ define(["backbone","text!priceListHTML","utils",
 
 		  initialize: function(model,customTmpl){
 		  	//this.__super__.initialize.apply(this);
-		  	
+		  	this.params = utils.URLToArray(window.location.href);
 		  	var themes = {
 		  		singleTier:priceListSingleTierHTML,
 		  		multitier:tmpl
 		  	};
-		  	this.tosModel = new tosModel();
-		    this.tosModel.fetch({dataType:"jsonp"});
+		  	if(!this.params.preview){
+		  		this.tosModel = new tosModel();
+		    	this.tosModel.fetch({dataType:"jsonp"});
+		  	}
+
 		    this.selectedPlan = "";
 		  	this.model = model;
-		  	this.params = utils.URLToArray(window.location.href);
 		  	if(customTmpl){
 		  		this.template = _.template(customTmpl);
 		  	}else if(this.params.theme && themes[this.params.theme]){
