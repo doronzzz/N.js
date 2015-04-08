@@ -1,6 +1,8 @@
 define(["underscore","jquery"],function(_,jq){
 	
 	window.$Nurego = jq.noConflict();
+	window.jQuery = $;
+	
 	//Doron: Overwrite template syntax to a more angular like syntax
 	_.templateSettings = {
     	interpolate: /\{\{=(.+?)\}\}/g,
