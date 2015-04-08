@@ -1,6 +1,6 @@
 define(["backbone","text!registrationHTML",
 		"utils","text!../components/registration/registration.css",
-		"absNuregoView"],function(bb,tmpl,utils,css,absNuregoView){
+		"absNuregoView","jquery"],function(bb,tmpl,utils,css,absNuregoView,$Nurego){
 		var activation = absNuregoView.extend({
 		  tagName: "div",
 		  className: "activation",
@@ -24,7 +24,7 @@ define(["backbone","text!registrationHTML",
 		  addStyle:function(){
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
-		  	$('body').append(styleEl);
+		  	$Nurego('body').append(styleEl);
 		  },
 
 		  passMatch:function(){

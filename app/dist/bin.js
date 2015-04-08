@@ -3,7 +3,7 @@
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
-var underscore, utils, constants, widgetFactory, jquery, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, text_absNuregoCss, Nurego;
+var underscore, jquery, utils, constants, widgetFactory, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, text_absNuregoCss, Nurego;
 (function () {
   // Baseline setup
   // --------------
@@ -1379,146 +1379,6 @@ var underscore, utils, constants, widgetFactory, jquery, backbone, loginModel, r
     }();
   }
 }.call(this));
-utils = function (_) {
-  //Doron: Overwrite template syntax to a more angular like syntax
-  _.templateSettings = {
-    interpolate: /\{\{=(.+?)\}\}/g,
-    evaluate: /\{\{(.+?)\}\}/g
-  };
-  //polyfill for location.origin
-  if (!window.location.origin) {
-    window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-  }
-  var Utils = {
-    URLToArray: function (url) {
-      var request = {};
-      var pairs = url.substring(url.indexOf('?') + 1).split('&');
-      for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i].split('=');
-        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-      }
-      return request;
-    },
-    listen: function (fn) {
-      debugger;
-      var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
-      var eventer = window[eventMethod];
-      var messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message';
-      eventer(messageEvent, fn, false);
-    }
-  };
-  return Utils;
-}(underscore);
-constants = {
-  jsBaseURL: function () {
-    var baseUrlEl = $('nurego-js-baseurl').attr('url');
-    if (baseUrlEl) {
-      return baseUrlEl;
-    } else {
-      return 'http://rawgit.com/doronzzz/N.js/master/app/src';
-    }
-  },
-  getNuregoApiKey: function () {
-    //return "l402b7a9-dc19-43fd-89cd-64e8fe101347";
-    var apiKey = $('nurego-public-customer-id').attr('id');
-    var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
-    if (apiKey) {
-      return apiKey;
-    }
-    if (apiKeyParam) {
-      return apiKeyParam;
-    } else {
-      return false;
-    }
-  },
-  nuregoApiUrl: function () {
-    var nuregoApi = $('nurego-api-baseurl').attr('url');
-    var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
-    if (nuregoApi) {
-      return nuregoApi;
-    }
-    if (nuregoApiParam) {
-      return nuregoApiParam;
-    } else {
-      //staging is the default
-      return 'https://am-staging.nurego.com/v1';
-    }
-  },
-  widgetsURL: function () {
-    return this.jsBaseURL() + '/widget.html';
-  }
-};
-widgetFactory = function (_, utils, constants) {
-  var widgetsFactory = {
-    options: {
-      widget: '',
-      html: '',
-      css: '',
-      parentUrl: '',
-      token: ''
-    },
-    build: function (components, opt) {
-      console.log('1');
-      this.createWidgetFrame(components, opt);
-    },
-    createWidgetFrame: function (component, opt) {
-      var compSrc = this.buildComponentUrl(component, opt);
-      var iframe = document.createElement('iframe');
-      iframe.src = compSrc;
-      this.decorateIframe(iframe);
-      $(opt.element).append(iframe);
-    },
-    decorateIframe: function (iframeEl) {
-      /*var style ={"width","100%"}
-      	{"height","100%"}
-      	{"height","100%"}
-      	{"display","block"}
-      	{"border","0px"}
-      	*/
-      iframeEl.style.setProperty('width', '100%');
-      iframeEl.style.setProperty('height', '100%');
-      iframeEl.style.setProperty('display', 'block');
-      iframeEl.style.setProperty('border', '0px');
-      iframeEl.seamless = 'seamless';
-      var zisUtils = utils;
-      var onWidgetLoad = function (e) {
-        var params = zisUtils.URLToArray(this.src);
-        var iframe = this;
-        var fn = function (data) {
-          //post html result to init widget with template;
-          iframe.contentWindow.postMessage(data, '*');
-        };
-        if (params.html && params.html != 'null') {
-          $.get(params.html, fn);
-        }
-      };
-      iframeEl.onload = onWidgetLoad;  //TDB:  //iframe.onload(subscribe to js hub events)
-    },
-    buildComponentUrl: function (component, opt) {
-      var nuregoApiParam = constants.getNuregoApiKey();
-      var res = constants.widgetsURL() + '?widget=' + component;
-      res += '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
-      res += '&parent=' + window.location.origin;
-      var indx = 0;
-      _.each(opt.configParams, function (val, key) {
-        if (key !== 'urlParams') {
-          var seperator = '&';
-          //(indx === 0) ? "?" : "&";
-          res += seperator + key + '=' + val;
-          indx++;
-        }
-      });
-      _.each(opt.configParams.urlParams, function (val, key) {
-        var seperator = '&';
-        //(indx === 0) ? "?" : "&";
-        res += seperator + key + '=' + val;
-        indx++;
-      });
-      return res;
-    }
-  };
-  return widgetsFactory;
-}(underscore, utils, constants);
 /*!
  * jQuery JavaScript Library v2.1.3
  * http://jquery.com/
@@ -8555,6 +8415,148 @@ widgetFactory = function (_, utils, constants) {
   }
   return jQuery;
 }));
+utils = function (_, jq) {
+  window.$Nurego = jq.noConflict();
+  //Doron: Overwrite template syntax to a more angular like syntax
+  _.templateSettings = {
+    interpolate: /\{\{=(.+?)\}\}/g,
+    evaluate: /\{\{(.+?)\}\}/g
+  };
+  //polyfill for location.origin
+  if (!window.location.origin) {
+    window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+  }
+  var Utils = {
+    URLToArray: function (url) {
+      var request = {};
+      var pairs = url.substring(url.indexOf('?') + 1).split('&');
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return request;
+    },
+    listen: function (fn) {
+      var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
+      var eventer = window[eventMethod];
+      var messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message';
+      eventer(messageEvent, fn, false);
+    }
+  };
+  return Utils;
+}(underscore, jquery);
+constants = function (utils, $Nurego) {
+  return {
+    jsBaseURL: function () {
+      var baseUrlEl = $Nurego('nurego-js-baseurl').attr('url');
+      if (baseUrlEl) {
+        return baseUrlEl;
+      } else {
+        return 'http://rawgit.com/doronzzz/N.js/master/app/src';
+      }
+    },
+    getNuregoApiKey: function () {
+      //return "l402b7a9-dc19-43fd-89cd-64e8fe101347";
+      var apiKey = $Nurego('nurego-public-customer-id').attr('id');
+      var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
+      if (apiKey) {
+        return apiKey;
+      }
+      if (apiKeyParam) {
+        return apiKeyParam;
+      } else {
+        return false;
+      }
+    },
+    nuregoApiUrl: function () {
+      var nuregoApi = $Nurego('nurego-api-baseurl').attr('url');
+      var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
+      if (nuregoApi) {
+        return nuregoApi;
+      }
+      if (nuregoApiParam) {
+        return nuregoApiParam;
+      } else {
+        //staging is the default
+        return 'https://am-staging.nurego.com/v1';
+      }
+    },
+    widgetsURL: function () {
+      return this.jsBaseURL() + '/widget.html';
+    }
+  };
+}(utils, jquery);
+widgetFactory = function (_, utils, constants, $Nurego) {
+  var widgetsFactory = {
+    options: {
+      widget: '',
+      html: '',
+      css: '',
+      parentUrl: '',
+      token: ''
+    },
+    build: function (components, opt) {
+      console.log('1');
+      this.createWidgetFrame(components, opt);
+    },
+    createWidgetFrame: function (component, opt) {
+      var compSrc = this.buildComponentUrl(component, opt);
+      var iframe = document.createElement('iframe');
+      iframe.src = compSrc;
+      this.decorateIframe(iframe);
+      $Nurego(opt.element).append(iframe);
+    },
+    decorateIframe: function (iframeEl) {
+      /*var style ={"width","100%"}
+      	{"height","100%"}
+      	{"height","100%"}
+      	{"display","block"}
+      	{"border","0px"}
+      	*/
+      iframeEl.style.setProperty('width', '100%');
+      iframeEl.style.setProperty('height', '100%');
+      iframeEl.style.setProperty('display', 'block');
+      iframeEl.style.setProperty('border', '0px');
+      iframeEl.seamless = 'seamless';
+      var zisUtils = utils;
+      var onWidgetLoad = function (e) {
+        var params = zisUtils.URLToArray(this.src);
+        var iframe = this;
+        var fn = function (data) {
+          //post html result to init widget with template;
+          iframe.contentWindow.postMessage(data, '*');
+        };
+        if (params.html && params.html != 'null') {
+          $Nurego.get(params.html, fn);
+        }
+      };
+      iframeEl.onload = onWidgetLoad;  //TDB:  //iframe.onload(subscribe to js hub events)
+    },
+    buildComponentUrl: function (component, opt) {
+      var nuregoApiParam = constants.getNuregoApiKey();
+      var res = constants.widgetsURL() + '?widget=' + component;
+      res += '&apiKey=' + nuregoApiParam + '&apiBaseUrl=' + constants.nuregoApiUrl();
+      res += '&parent=' + window.location.origin;
+      var indx = 0;
+      _.each(opt.configParams, function (val, key) {
+        if (key !== 'urlParams') {
+          var seperator = '&';
+          //(indx === 0) ? "?" : "&";
+          res += seperator + key + '=' + val;
+          indx++;
+        }
+      });
+      _.each(opt.configParams.urlParams, function (val, key) {
+        var seperator = '&';
+        //(indx === 0) ? "?" : "&";
+        res += seperator + key + '=' + val;
+        indx++;
+      });
+      return res;
+    }
+  };
+  return widgetsFactory;
+}(underscore, utils, constants, jquery);
 //     Backbone.js 1.1.2
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Backbone may be freely distributed under the MIT license.
@@ -10296,7 +10298,7 @@ absNuregoView = function (bb, utils) {
   });
   return absNuregoView;
 }(backbone, utils);
-loginViewCtrl = function (bb, loginTmpl, absNuregoView) {
+loginViewCtrl = function (bb, loginTmpl, absNuregoView, $Nurego) {
   var loginViewCtrl = absNuregoView.extend({
     tagName: 'div',
     className: 'login',
@@ -10318,7 +10320,7 @@ loginViewCtrl = function (bb, loginTmpl, absNuregoView) {
       //var baseURL = this.$el.find('#baseURL').val();
       var endPoint = constants.nuregoApiUrl();
       console.log('sending req to: ' + endPoint);
-      $.get(endPoint + '/login', function (data) {
+      $Nurego.get(endPoint + '/login', function (data) {
         console.log(data);
       });
     },
@@ -10329,7 +10331,7 @@ loginViewCtrl = function (bb, loginTmpl, absNuregoView) {
     }
   });
   return loginViewCtrl;
-}(backbone, text_loginHTML, absNuregoView);
+}(backbone, text_loginHTML, absNuregoView, jquery);
 text_priceListHTML = '<style>\r\n\t.headers,\r\n\t.tableWrapper{\r\n\t\tdisplay:flex;\r\n\t}\r\n\r\n\t.cell {\r\n\t\t  padding: 8px;\r\n\t\t  border: 1px solid #E8E8E8;\r\n\t\t  min-height: 50px;\r\n\t\t  max-height: 50px;\r\n\t\t  overflow: hidden;\r\n\t\t  white-space: nowrap;\r\n\t\t  overflow: hidden;\r\n\t\t  text-overflow: ellipsis;\r\n\t}\r\n\r\n\t.headers div,\r\n\t.tableWrapper div{\r\n\t\tflex:1;\r\n\t\ttext-align:center;\r\n\t\tcolor:#9799A2;\r\n\t}\r\n\r\n\t.plansHeader .header{\r\n\t\ttext-transform:uppercase;\r\n\t\tcolor:#9799A2;\r\n\t\tfont-weight:bold;\r\n\t\tfont-size:14px;\r\n\t}\r\n\r\n\t.priceRecurrence{\r\n\t\tcolor:#8EBE2E;\r\n\t\tfont-size:14px;\r\n\t}\r\n\r\n\t.planPrice{\r\n\t\tcolor:#F26522;\r\n\t\tfont-size:16px;\r\n\t\tfont-weight:bold;\r\n\t}\r\n\r\n\t.planDiscount{\r\n\t\tbackground: #F26522;\r\n\t\tfont-weight: bold;\r\n\t}\r\n\r\n\t.planDiscount span{\r\n\t\tcolor: #fff !important;\r\n\t\tborder:0px;\r\n\t\tdisplay:block;\r\n\t}\r\n\r\n\t.nr-check.nr-no {\r\n\t\tcolor:#FB6B5B;\r\n\t\tfont-size:16px;\r\n\t}\r\n\r\n\t.nr-check.nr-yes {\r\n\t\tcolor:#92CF5C;\r\n\t\tfont-size:16px;\r\n\t}\r\n\r\n\t.planCol .features div:nth-of-type(odd),\r\n\t.featuresCol .featureName:nth-of-type(odd){\r\n\t\tbackground: #F9F9F9;\r\n\t}\r\n\r\n\t.subscribeToPlan {\r\n\t\tbackground: gray;\r\n\t\tcolor: #fff;\r\n\t\tborder: 0px;\r\n\t\tpadding: 6px;\r\n\t\tfont-size: 16px;\r\n\t\t/*margin: 8px 1px 0px 1px;*/\r\n\t}\r\n\r\n\t.subscribeToPlan span {\r\n\t    color: white;\r\n\t    font-weight: bold;\r\n\t}\r\n\r\n\t.subscribeToPlan span:hover {\r\n\t    text-decoration: underline;\r\n\t    cursor: pointer;\r\n\t}\r\n\r\n\t.noSSO.fillEmail .emailWrapper{\r\n\t  display: block;\r\n\t  position: absolute;\r\n\t  width: 100%;\r\n\t  top: 0px;\r\n\t  background: white;\r\n\t  height: 100%;\r\n\t  padding: 25%;\r\n\t}\r\n\r\n\t.noSSO.fillEmail.done .emailWrapper, .emailWrapper,\r\n\t.noSSO.fillEmail .nr-nurego-tag-line{\r\n\t\tdisplay:none;\r\n\t}\r\n\r\n\t.btn.btn-primary.postNoSSo {\r\n    \tmargin-top: 10px;\r\n\t}\r\n\r\n\t.thankYou{\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.done .p1 {\r\n    \tfont-size: 28px;\r\n\t}\r\n\t.done .thankYou{\r\n\t  display: block;\r\n\t  position: absolute;\r\n\t  top: 0px;\r\n\t  width: 100%;\r\n\t  text-align: center;\r\n\t  background: rgba(255,255,255,1);\r\n\t  height: 100%;\r\n\t  padding: 10%;\r\n\t}\r\n\r\n\t.unchecked .subscribeToPlan{\r\n\t\topacity:0.35;\r\n\t}\r\n\r\n\t.checked .subscribeToPlan{\r\n\t\topacity:1;\r\n\t}\r\n\r\n\r\n\r\n</style>\r\n\r\n<div class="plansHeader headers">\r\n\t\t\t<div class="featuresHeader header cell">\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t<div class="header cell" title="{{=plans[plan].name}}">\r\n\t\t\t\t{{=plans[plan].name}}\r\n    \t\t</div>\r\n\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n<div class="priceHeaders headers">\r\n\t\t\t<div class="price header cell">\r\n\t\t\t\tPrice\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t<div class="header cell">\r\n    \t\t{{\tif(plans[plan].features.map["recurring"])\t{\t}}\r\n\t\t\t\t\r\n\t\t\t\t<span class="planPrice">{{=plans[plan].features.map["recurring"].price}}$</span>\r\n\t\t\t\t<span class="priceRecurrence">/Month</span>\r\n\r\n\t\t\t{{\t}else if(plans[plan].price){ }}\r\n\t\t\t\t\r\n\t\t\t\t<span class="planPrice">{{=plans[plan].price}}$</span>\r\n\r\n\t\t\t{{\t}else{\t}}\r\n\r\n\t\t\t\t{{  for(var item in plans[plan].features.data) { }}\t\t        \t\t\r\n\r\n\t\t\t\t\t{{\tif(plans[plan].features.data[item].element_type === "recurring"){\t}}\r\n\t\t\t\t\t\t\t<span class="planPrice">{{=plans[plan].features.data[item].price}}$</span>\r\n\t\t\t\t\t{{\t}\t}}\r\n\r\n\t\t\t\t{{\t}\t}}\r\n\r\n\t\t\t{{\t}\t}}\r\n    \t\t</div>\r\n    \t\t\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n<div class="ccHeaders headers">\r\n\t\t\t<div class="price header cell" title="Credit Cards">\r\n\t\t\t\tCredit Cards\r\n\t\t\t</div>\r\n\t{{  for(var plan in plans) { }}\t\t        \t\t\r\n    \t\t\r\n    \t\t<div class="header cell">\r\n\t\t\t\t{{if (plans[plan].credit_card) { }} \r\n\t\t\t\t\r\n\t\t\t\t\t<span class="nr-check nr-yes ion-checkmark"></span>\r\n\r\n    \t\t\t{{\t}else{\t}}\r\n\r\n    \t\t\t\t<span class="nr-check nr-no ion-close "></span>\r\n\r\n    \t\t\t{{\t}\t}}\r\n\r\n    \t\t</div>\r\n\r\n\t{{ \t}\t}}\r\n</div>\r\n\r\n\r\n<div class="tableWrapper">\r\n\t\t\t\r\n\t\t\t<div class="featuresCol">\r\n\t\t\t\t{{  for(var item in features) { }}\r\n\t\t        \t\r\n\t\t        \t{{\tif([features[item]] != \'recurring\') {\t }}\r\n\t\t        \t\t<div class="featureName cell" title="{{=features[item]}}">\r\n\t\t\t\t\t\t\t{{=features[item]}}\r\n\t\t        \t\t</div>\r\n\t\t        \t{{\t}\t}}\r\n\r\n\t\t        {{  } }}\r\n\t\r\n\t\t\t</div>\r\n\r\n\r\n\r\n\t\t\t\r\n\t{{  for(var plan in plans) { }}\r\n\t\t\t<div class="planCol">\r\n\t\t        \t\t\t        \t\t\r\n\r\n\t\t        \t\t<div class="features">\r\n\t\t        \t\t\t{{  for(var item in features) { }}\r\n\r\n\r\n\r\n\t\t\t        \t\t\t{{\tif([features[item]] != \'recurring\') {\t }}\t\t        \t\t\t\t\r\n\r\n\r\n\t\t\t        \t\t\t\t\t{{\tif(plans[plan].features.map[features[item]].name) {\t }}\r\n\r\n\t\t\t        \t\t\t\t\t\t{{\tif(plans[plan].features.map[features[item]].max_unit) {\t }}\r\n\t\t\t\t        \t\t\t\t\t\t<div class="featureItem cell">\r\n\t\t\t\t\t        \t\t\t\t\t\t<span>\r\n\t\t\t\t\t        \t\t\t\t\t\t\t{{=plans[plan].features.map[features[item]].max_unit}}\r\n\t\t\t\t\t        \t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t        \t\t\t\t</div>\r\n\t\t\t        \t\t\t\t\t\t{{\t}else{ \t}}\r\n\r\n\t\t\t\t\t        \t\t\t\t\t<div class="featureItem cell">\r\n\t\t\t\t\t        \t\t\t\t\t\t<span class="nr-check nr-yes ion-checkmark"></span>\r\n\t\t\t\t\t\t        \t\t\t\t</div>\r\n\r\n\t\t\t\t\t        \t\t\t\t{{\t}\t}}\r\n\r\n\t\t\t\t        \t\t\t\t{{\t}\t}}\r\n\r\n\t\t\t\t        \t\t\t\t{{\tif(plans[plan].features.map[features[item]].missingFeature){\t}}\r\n\t\t\t\t\t\t\t\t\t\t\t<div class="featureItemMissing cell">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span class="nr-check nr-no ion-close "></span>\r\n\t\t\t\t        \t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t{{\t}\t}}\t\t\t        \t\t\t\t\t\t        \t\t\t\r\n\r\n\t\t\t\t\t\t\t\t{{\t}\t}}\r\n\r\n\r\n\r\n\t\t        \t\t\t{{\t}\t}}\r\n\t\t        \t\t</div>\r\n\r\n\t\t        \t\t<div class="discount">\r\n\t\t        \t\t\t\r\n\t\t        \t\t\t{{for (item in plans[plan].discounts.data) { }}\r\n\t\t\t\t\t\t\t\t<div class="header planDiscount cell">\r\n\t\t\t\t\t\t\t\t\t<span>{{=plans[plan].discounts.data[item].days_to_apply}} days</span>\r\n\t\t\t\t\t\t\t\t\t<span>FREE TRIAL</span>\r\n\t\t\t\t\t    \t\t</div>\r\n\t\t\t\t\t\t\t{{\t}\t}}\r\n\t\t        \t\t</div>\r\n\r\n\t\t        \t\t{{\tif(!obj.urlParams["preview"]) {\t}}\r\n\t\t        \t\t<div class="subscribeToPlan">\r\n\t\t\t\t\t\t\t<span class="plan-select" data-id="{{=plans[plan].id}}">subscribe</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t{{\t}\t}}\r\n\t\t\t</div>\r\n\t{{  } }}\r\n\r\n\t\r\n</div>\r\n\r\n\r\n<div class="emailWrapper">\r\n\t<h4 class="">Please enter your Email:</h4>\r\n\t<input class="form-control email" type="text" placeholder="example@email.com"/>\r\n\t<div class="btn btn-primary postNoSSo">Subscribe</div>\r\n</div>\r\n\r\n{{ if(obj.urlParams["terms-of-service-url"]) {\t}}\r\n\t<div class="nr-nurego-tag-line">\r\n\t\t\r\n\t\t\t <div class="checkbox" id="checkbox">\r\n\t\t\t    <label>\r\n\t\t\t      <input name="terms" checked="checked" class="termsCheckbox" type="checkbox"> \r\n\t\t\t      By clicking subscribe you agree to the \r\n                  <a href="javascript:void(0)" class="terms">Terms of Service</a>\r\n\t\t\t    </label>\r\n\t\t\t  </div>\r\n\t</div>\r\n{{\t}\t}}\r\n\r\n<div class="thankYou">\r\n\t<div class="p1">Your registration invite has been sent.</div>\r\n\t<div class="p2">Please check your inbox and use the link inside to sign up</div>\r\n</div>\r\n\r\n<div class="nr-nurego-tag-line">\r\n\tPricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>\r\n</div>\r\n\r\n\r\n<div class="alert alert-danger ajaxErrorMsg" role="alert" style="display:none">\r\n\t  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\r\n\t  <span class="sr-only">Error:</span>\r\n\t  <span class="txt"></span>\r\n</div>';
 text__components_price_list_price_listcss = '.simple_3_tier {\r\n    font-family:"Lato",Helvetica,Arial,sans-serif;\r\n    float: left;\r\n    margin: 0 auto;\r\n}\r\n.simple_3_tier table {\r\n    width: auto;\r\n    border-collapse: collapse;\r\n    background: #fff;\r\n}\r\n.simple_3_tier td,\r\n.simple_3_tier th {\r\n    border: 1px solid #e8e8e8;\r\n    vertical-align: middle;\r\n}\r\n.simple_3_tier td {\r\n    color: #707383;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n}\r\n.simple_3_tier thead th,\r\n.simple_3_tier tfoot th {\r\n    border: none;\r\n}\r\n.simple_3_tier thead td {\r\n    height: 30px;\r\n    background: #fff;\r\n    font-size: 11px;\r\n    color: #9799a2;\r\n    text-transform: uppercase;\r\n    text-align: center;\r\n    font-weight: bold;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tbody th {\r\n    text-align: left;\r\n    font-size: 12px;\r\n    padding: 10px 20px;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier tbody td {\r\n    text-align: center;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tfoot td {\r\n    text-align: center;\r\n    padding: 12px 0;\r\n}\r\n.simple_3_tier th.nr-price {\r\n    color: #666;\r\n    height: 32px;\r\n    background-color: #fff;\r\n    text-align: left;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier td.nr-price {\r\n    color: #f26522;\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    background-color: #fff;\r\n}\r\n.simple_3_tier tfoot a {\r\n    display: inline-block;\r\n    color: #fff;\r\n    background: #9799A2;\r\n    height: 32px;\r\n    line-height: 32px;\r\n    text-align: center;\r\n    padding: 0 15px;\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n    font-size: 10px;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    -webkit-border-radius: 4px;\r\n    -moz-border-radius: 4px;\r\n    border-radius: 4px;\r\n}\r\n\r\n.simple_3_tier tfoot a:hover {\r\n    background: #959595;\r\n    text-decoration:underline;\r\n}\r\n\r\n.simple_3_tier .nr-check {\r\n    width: 16px;\r\n    height: 16px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.simple_3_tier .nr-check.nr-yes {font-size:16px; color:#69be28; }\r\n.simple_3_tier .nr-check.nr-no { font-size:16px; color:#f26522;  }\r\n.simple_3_tier .nr-notify {\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    padding: 20px;\r\n    margin: 0 0 15px;\r\n    font-family: Tahoma, Verdana, Segoe, sans-serif;\r\n    letter-spacing: 1px;\r\n}\r\n.simple_3_tier .nr-notify.nr-red {\r\n    background: #f2dede;\r\n    color: #a94442;\r\n}\r\n.simple_3_tier .nr-notify.nr-yellow {\r\n    background: #fcf8e3;\r\n    color: #986d3b;\r\n}\r\n.simple_3_tier .nr-container {\r\n    height: 304px;\r\n    margin: 0 auto 10px;\r\n}\r\n.simple_3_tier .nr-container.nr-loading {\r\n    background: url("../images/loader.gif") 50% 50% no-repeat;\r\n}\r\n.simple_3_tier .nr-container.nr-empty {\r\n    background: url("../images/empty.gif") 50% 50% no-repeat;\r\n}\r\n\r\n.nr-signup-div {\r\n    margin: 40px auto;\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.nr-signup, .nr-go-signup, .nr-go-update {\r\n    text-decoration: none;\r\n    background: transparent;\r\n    border: 2px solid #dfe1e6;\r\n    min-width: 120px;\r\n    font-weight: 400;\r\n    margin-top: 0.5em;\r\n    color: #565a6b;\r\n    text-transform: uppercase;\r\n    padding: 0.625em 1.125em;\r\n    font-size: 0.857em;\r\n    margin-left: 5px;\r\n}\r\n\r\n.nr-signup:hover, .nr-go-signup:hover {\r\n    color: white;\r\n    background: #565a6b;\r\n    border: 2px solid white;\r\n}\r\n\r\n.simple_3_tier .nr-plan-selected {\r\n    background: #f26522; \r\n}\r\n\r\n.simple_3_tier .nr-plan-selected:hover {\r\n    background: #f26522; \r\n}\r\n\r\n.nr-discount {\r\n  text-transform:uppercase;\r\n  padding: 10px 10px 10px 10px !important;\r\n  background-color: #f26522;\r\n  color: wheat !important;\r\n}\r\n.nr-trial-days {\r\n  font-size: 10px;\r\n}\r\n\r\n.nr-price-period {\r\n  font-size: 14px;\r\n  font-weight: normal;\r\n  color: #69be28;\r\n}\r\n\r\n.nr-nurego-tag-line{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 12px;\r\n}\r\n\r\n.nr-nurego-cc-require{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 14px;\r\n}\r\n\r\n.nr-nurego-tag-line a{\r\n  color: #69be28;\r\n}\r\n\r\n.nr-cc td {\r\n  font-size: 12px;  \r\n}\r\n\r\n\r\n.on-offswitch {\r\n    display: inline-block;\r\n    margin-bottom: 15px;\r\n    position: relative; width: 74px;\r\n    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;\r\n}\r\n\r\n.on-offswitch-checkbox {\r\n    display: none;\r\n}\r\n.on-offswitch-label {\r\n    display: block; overflow: hidden; cursor: pointer;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n}\r\n.on-offswitch-inner {\r\n    display: block; width: 200%; margin-left: -100%;\r\n    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;\r\n    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;\r\n}\r\n.on-offswitch-inner:before, .on-offswitch-inner:after {\r\n    display: block; float: left; width: 50%; height: 7px; padding: 0; line-height: 7px;\r\n    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;\r\n    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;\r\n}\r\n.on-offswitch-inner:before {\r\n    content: "";\r\n    padding-left: 10px;\r\n    background-color: #FFFFFF; color: #FFFFFF;\r\n}\r\n.on-offswitch-inner:after {\r\n    content: "";\r\n    padding-right: 10px;\r\n    background-color: #FFFFFF;\r\n    text-align: right;\r\n}\r\n.on-offswitch-switch {\r\n    display: block; width: 37px; margin: 1px;\r\n    background: #C59DD7;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n    position: absolute; top: 0; bottom: 0; left: 35px;\r\n    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;\r\n    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; \r\n}\r\n\r\n.monthly-checked .on-offswitch-inner {\r\n    margin-left: 0;\r\n}\r\n\r\n.monthly-checked .on-offswitch-switch {\r\n    left: 0px; \r\n}\r\n\r\n.switch-monthly {\r\n    padding-right: 13px;\r\n    text-align: -webkit-right;   \r\n    color: #C59DD7;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switch-yearly {\r\n    padding-left: 11px;\r\n    color: #6D6D6E;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switcher-full {\r\n    display: none;\r\n    margin-left: 620px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n@media only screen and (max-width: 1260px) {\r\n  .switcher-full {\r\n    margin-left: 542px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1150px) {\r\n  .switcher-full {\r\n    margin-left: 475px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1050px) {\r\n  .switcher-full {\r\n    margin-left: 455px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1020px) {\r\n  .switcher-full {\r\n    margin-left: 426px;\r\n  }\r\n}\r\n@media only screen and (max-width: 980px) {\r\n  .switcher-full {\r\n    margin-left: 400px;\r\n  }\r\n}\r\n@media only screen and (max-width: 913px) {\r\n  .switcher-full {\r\n    margin-left: 340px;\r\n  }\r\n}\r\n@media only screen and (max-width: 825px) {\r\n  .switcher-full {\r\n    margin-left: 200px;\r\n  }\r\n}\r\n\r\n';
 tosModel = function (Backbone, constants) {
@@ -10349,7 +10351,7 @@ tosModel = function (Backbone, constants) {
   return tos;
 }(backbone, constants);
 text_priceListSingleTierHTML = '<style>\r\n*,*:before,*:after {\r\n    -moz-box-sizing: border-box;\r\n    -webkit-box-sizing: border-box;\r\n    box-sizing: border-box\r\n}\r\n\r\nhtml,html a {\r\n    -webkit-font-smoothing: antialiased;\r\n    text-shadow: 1px 1px 1px rgba(0,0,0,0.004)\r\n}\r\n\r\nhtml {\r\n    font-size: 14px\r\n}\r\n\r\nbody,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,html,body {\r\n    margin: 0;\r\n    padding: 0\r\n}\r\n\r\nbody {\r\n    -webkit-font-smoothing: antialiased;\r\n    background: #fff;\r\n    font-family: "Lato",Helvetica,Arial,sans-serif;\r\n    height: 100%;\r\n    position: relative\r\n}\r\n\r\n@media only screen and (min-width: 768px) {\r\n    .nr-large-16 {\r\n        position:relative;\r\n        width: 100%\r\n    }\r\n\r\n    .nr-large-8 {\r\n        position: relative;\r\n        width: 50%\r\n    }\r\n}\r\n\r\n.nr-column {\r\n    position: relative;\r\n    padding-left: .9375em;\r\n    padding-right: .9375em;\r\n    float: left;\r\n    margin: 0;\r\n    padding-top: 0;\r\n    padding-bottom: 0\r\n}\r\n\r\n.nr-price {\r\n    text-align: center\r\n}\r\n\r\n.nr-price-plans {\r\n    background: #565a6b;\r\n    max-width: 1007px\r\n}\r\n\r\n.nr-price-plans-left {\r\n    margin-top: 40px;\r\n    margin-bottom: 40px\r\n}\r\n\r\n.nr-price-plans-right {\r\n    margin-top: 40px;\r\n    margin-bottom: 40px\r\n}\r\n\r\n.nr-price-plans-right .nr-title {\r\n    color: #bdffbd;\r\n    margin-top: 10px;\r\n    margin-bottom: 20px;\r\n    margin-left: 20px;\r\n    font-weight: lighter;\r\n    font-size: 2.571em\r\n}\r\n\r\n.nr-price-plans-right .nr-description {\r\n    margin-left: 20px;\r\n    color: white;\r\n    font-size: 1.125em;\r\n    line-height: 23px;\r\n    font-weight: normal;\r\n    margin-bottom: 40px\r\n}\r\n\r\n.nr-bg-white {\r\n    background: white\r\n}\r\n\r\n.nr-price-value {\r\n    color: #00be18;\r\n    margin-top: 30px;\r\n    font-size: 3.125em;\r\n    margin-bottom: 10px;\r\n    font-weight: lighter\r\n}\r\n\r\n.nr-price-info {\r\n    color: #565a6b;\r\n    font-weight: bold;\r\n    font-size: 1.286em\r\n}\r\n\r\n.nr-features {\r\n    position: relative;\r\n    margin-bottom: 30px;\r\n    margin-top: 40px;\r\n    margin-left: 20px;\r\n    margin-right: 20px\r\n}\r\n\r\n.nr-ul li {\r\n    line-height: 20px;\r\n    margin-bottom: 10px;\r\n    list-style-type: none\r\n}\r\n\r\n.nr-ul li .nr-feature-info {\r\n    margin-left: 100px;\r\n    margin-bottom: 50px\r\n}\r\n\r\n.nr-ul li .nr-feature-check {\r\n    color: #00be18;\r\n    font-size: 15px\r\n}\r\n\r\n.nr-feature-price {\r\n    margin-left: -120px;\r\n    float: left;\r\n    font-size: 40px;\r\n    line-height: 40px;\r\n    color: #00be18\r\n}\r\n\r\n.nr-name-per {\r\n    font-weight: normal\r\n}\r\n\r\n.nr-ul li .nr-feature-info .nr-title {\r\n    color: black;\r\n    font-size: 1.8em;\r\n    line-height: 1.2em;\r\n    float: left;\r\n    width: 100%\r\n}\r\n\r\n.nr-price-and-title {\r\n    margin-left: 40px\r\n}\r\n\r\n.nr-ul li .nr-feature-info .nr-description {\r\n    color: #565a6b;\r\n    font-weight: normal;\r\n    font-size: 1em\r\n}\r\n\r\n.nr-bottom {\r\n    position: absolute;\r\n    bottom: 40px;\r\n    text-align: left;\r\n}\r\n\r\n.nr-nurego-cc-require {\r\n    display: none;\r\n    position: absolute;\r\n    bottom: -10px;\r\n    text-align: right;\r\n    font-size: 14px;\r\n    color: white\r\n}\r\n\r\n.nr-nurego-tag-line {\r\n    position: absolute;\r\n    bottom: -30px;\r\n    text-align: right;\r\n    font-size: 12px;\r\n    color: white\r\n}\r\n\r\n.nr-nurego-tag-line a {\r\n    color: #bdffbd\r\n}\r\n\r\n.termsWrapper {\r\n  color:white;\r\n  font-size: 12px;\r\n  margin:35px 0px 0px 0px;\r\n}\r\n\r\n.termsWrapper a {\r\n  color:#bdffbd;\r\n  border: 0px !important;\r\n  padding: 0px !important;\r\n}\r\n\r\n.nr-bottom a {\r\n    border: 1px solid #bdffbd;\r\n    color: #bdffbd;\r\n    text-transform: uppercase;\r\n    padding: 10px 43px;\r\n    text-decoration: none\r\n}\r\n\r\n.nr-bottom a:hover {\r\n    background-color: #bdffbd;\r\n    color: #565a6b\r\n}\r\n\r\n#trial-ribbon {\r\n    display: none\r\n}\r\n\r\n/*!\r\n * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License\r\n * https://github.com/simonwhitaker/github-fork-ribbon-css\r\n*/\r\n.github-fork-ribbon {\r\n    position: absolute;\r\n    padding: 2px 0;\r\n    background-color: #a00;\r\n    background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.15)));\r\n    background-image: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));\r\n    background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));\r\n    background-image: -ms-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));\r\n    background-image: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.15));\r\n    background-image: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.15));\r\n    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);\r\n    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);\r\n    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);\r\n    font: 700 13px "Helvetica Neue",Helvetica,Arial,sans-serif;\r\n    z-index: 9999;\r\n    pointer-events: auto\r\n}\r\n\r\n.github-fork-ribbon span,.github-fork-ribbon span:hover {\r\n    color: #fff;\r\n    text-decoration: none;\r\n    text-shadow: 0 -1px rgba(0,0,0,0.5);\r\n    text-align: center;\r\n    width: 250px;\r\n    line-height: 30px;\r\n    display: inline-block;\r\n    padding: 2px 0;\r\n    border-width: 1px 0;\r\n    border-style: dotted;\r\n    border-color: #fff;\r\n    border-color: rgba(255,255,255,0.7)\r\n}\r\n\r\n.github-fork-ribbon-wrapper {\r\n    width: 200px;\r\n    height: 200px;\r\n    position: absolute;\r\n    overflow: hidden;\r\n    top: 0;\r\n    z-index: 9999;\r\n    pointer-events: none\r\n}\r\n\r\n.github-fork-ribbon-wrapper.fixed {\r\n    position: fixed\r\n}\r\n\r\n.github-fork-ribbon-wrapper.left {\r\n    left: 0\r\n}\r\n\r\n.github-fork-ribbon-wrapper.right {\r\n    right: 0\r\n}\r\n\r\n.github-fork-ribbon-wrapper.left-bottom {\r\n    position: fixed;\r\n    top: inherit;\r\n    bottom: 0;\r\n    left: 0\r\n}\r\n\r\n.github-fork-ribbon-wrapper.right-bottom {\r\n    position: fixed;\r\n    top: inherit;\r\n    bottom: 0;\r\n    right: 0\r\n}\r\n\r\n.github-fork-ribbon-wrapper.right .github-fork-ribbon {\r\n    top: 42px;\r\n    right: -43px;\r\n    -webkit-transform: rotate(45deg);\r\n    -moz-transform: rotate(45deg);\r\n    -ms-transform: rotate(45deg);\r\n    -o-transform: rotate(45deg);\r\n    transform: rotate(45deg)\r\n}\r\n\r\n.github-fork-ribbon-wrapper.left .github-fork-ribbon {\r\n    top: 52px;\r\n    left: -53px;\r\n    -webkit-transform: rotate(-45deg);\r\n    -moz-transform: rotate(-45deg);\r\n    -ms-transform: rotate(-45deg);\r\n    -o-transform: rotate(-45deg);\r\n    transform: rotate(-45deg)\r\n}\r\n\r\n.github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {\r\n    top: 80px;\r\n    left: -43px;\r\n    -webkit-transform: rotate(45deg);\r\n    -moz-transform: rotate(45deg);\r\n    -ms-transform: rotate(45deg);\r\n    -o-transform: rotate(45deg);\r\n    transform: rotate(45deg)\r\n}\r\n\r\n.github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {\r\n    top: 80px;\r\n    right: -43px;\r\n    -webkit-transform: rotate(-45deg);\r\n    -moz-transform: rotate(-45deg);\r\n    -ms-transform: rotate(-45deg);\r\n    -o-transform: rotate(-45deg);\r\n    transform: rotate(-45deg)\r\n}\r\n\r\n.nurego-ribbon {\r\n    background-color: #69be28;\r\n    font-size: 18px\r\n}\r\n\r\n.nr-description a {\r\n    color: #bdffbd\r\n}\r\n\r\n.nr-description p {\r\n    margin-bottom: 20px\r\n}\r\n\r\n.section-header {\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    display: block;\r\n    width: 100%;\r\n    float: left;\r\n    padding-top: 10px;\r\n    padding-bottom: 10px\r\n}\r\n\r\n.cent-symbol {\r\n    font-size: 26px;\r\n    margin-top: -5px\r\n}\r\n\r\n.unchecked .plan-select{\r\n  opacity: 0.3;\r\n}\r\n\r\n</style>\r\n<div id="pricing-page" class="vc_col-sm-12" style="margin:0 auto;">\r\n<div class="nr-large-16 nr-column nr-price-plans" data-external-id="7f10c490-cdb5-420b-ad7f-5b31a95144ca"> \r\n  <div class="nr-large-8 nr-column nr-price-plans-left" id="nr_pp_left"> \r\n    <div class="nr-large-16 nr-column nr-bg-white"> \r\n      <div class="nr-large-16 nr-column nr-price"> \r\n        <div class="nr-price-value" style="font-size: 20px; font-weight: bold;">Pay per Subscriber</div> \r\n        <div class="nr-price-info"></div> \r\n      </div> \r\n      <div class="nr-large-16 nr-column"> \r\n        <div class="nr-features"> \r\n          <ul class="nr-ul"> \r\n            <li style="display:none" class="nr-feature-item"> \r\n              <div class="nr-feature-info">\r\n                <div class="nr-price-and-title"> \r\n                  <span class="nr-feature-price">\r\n                  </span>\r\n                  <div class="nr-title">Pay only for what you use</div>\r\n                  <span class="nr-description"><p>No  monthly or hidden fees. You only pay for the number of subscribers you have.</p><p>More than 200 subscribers?   Send us an email for volume discounts - <a href="mailto:hello@nurego.com">hello@nurego.com</a>.</p></span>\r\n                </div>  \r\n              </div> \r\n            </li> \r\n          <li style="display: list-item;" class="nr-feature-item"> \r\n              <div class="nr-feature-info">\r\n                <div class="nr-price-and-title"> \r\n                  <span class="nr-feature-price">&nbsp;&nbsp;5<span class="cent-symbol">\xA2</span></span>\r\n                  <div class="nr-title">per </div>\r\n                  <span class="nr-description">Number of Free Subscribers</span>\r\n                </div>  \r\n              </div> \r\n            </li><li style="display: list-item;" class="nr-feature-item"> \r\n              <div class="nr-feature-info">\r\n                <div class="nr-price-and-title"> \r\n                  <span class="nr-feature-price">&nbsp;&nbsp;50<span class="cent-symbol">\xA2</span></span>\r\n                  <div class="nr-title">per </div>\r\n                  <span class="nr-description">Number of Paid Subscribers</span>\r\n                </div>  \r\n              </div> \r\n            </li></ul> \r\n        </div> \r\n      </div> \r\n    </div> \r\n  </div> \r\n  <div class="nr-large-8 nr-column nr-price-plans-right" id="nr_pp_right" style="height: 383px;"> \r\n    <div class="nr-large-16 nr-column"> \r\n      <div class="nr-title">Pay only for what you use</div> \r\n      <div class="nr-description"><p>No  monthly or hidden fees. You only pay for the number of subscribers you have.</p><p>More than 200 subscribers?   Send us an email for volume discounts - <a href="mailto:hello@nurego.com">hello@nurego.com</a>.</p></div> \r\n    </div> \r\n    <div class="nr-large-16 nr-column nr-bottom"> \r\n      <div id="sign-up-button-div" style=""> \r\n        <a id="sign-up-button" href="javascript:void(0)" class="nr-plan-select plan-select" data-id="{{=obj.plans[0].id}}">Get Started</a>\r\n      </div> \r\n\r\n      {{ if(obj.urlParams["terms-of-service-url"]) {  }}\r\n           <div class="checkbox termsWrapper" id="checkbox">\r\n              <label>\r\n                <input name="terms" checked="checked" class="termsCheckbox" type="checkbox"> \r\n                By clicking subscribe you agree to the \r\n                <a href="javascript:void(0)" class="terms">Terms of Service</a>\r\n              </label>\r\n            </div>\r\n      {{  } }}\r\n    \r\n    </div>\r\n    <div class="nr-large-16 nr-column nr-nurego-cc-require" style="display: block;"> \r\n      No credit card required\r\n    </div>\r\n    <div class="nr-large-16 nr-column nr-nurego-tag-line"> \r\n      Pricing Table Crafted by <a href="http://www.nurego.com">Nurego</a>\r\n    </div>\r\n\r\n\r\n  </div>\r\n  \r\n  <!-- TOP LEFT RIBBON -->\r\n  <div class="github-fork-ribbon-wrapper left" id="trial-ribbon">\r\n      <div class="github-fork-ribbon nurego-ribbon">\r\n          <span href="#" id="trial-ribbon-text">RIBBON TEXT (e.g. 30-day free trial)</span>\r\n      </div>\r\n  </div>\r\n<div class="nr-container nr-loading" style="display: none;"></div><div class="nr-notify nr-yellow" style="display: none;"></div><div class="nr-notify nr-red" style="display: none;"></div><div class="nr-container nr-empty" style="display: none;"></div></div></div>';
-priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, priceListSingleTierHTML) {
+priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, priceListSingleTierHTML, $Nurego) {
   var priceList = absNuregoView.extend({
     tagName: 'div',
     className: 'login',
@@ -10398,7 +10400,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
     addStyle: function () {
       var styleEl = document.createElement('style');
       styleEl.innerHTML = css;
-      $('body').append(styleEl);
+      $Nurego('body').append(styleEl);
     },
     registerWithSSo: function () {
       this.$el.addClass('fillEmail');
@@ -10440,7 +10442,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
         window.top.location.href = parent + url;
         console.log(data);  //alert(JSON.stringify(data));
       };
-      $.ajax({
+      $Nurego.ajax({
         url: url,
         type: 'post',
         crossDomain: true,
@@ -10455,7 +10457,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
     registration: function (e) {
       //https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
       //alert($(window.top).width())
-      this.selectedPlan = $(e.target).attr('data-id');
+      this.selectedPlan = $Nurego(e.target).attr('data-id');
       if (this.$el.hasClass('unchecked')) {
         return;
       }
@@ -10467,8 +10469,8 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
     },
     bindEvents: function () {
       var zis = this;
-      $('#checkbox .termsCheckbox').click(function () {
-        var $this = $(this);
+      $Nurego('#checkbox .termsCheckbox').click(function () {
+        var $this = $Nurego(this);
         // $this will contain a reference to the checkbox   
         if ($this.is(':checked')) {
           zis.$el.addClass('checked');
@@ -10492,10 +10494,10 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
     }
   });
   return priceList;
-}(backbone, text_priceListHTML, utils, text__components_price_list_price_listcss, tosModel, absNuregoView, text_priceListSingleTierHTML);
+}(backbone, text_priceListHTML, utils, text__components_price_list_price_listcss, tosModel, absNuregoView, text_priceListSingleTierHTML, jquery);
 text_registrationHTML = '<style>\r\n\t\r\n\tbutton.button.btn.btn-primary.activate {\r\n  \t\tmargin-top: 8px;\r\n\t}\r\n\r\n\t.passError{\r\n\t\tdisplay:none;\r\n\t\tmargin-top:8px;\r\n\t}\r\n\r\n\t.passError.show{\r\n\t\tdisplay:none;\r\n\t}\r\n\r\n\t.passConfirm{\r\n\t\tmargin-top:6px;\r\n\t}\r\n\r\n</style>\r\n\r\n<div>\r\n\tComplete Registration\r\n\t{{\tif(obj[\'request-email\'] === \'true\'){\t}}\r\n\t\t<input class="form-control email" type="text" placeholder="email"/>\r\n\t{{\t}\t}}\r\n\t<input class="form-control pass" type="password" placeholder="Password"/>\r\n\r\n\t<input class="form-control passConfirm" type="password" placeholder="Confirm Password"/>\r\n\r\n\t<div class="alert alert-danger passError" role="alert">\r\n\t  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\r\n\t  <span class="sr-only">Error:</span>\r\n\t  Passwords do not match, please re-enter your password.\r\n\t</div>\r\n\t\r\n\t<div class="alert alert-danger ajaxErrorMsg" role="alert" style="display:none">\r\n\t  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\r\n\t  <span class="sr-only">Error:</span>\r\n\t  <span class="txt"></span>\r\n\t</div>\r\n\t\r\n\r\n\t<div> \r\n\t\t<button class="button btn btn-primary activate">Complete</button>\r\n\t</div>\r\n</div>\r\n';
 text__components_registration_registrationcss = '.simple_3_tier {\r\n    font-family:"Lato",Helvetica,Arial,sans-serif;\r\n    float: left;\r\n    margin: 0 auto;\r\n}\r\n.simple_3_tier table {\r\n    width: auto;\r\n    border-collapse: collapse;\r\n    background: #fff;\r\n}\r\n.simple_3_tier td,\r\n.simple_3_tier th {\r\n    border: 1px solid #e8e8e8;\r\n    vertical-align: middle;\r\n}\r\n.simple_3_tier td {\r\n    color: #707383;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n}\r\n.simple_3_tier thead th,\r\n.simple_3_tier tfoot th {\r\n    border: none;\r\n}\r\n.simple_3_tier thead td {\r\n    height: 30px;\r\n    background: #fff;\r\n    font-size: 11px;\r\n    color: #9799a2;\r\n    text-transform: uppercase;\r\n    text-align: center;\r\n    font-weight: bold;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tbody th {\r\n    text-align: left;\r\n    font-size: 12px;\r\n    padding: 10px 20px;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier tbody td {\r\n    text-align: center;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tfoot td {\r\n    text-align: center;\r\n    padding: 12px 0;\r\n}\r\n.simple_3_tier th.nr-price {\r\n    color: #666;\r\n    height: 32px;\r\n    background-color: #fff;\r\n    text-align: left;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier td.nr-price {\r\n    color: #f26522;\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    background-color: #fff;\r\n}\r\n.simple_3_tier tfoot a {\r\n    display: inline-block;\r\n    color: #fff;\r\n    background: #9799A2;\r\n    height: 32px;\r\n    line-height: 32px;\r\n    text-align: center;\r\n    padding: 0 15px;\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n    font-size: 10px;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    -webkit-border-radius: 4px;\r\n    -moz-border-radius: 4px;\r\n    border-radius: 4px;\r\n}\r\n\r\n.simple_3_tier tfoot a:hover {\r\n    background: #959595;\r\n    text-decoration:underline;\r\n}\r\n\r\n.simple_3_tier .nr-check {\r\n    width: 16px;\r\n    height: 16px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.simple_3_tier .nr-check.nr-yes {font-size:16px; color:#69be28; }\r\n.simple_3_tier .nr-check.nr-no { font-size:16px; color:#f26522;  }\r\n.simple_3_tier .nr-notify {\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    padding: 20px;\r\n    margin: 0 0 15px;\r\n    font-family: Tahoma, Verdana, Segoe, sans-serif;\r\n    letter-spacing: 1px;\r\n}\r\n.simple_3_tier .nr-notify.nr-red {\r\n    background: #f2dede;\r\n    color: #a94442;\r\n}\r\n.simple_3_tier .nr-notify.nr-yellow {\r\n    background: #fcf8e3;\r\n    color: #986d3b;\r\n}\r\n.simple_3_tier .nr-container {\r\n    height: 304px;\r\n    margin: 0 auto 10px;\r\n}\r\n.simple_3_tier .nr-container.nr-loading {\r\n    background: url("../images/loader.gif") 50% 50% no-repeat;\r\n}\r\n.simple_3_tier .nr-container.nr-empty {\r\n    background: url("../images/empty.gif") 50% 50% no-repeat;\r\n}\r\n\r\n.nr-signup-div {\r\n    margin: 40px auto;\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.nr-signup, .nr-go-signup, .nr-go-update {\r\n    text-decoration: none;\r\n    background: transparent;\r\n    border: 2px solid #dfe1e6;\r\n    min-width: 120px;\r\n    font-weight: 400;\r\n    margin-top: 0.5em;\r\n    color: #565a6b;\r\n    text-transform: uppercase;\r\n    padding: 0.625em 1.125em;\r\n    font-size: 0.857em;\r\n    margin-left: 5px;\r\n}\r\n\r\n.nr-signup:hover, .nr-go-signup:hover {\r\n    color: white;\r\n    background: #565a6b;\r\n    border: 2px solid white;\r\n}\r\n\r\n.simple_3_tier .nr-plan-selected {\r\n    background: #f26522; \r\n}\r\n\r\n.simple_3_tier .nr-plan-selected:hover {\r\n    background: #f26522; \r\n}\r\n\r\n.nr-discount {\r\n  text-transform:uppercase;\r\n  padding: 10px 10px 10px 10px !important;\r\n  background-color: #f26522;\r\n  color: wheat !important;\r\n}\r\n.nr-trial-days {\r\n  font-size: 10px;\r\n}\r\n\r\n.nr-price-period {\r\n  font-size: 14px;\r\n  font-weight: normal;\r\n  color: #69be28;\r\n}\r\n\r\n.nr-nurego-tag-line{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 12px;\r\n}\r\n\r\n.nr-nurego-cc-require{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 14px;\r\n}\r\n\r\n.nr-nurego-tag-line a{\r\n  color: #69be28;\r\n}\r\n\r\n.nr-cc td {\r\n  font-size: 12px;  \r\n}\r\n\r\n\r\n.on-offswitch {\r\n    display: inline-block;\r\n    margin-bottom: 15px;\r\n    position: relative; width: 74px;\r\n    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;\r\n}\r\n\r\n.on-offswitch-checkbox {\r\n    display: none;\r\n}\r\n.on-offswitch-label {\r\n    display: block; overflow: hidden; cursor: pointer;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n}\r\n.on-offswitch-inner {\r\n    display: block; width: 200%; margin-left: -100%;\r\n    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;\r\n    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;\r\n}\r\n.on-offswitch-inner:before, .on-offswitch-inner:after {\r\n    display: block; float: left; width: 50%; height: 7px; padding: 0; line-height: 7px;\r\n    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;\r\n    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;\r\n}\r\n.on-offswitch-inner:before {\r\n    content: "";\r\n    padding-left: 10px;\r\n    background-color: #FFFFFF; color: #FFFFFF;\r\n}\r\n.on-offswitch-inner:after {\r\n    content: "";\r\n    padding-right: 10px;\r\n    background-color: #FFFFFF;\r\n    text-align: right;\r\n}\r\n.on-offswitch-switch {\r\n    display: block; width: 37px; margin: 1px;\r\n    background: #C59DD7;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n    position: absolute; top: 0; bottom: 0; left: 35px;\r\n    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;\r\n    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; \r\n}\r\n\r\n.monthly-checked .on-offswitch-inner {\r\n    margin-left: 0;\r\n}\r\n\r\n.monthly-checked .on-offswitch-switch {\r\n    left: 0px; \r\n}\r\n\r\n.switch-monthly {\r\n    padding-right: 13px;\r\n    text-align: -webkit-right;   \r\n    color: #C59DD7;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switch-yearly {\r\n    padding-left: 11px;\r\n    color: #6D6D6E;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switcher-full {\r\n    display: none;\r\n    margin-left: 620px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n@media only screen and (max-width: 1260px) {\r\n  .switcher-full {\r\n    margin-left: 542px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1150px) {\r\n  .switcher-full {\r\n    margin-left: 475px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1050px) {\r\n  .switcher-full {\r\n    margin-left: 455px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1020px) {\r\n  .switcher-full {\r\n    margin-left: 426px;\r\n  }\r\n}\r\n@media only screen and (max-width: 980px) {\r\n  .switcher-full {\r\n    margin-left: 400px;\r\n  }\r\n}\r\n@media only screen and (max-width: 913px) {\r\n  .switcher-full {\r\n    margin-left: 340px;\r\n  }\r\n}\r\n@media only screen and (max-width: 825px) {\r\n  .switcher-full {\r\n    margin-left: 200px;\r\n  }\r\n}\r\n\r\n';
-registrationViewCtrl = function (bb, tmpl, utils, css, absNuregoView) {
+registrationViewCtrl = function (bb, tmpl, utils, css, absNuregoView, $Nurego) {
   var activation = absNuregoView.extend({
     tagName: 'div',
     className: 'activation',
@@ -10514,7 +10516,7 @@ registrationViewCtrl = function (bb, tmpl, utils, css, absNuregoView) {
     addStyle: function () {
       var styleEl = document.createElement('style');
       styleEl.innerHTML = css;
-      $('body').append(styleEl);
+      $Nurego('body').append(styleEl);
     },
     passMatch: function () {
       var pass = this.$el.find('input.pass').val();
@@ -10544,7 +10546,7 @@ registrationViewCtrl = function (bb, tmpl, utils, css, absNuregoView) {
     }
   });
   return activation;
-}(backbone, text_registrationHTML, utils, text__components_registration_registrationcss, absNuregoView);
+}(backbone, text_registrationHTML, utils, text__components_registration_registrationcss, absNuregoView, jquery);
 text_tosHTML = '<style type="text/css">\r\n\tbody{\r\n\t\tpadding-bottom: 75px;\r\n\t}\r\n\t.termsWrapper{\r\n\t\tposition: fixed;\r\n\t\t  bottom: 14px;\r\n\t\t  width: 100%;\r\n\t\t  background: #fff;\r\n\t\t  height: auto;\r\n\t\t  padding: 14px;\r\n\t}\r\n\r\n\t.acceptTerms{\r\n\t\tpadding:6px;\r\n\t}\r\n\r\n\t.pageHeader{\r\n\t\theight: 250px;\r\n\t \twidth: 100%;\r\n\t\tposition: relative;\r\n\t\tbackground: rgb(216, 216, 216);\r\n\t\tcolor: gray;\r\n\t}\r\n\r\n\t.pageHeader h2{\r\n\t\tposition:absolute;\r\n\t\ttop:100px;\r\n\t\twidth: 100%;\r\n\t\ttext-align: center;\r\n\t}\r\n</style>\r\n\r\n<div class="well container">\r\n\t<div class="pageHeader">\r\n\t\t<h2>Terms of Service</h2>\r\n\t</div>\r\n\t\r\n\t<div class="alert alert-danger ajaxErrorMsg" role="alert" style="display:none">\r\n\t  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\r\n\t  <span class="sr-only">Error:</span>\r\n\t  <span class="txt"></span>\r\n\t</div>\r\n\t\r\n\r\n\t{{\tif(obj[\'doc_html\']){\t}}\r\n\t\t\r\n\t\t<h3>{{=obj.name}}</h3>\r\n\t\t<div>{{=\tobj[\'doc_html\']\t}}</div>\r\n\r\n\t{{\t}else if(obj[\'legal_docs\'])\t{\t}}\r\n\r\n\t\t{{ for(doc in obj.legal_docs.data){\t}}\r\n\t\t\t\t<h3>{{=obj.legal_docs.data[doc].name}}</h3>\r\n\t\t\t\t<div>{{=obj.legal_docs.data[doc].doc_html}}</div>\r\n\t\t\t\t<br/>\r\n\t\t\t\t<br/>\r\n\r\n\t\t{{\t}\t}}\r\n\r\n\t<nav class="navbar navbar-default navbar-fixed-bottom">\r\n\t  <div class="container">\r\n\r\n\r\n\t  \t<ul class="nav navbar-nav">\r\n\t        <li class="acceptTerms">\r\n\t        \t<span class="btn btn-primary" href="#">Accept</span>\r\n\t        </li>\r\n\t        <li>\r\n\t        \t<span class="btn-xs btn btn-default" style="margin-top: 12px;">Decline</span>\r\n\t        </li>\r\n\t          <li>\r\n\t        \t<span class="btn-xs btn btn-default" style="margin-top: 12px;">Remind me later</span>\r\n\t        </li>\r\n\t    </ul>\r\n\r\n\t  </div>\r\n\t</nav>\r\n\r\n\r\n\t{{\t}\t}}\r\n\t\r\n</div>\r\n\r\n';
 text__components_terms_of_service_terms_of_servicecss = '.simple_3_tier {\r\n    font-family:"Lato",Helvetica,Arial,sans-serif;\r\n    float: left;\r\n    margin: 0 auto;\r\n}\r\n.simple_3_tier table {\r\n    width: auto;\r\n    border-collapse: collapse;\r\n    background: #fff;\r\n}\r\n.simple_3_tier td,\r\n.simple_3_tier th {\r\n    border: 1px solid #e8e8e8;\r\n    vertical-align: middle;\r\n}\r\n.simple_3_tier td {\r\n    color: #707383;\r\n    font-size: 14px;\r\n    line-height: 18px;\r\n}\r\n.simple_3_tier thead th,\r\n.simple_3_tier tfoot th {\r\n    border: none;\r\n}\r\n.simple_3_tier thead td {\r\n    height: 30px;\r\n    background: #fff;\r\n    font-size: 11px;\r\n    color: #9799a2;\r\n    text-transform: uppercase;\r\n    text-align: center;\r\n    font-weight: bold;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tbody th {\r\n    text-align: left;\r\n    font-size: 12px;\r\n    padding: 10px 20px;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier tbody td {\r\n    text-align: center;\r\n    padding: 0 10px;\r\n}\r\n.simple_3_tier tfoot td {\r\n    text-align: center;\r\n    padding: 12px 0;\r\n}\r\n.simple_3_tier th.nr-price {\r\n    color: #666;\r\n    height: 32px;\r\n    background-color: #fff;\r\n    text-align: left;\r\n    font-weight: normal;\r\n}\r\n.simple_3_tier td.nr-price {\r\n    color: #f26522;\r\n    font-size: 20px;\r\n    font-weight: bold;\r\n    background-color: #fff;\r\n}\r\n.simple_3_tier tfoot a {\r\n    display: inline-block;\r\n    color: #fff;\r\n    background: #9799A2;\r\n    height: 32px;\r\n    line-height: 32px;\r\n    text-align: center;\r\n    padding: 0 15px;\r\n    margin-left: 5px;\r\n    margin-right: 5px;\r\n    font-size: 10px;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    text-decoration: none;\r\n    -webkit-border-radius: 4px;\r\n    -moz-border-radius: 4px;\r\n    border-radius: 4px;\r\n}\r\n\r\n.simple_3_tier tfoot a:hover {\r\n    background: #959595;\r\n    text-decoration:underline;\r\n}\r\n\r\n.simple_3_tier .nr-check {\r\n    width: 16px;\r\n    height: 16px;\r\n    display: block;\r\n    margin: 0 auto;\r\n}\r\n\r\n.simple_3_tier .nr-check.nr-yes {font-size:16px; color:#69be28; }\r\n.simple_3_tier .nr-check.nr-no { font-size:16px; color:#f26522;  }\r\n.simple_3_tier .nr-notify {\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    padding: 20px;\r\n    margin: 0 0 15px;\r\n    font-family: Tahoma, Verdana, Segoe, sans-serif;\r\n    letter-spacing: 1px;\r\n}\r\n.simple_3_tier .nr-notify.nr-red {\r\n    background: #f2dede;\r\n    color: #a94442;\r\n}\r\n.simple_3_tier .nr-notify.nr-yellow {\r\n    background: #fcf8e3;\r\n    color: #986d3b;\r\n}\r\n.simple_3_tier .nr-container {\r\n    height: 304px;\r\n    margin: 0 auto 10px;\r\n}\r\n.simple_3_tier .nr-container.nr-loading {\r\n    background: url("../images/loader.gif") 50% 50% no-repeat;\r\n}\r\n.simple_3_tier .nr-container.nr-empty {\r\n    background: url("../images/empty.gif") 50% 50% no-repeat;\r\n}\r\n\r\n.nr-signup-div {\r\n    margin: 40px auto;\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.nr-signup, .nr-go-signup, .nr-go-update {\r\n    text-decoration: none;\r\n    background: transparent;\r\n    border: 2px solid #dfe1e6;\r\n    min-width: 120px;\r\n    font-weight: 400;\r\n    margin-top: 0.5em;\r\n    color: #565a6b;\r\n    text-transform: uppercase;\r\n    padding: 0.625em 1.125em;\r\n    font-size: 0.857em;\r\n    margin-left: 5px;\r\n}\r\n\r\n.nr-signup:hover, .nr-go-signup:hover {\r\n    color: white;\r\n    background: #565a6b;\r\n    border: 2px solid white;\r\n}\r\n\r\n.simple_3_tier .nr-plan-selected {\r\n    background: #f26522; \r\n}\r\n\r\n.simple_3_tier .nr-plan-selected:hover {\r\n    background: #f26522; \r\n}\r\n\r\n.nr-discount {\r\n  text-transform:uppercase;\r\n  padding: 10px 10px 10px 10px !important;\r\n  background-color: #f26522;\r\n  color: wheat !important;\r\n}\r\n.nr-trial-days {\r\n  font-size: 10px;\r\n}\r\n\r\n.nr-price-period {\r\n  font-size: 14px;\r\n  font-weight: normal;\r\n  color: #69be28;\r\n}\r\n\r\n.nr-nurego-tag-line{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 12px;\r\n}\r\n\r\n.nr-nurego-cc-require{\r\n  margin-top: 10px;\r\n    text-align: right;\r\n  font-size: 14px;\r\n}\r\n\r\n.nr-nurego-tag-line a{\r\n  color: #69be28;\r\n}\r\n\r\n.nr-cc td {\r\n  font-size: 12px;  \r\n}\r\n\r\n\r\n.on-offswitch {\r\n    display: inline-block;\r\n    margin-bottom: 15px;\r\n    position: relative; width: 74px;\r\n    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;\r\n}\r\n\r\n.on-offswitch-checkbox {\r\n    display: none;\r\n}\r\n.on-offswitch-label {\r\n    display: block; overflow: hidden; cursor: pointer;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n}\r\n.on-offswitch-inner {\r\n    display: block; width: 200%; margin-left: -100%;\r\n    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;\r\n    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;\r\n}\r\n.on-offswitch-inner:before, .on-offswitch-inner:after {\r\n    display: block; float: left; width: 50%; height: 7px; padding: 0; line-height: 7px;\r\n    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;\r\n    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;\r\n}\r\n.on-offswitch-inner:before {\r\n    content: "";\r\n    padding-left: 10px;\r\n    background-color: #FFFFFF; color: #FFFFFF;\r\n}\r\n.on-offswitch-inner:after {\r\n    content: "";\r\n    padding-right: 10px;\r\n    background-color: #FFFFFF;\r\n    text-align: right;\r\n}\r\n.on-offswitch-switch {\r\n    display: block; width: 37px; margin: 1px;\r\n    background: #C59DD7;\r\n    border: 1px solid #DFE1E6; border-radius: 0px;\r\n    position: absolute; top: 0; bottom: 0; left: 35px;\r\n    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;\r\n    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; \r\n}\r\n\r\n.monthly-checked .on-offswitch-inner {\r\n    margin-left: 0;\r\n}\r\n\r\n.monthly-checked .on-offswitch-switch {\r\n    left: 0px; \r\n}\r\n\r\n.switch-monthly {\r\n    padding-right: 13px;\r\n    text-align: -webkit-right;   \r\n    color: #C59DD7;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switch-yearly {\r\n    padding-left: 11px;\r\n    color: #6D6D6E;\r\n    font-size: 11px;\r\n    cursor: pointer;\r\n}\r\n\r\n.switcher-full {\r\n    display: none;\r\n    margin-left: 620px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n@media only screen and (max-width: 1260px) {\r\n  .switcher-full {\r\n    margin-left: 542px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1150px) {\r\n  .switcher-full {\r\n    margin-left: 475px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1050px) {\r\n  .switcher-full {\r\n    margin-left: 455px;\r\n  }\r\n}\r\n@media only screen and (max-width: 1020px) {\r\n  .switcher-full {\r\n    margin-left: 426px;\r\n  }\r\n}\r\n@media only screen and (max-width: 980px) {\r\n  .switcher-full {\r\n    margin-left: 400px;\r\n  }\r\n}\r\n@media only screen and (max-width: 913px) {\r\n  .switcher-full {\r\n    margin-left: 340px;\r\n  }\r\n}\r\n@media only screen and (max-width: 825px) {\r\n  .switcher-full {\r\n    margin-left: 200px;\r\n  }\r\n}\r\n\r\n';
 tosStatusModel = function (Backbone, constants) {
@@ -10563,7 +10565,7 @@ tosStatusModel = function (Backbone, constants) {
   });
   return tosStatus;
 }(backbone, constants);
-tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNuregoView) {
+tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNuregoView, $Nurego) {
   var activation = absNuregoView.extend({
     tagName: 'div',
     className: 'terms_of_service',
@@ -10590,7 +10592,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
     addStyle: function () {
       var styleEl = document.createElement('style');
       styleEl.innerHTML = css;
-      $('body').append(styleEl);
+      $Nurego('body').append(styleEl);
     },
     redirect: function () {
       var redirectURL = this.params['redirect-url'];
@@ -10602,7 +10604,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
         var doc_id = docs.data[i].id;
         //POST /v1/legaldocs/accept?api_key=l22085b6-7062-4b57-8869-cccb2f66f6fb&doc_id=leg_0b06-d678-4675-bd16-efd4f60f2b47
         var url = constants.nuregoApiUrl() + '/legaldocs/accept?doc_id=' + doc_id;
-        $.ajax({
+        $Nurego.ajax({
           url: url,
           type: 'post',
           async: false,
@@ -10636,9 +10638,9 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
     }
   });
   return activation;
-}(backbone, text_tosHTML, utils, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosModel, absNuregoView);
+}(backbone, text_tosHTML, utils, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosModel, absNuregoView, jquery);
 text_absNuregoCss = 'nurego-widget {\r\n\tdisplay:block;\r\n\theight:100%;\r\n\twidth:100%;\r\n}\r\n\r\n.alert{\r\n\tdisplay:relative;\r\n\tz-index:9999999;\r\n}';
-Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, absNuregoCss) {
+Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, absNuregoCss, $Nurego) {
   var app, lib;
   app = {};
   lib = {
@@ -10677,7 +10679,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
     });
   }, app.initObserver = function () {
     // The node to be monitored
-    var target = $('body')[0];
+    var target = $Nurego('body')[0];
     // Create an observer instance
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
@@ -10686,10 +10688,10 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
         // DOM NodeList
         if (newNodes !== null) {
           // If there are new nodes added
-          var $nodes = $(newNodes);
+          var $nodes = $Nurego(newNodes);
           // jQuery set
           $nodes.each(function () {
-            var $node = $(this);
+            var $node = $Nurego(this);
             if ($node.prop('tagName') === 'NUREGO-WIDGET') {
               var comps = {};
               var widgetAttrs = {};
@@ -10725,7 +10727,7 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
       thisWidget = lib.components[params.widget];
       widgetModel = new thisWidget.model({ apiKey: params.apiKey });
       widgetView = new thisWidget.view(widgetModel).$el;
-      $('body').append(widgetView);  //widgetModel.fetch({dataType:"jsonp",success:callback});
+      $Nurego('body').append(widgetView);  //widgetModel.fetch({dataType:"jsonp",success:callback});
     };
     var onHTML = function (e) {
       var key = e.message ? 'message' : 'data';
@@ -10733,8 +10735,8 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
       thisWidget = lib.components[params.widget];
       widgetModel = new thisWidget.model({ apiKey: params.apiKey });
       widgetView = new thisWidget.view(widgetModel, data).$el;
-      $('body').append(widgetView);  //callback()
-                                     //widgetModel.fetch({dataType:"jsonp",success:callback});
+      $Nurego('body').append(widgetView);  //callback()
+                                           //widgetModel.fetch({dataType:"jsonp",success:callback});
     };
     if (params.html && params.html != 'null') {
       //widget with html resource to load before drawing.
@@ -10744,8 +10746,8 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
       draw();
     }
   };
-  $(document).ready(function () {
-    var elems = $('nurego-widget');
+  $Nurego(document).ready(function () {
+    var elems = $Nurego('nurego-widget');
     var styleEl = document.createElement('style');
     styleEl.innerHTML = absNuregoCss;
     document.body.appendChild(styleEl);
@@ -10769,6 +10771,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
     app.initObserver();
   });
   return app;
-}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, text_absNuregoCss);
+}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, text_absNuregoCss, jquery);
 window.Nurego = Nurego;
 }());

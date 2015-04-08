@@ -1,4 +1,4 @@
-define(["backbone","text!loginHTML","absNuregoView"],function(bb,loginTmpl,absNuregoView){
+define(["backbone","text!loginHTML","absNuregoView","jquery"],function(bb,loginTmpl,absNuregoView,$Nurego){
 
 		var loginViewCtrl = absNuregoView.extend({
 		  tagName: "div",
@@ -22,7 +22,7 @@ define(["backbone","text!loginHTML","absNuregoView"],function(bb,loginTmpl,absNu
 		  	//var baseURL = this.$el.find('#baseURL').val();
 		  	var endPoint = constants.nuregoApiUrl();
 		  	console.log("sending req to: " + endPoint);
-		  	$.get(endPoint + "/login",function(data){
+		  	$Nurego.get(endPoint + "/login",function(data){
 		  		console.log(data);
 		  	})
 		  },

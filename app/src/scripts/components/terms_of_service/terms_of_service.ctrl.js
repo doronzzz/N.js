@@ -1,7 +1,7 @@
 define(["backbone","text!tosHTML","utils",
 		"text!../components/terms_of_service/terms_of_service.css",
-		"tosStatusModel","tosModel","absNuregoView"],
-		function(bb,tmpl,utils,css,tosStatusModel,tosModel,absNuregoView){
+		"tosStatusModel","tosModel","absNuregoView","jquery"],
+		function(bb,tmpl,utils,css,tosStatusModel,tosModel,absNuregoView,$Nurego){
 
 		var activation = absNuregoView.extend({
 		  tagName: "div",
@@ -36,7 +36,7 @@ define(["backbone","text!tosHTML","utils",
 		  addStyle:function(){
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
-		  	$('body').append(styleEl);
+		  	$Nurego('body').append(styleEl);
 		  },
 
 		  redirect:function(){
@@ -51,7 +51,7 @@ define(["backbone","text!tosHTML","utils",
   		  		var doc_id = docs.data[i].id;
   		  		//POST /v1/legaldocs/accept?api_key=l22085b6-7062-4b57-8869-cccb2f66f6fb&doc_id=leg_0b06-d678-4675-bd16-efd4f60f2b47
 	  		  	var url = constants.nuregoApiUrl() + "/legaldocs/accept?doc_id=" + doc_id;
-	            $.ajax({
+	            $Nurego.ajax({
 			  		url:url,
 			  		type:"post",
 			  		async:false,

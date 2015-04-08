@@ -1,5 +1,6 @@
-define(["underscore"],function(_){
+define(["underscore","jquery"],function(_,jq){
 	
+	window.$Nurego = jq.noConflict();
 	//Doron: Overwrite template syntax to a more angular like syntax
 	_.templateSettings = {
     	interpolate: /\{\{=(.+?)\}\}/g,
@@ -21,7 +22,7 @@ define(["underscore"],function(_){
 		  }
 		  return request;
 		},
-		listen:function(fn){debugger
+		listen:function(fn){
 			var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
 			var eventer = window[eventMethod];
 			var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";

@@ -1,4 +1,4 @@
-define(["underscore","utils","constants"],function(_,utils,constants){
+define(["underscore","utils","constants","jquery"],function(_,utils,constants,$Nurego){
 
 	var widgetsFactory = {
 		options:{
@@ -20,7 +20,7 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 			iframe.src = compSrc;
 
 			this.decorateIframe(iframe);
-			$(opt.element).append(iframe);
+			$Nurego(opt.element).append(iframe);
 		},
 
 		decorateIframe:function(iframeEl){
@@ -46,7 +46,7 @@ define(["underscore","utils","constants"],function(_,utils,constants){
 				};
 
 				if(params.html && params.html != "null"){
-					$.get(params.html,fn);
+					$Nurego.get(params.html,fn);
 				}
 			};
 

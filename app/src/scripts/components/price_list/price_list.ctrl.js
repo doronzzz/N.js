@@ -1,7 +1,7 @@
 define(["backbone","text!priceListHTML","utils",
 		"text!../components/price_list/price_list.css",
-		"tosModel","absNuregoView","text!priceListSingleTierHTML"],
-		function(bb,tmpl,utils,css,tosModel,absNuregoView,priceListSingleTierHTML){
+		"tosModel","absNuregoView","text!priceListSingleTierHTML","jquery"],
+		function(bb,tmpl,utils,css,tosModel,absNuregoView,priceListSingleTierHTML,$Nurego){
 		var priceList = absNuregoView.extend({
 		  tagName: "div",
 		  className: "login",
@@ -54,7 +54,7 @@ define(["backbone","text!priceListHTML","utils",
 		  addStyle:function(){
 		  	var styleEl = document.createElement('style');
 		  	styleEl.innerHTML = css;
-		  	$('body').append(styleEl);
+		  	$Nurego('body').append(styleEl);
 		  }, 
 
 		  registerWithSSo:function(){
@@ -104,7 +104,7 @@ define(["backbone","text!priceListHTML","utils",
 	  			//alert(JSON.stringify(data));
 		  	};
 
-		  	$.ajax({
+		  	$Nurego.ajax({
 		  		url:url,
 		  		type:"post",
 		  		crossDomain: true,
@@ -121,7 +121,7 @@ define(["backbone","text!priceListHTML","utils",
 		  registration:function(e){
 		  	//https://BASEURL/v1/registrations?api_key=l1120591-dedd-406b-9319-5e3174fab10f
 		  	//alert($(window.top).width())
-		  	this.selectedPlan = $(e.target).attr('data-id');
+		  	this.selectedPlan = $Nurego(e.target).attr('data-id');
 		  	if(this.$el.hasClass('unchecked')){
 		  		return;
 		  	}
@@ -134,8 +134,8 @@ define(["backbone","text!priceListHTML","utils",
 
 		  bindEvents:function(){
 		  	var zis = this;
-		  	$('#checkbox .termsCheckbox').click(function() {
-			    var $this = $(this);
+		  	$Nurego('#checkbox .termsCheckbox').click(function() {
+			    var $this = $Nurego(this);
 			    // $this will contain a reference to the checkbox   
 			    if ($this.is(':checked')) {
 			    	zis.$el.addClass('checked');

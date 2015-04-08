@@ -1,7 +1,7 @@
-define(['utils'],function(utils){
+define(['utils','jquery'],function(utils,$Nurego){
 	return {
 		jsBaseURL:function(){
-			var baseUrlEl = $("nurego-js-baseurl").attr('url');
+			var baseUrlEl = $Nurego("nurego-js-baseurl").attr('url');
 			if(baseUrlEl){
 				return baseUrlEl;
 			}else{
@@ -11,7 +11,7 @@ define(['utils'],function(utils){
 
 		getNuregoApiKey:function(){
 			//return "l402b7a9-dc19-43fd-89cd-64e8fe101347";
-			var apiKey = $("nurego-public-customer-id").attr('id');
+			var apiKey = $Nurego("nurego-public-customer-id").attr('id');
 			var apiKeyParam = utils.URLToArray(window.location.href).apiKey;
 			if(apiKey){
 				return apiKey;
@@ -24,7 +24,7 @@ define(['utils'],function(utils){
 		},
 		
 		nuregoApiUrl:function(){
-			var nuregoApi = $("nurego-api-baseurl").attr('url');
+			var nuregoApi = $Nurego("nurego-api-baseurl").attr('url');
 			var nuregoApiParam = utils.URLToArray(window.location.href).apiBaseUrl;
 			if(nuregoApi){
 				return nuregoApi;

@@ -43,6 +43,9 @@ require.config({
                 'jquery'
             ],
             exports: 'Backbone'
+        },
+        jquery:{
+            exports:"$Nurego"
         }
     },
     packages: [

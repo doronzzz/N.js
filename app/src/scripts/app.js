@@ -11,11 +11,12 @@ define([
 		"tosViewCtrl",
 		"tosModel",
 		"tosStatusModel",
-		"text!absNuregoCss"
+		"text!absNuregoCss",
+		"jquery"
 		],
 	function(constants,utils,widgetFactory,loginModel,registrationModel,
 			priceListModel,loginViewCtrl,priceListViewCtrl,registrationViewCtrl,
-			tosViewCtrl,tosModel,tosStatusModel,absNuregoCss){
+			tosViewCtrl,tosModel,tosStatusModel,absNuregoCss,$Nurego){
 				var app,lib;
 				app = {};
 				lib = {
@@ -56,7 +57,7 @@ define([
 
 				app.initObserver = function(){
 					// The node to be monitored
-					var target = $( "body" )[0];
+					var target = $Nurego( "body" )[0];
 
 					// Create an observer instance
 					var observer = new MutationObserver(function( mutations ) {
@@ -64,9 +65,9 @@ define([
 					  	console.log(mutation);
 					    var newNodes = mutation.addedNodes; // DOM NodeList
 					    if( newNodes !== null ) { // If there are new nodes added
-					    	var $nodes = $( newNodes ); // jQuery set
+					    	var $nodes = $Nurego( newNodes ); // jQuery set
 					    	$nodes.each(function() {
-					    		var $node = $( this );
+					    		var $node = $Nurego( this );
 					    		if($node.prop('tagName') === "NUREGO-WIDGET"){
 					    			var comps = {};
 									var widgetAttrs = {};
@@ -108,7 +109,7 @@ define([
 						thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
 				    	widgetView = new thisWidget.view(widgetModel).$el;
-				    	$('body').append(widgetView);
+				    	$Nurego('body').append(widgetView);
 				    	//widgetModel.fetch({dataType:"jsonp",success:callback});
 					}
 
@@ -118,7 +119,7 @@ define([
 		    			thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
 				    	widgetView = new thisWidget.view(widgetModel,data).$el;
-				    	$('body').append(widgetView);
+				    	$Nurego('body').append(widgetView);
 				    	//callback()
 				    	//widgetModel.fetch({dataType:"jsonp",success:callback});
 					};
@@ -131,8 +132,8 @@ define([
 				}
 
 
-				$(document).ready(function(){
-					var elems = $("nurego-widget");
+				$Nurego(document).ready(function(){
+					var elems = $Nurego("nurego-widget");
 					var styleEl = document.createElement('style');
 					styleEl.innerHTML = absNuregoCss;
 					document.body.appendChild(styleEl);

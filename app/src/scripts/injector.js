@@ -1,6 +1,6 @@
 var Nurego = window.Nurego = {
 	options:{},
-	init:function(opt){debugger;
+	init:function(opt){
 		this.options = opt;
 		this.safeLoadNurego();
 	},
@@ -26,7 +26,7 @@ var Nurego = window.Nurego = {
 		var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 		// Listen to message from child window
-		eventer(messageEvent,function(e) {debugger;
+		eventer(messageEvent,function(e) {
 		    var key = e.message ? "message" : "data";
 		    var data = e[key];
 		    //run function//
