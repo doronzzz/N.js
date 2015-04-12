@@ -31,12 +31,13 @@ require.config({
         tosHTML: '../components/terms_of_service/terms_of_service.html',
         tosViewCtrl: '../components/terms_of_service/terms_of_service.ctrl',
         absNuregoView: '../components/abstract/abstract.view',
-        absNuregoCss: '../components/abstract/css.css',
+        absNuregoCss: '../components/abstract/main.css',
         Nurego: '../app',
         almond: '../../bower_components/almond/almond',
         prism: '../../bower_components/prism/prism',
         'jquery-icheck': '../../bower_components/jquery-icheck/icheck.min',
-        iCheck: '../../bower_components/iCheck/icheck.min'
+        iCheck: '../../bower_components/iCheck/icheck.min',
+        'font-awesome': '../../bower_components/font-awesome/fonts/*'
     },
     shim: {
         backbone: {

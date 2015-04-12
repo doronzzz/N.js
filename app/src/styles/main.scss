@@ -1,1 +1,17 @@
-@import "brand";
+nurego-widget {
+	display:block;
+	height:100%;
+	width:100%;
+}
+
+.alert{
+	display:relative;
+	z-index:9999999;
+}
+
+#checkbox label {
+	line-height:175%;
+}
+
+/******************CHECK BOXES ******************/
+//@import "../bower_components/font-awesome/scss/font-awesome.scss";
