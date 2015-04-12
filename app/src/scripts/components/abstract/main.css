@@ -1,0 +1,19 @@
+/* line 1, ../../../styles/main.scss */
+nurego-widget {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 7, ../../../styles/main.scss */
+.alert {
+  display: relative;
+  z-index: 9999999;
+}
+
+/* line 12, ../../../styles/main.scss */
+#checkbox label {
+  line-height: 175%;
+}
+
+/******************CHECK BOXES ******************/
