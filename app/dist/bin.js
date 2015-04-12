@@ -10190,10 +10190,22 @@ priceListModel = function (Backbone, constants) {
     initialize: function (opt) {
       console.log('init pricelist model');
       this.opt = opt;
+      this.params = utils.URLToArray(window.location.href);
     },
     url: function () {
       console.log(this.opt);
-      return constants.nuregoApiUrl() + '/offerings?api_key=' + this.opt.apiKey;  //return "https://api.nurego.com/v1/offerings?api_key=lc14de81-587e-49d8-ba0e-487498ae297a&callback=jQuery19108296897902619094_1424775818134&_=1424775818135";
+      //var key = this.attr.find('apiParams') // {param1:val1,params2:val2}
+      var url = constants.nuregoApiUrl() + '/offerings?api_key=' + this.opt.apiKey;
+      /*for(val in key){
+          url += "&" + key +"=" + val;
+      }*/
+      if (this.params['api-params']) {
+        var customApiParams = JSON.parse(this.params['api-params']);
+        _.forEach(customApiParams, function (v, k) {
+          url += '&' + k + '=' + v;
+        });
+      }
+      return url;  //return "https://api.nurego.com/v1/offerings?api_key=lc14de81-587e-49d8-ba0e-487498ae297a&callback=jQuery19108296897902619094_1424775818134&_=1424775818135";
     },
     parse: function (data, req) {
       function containsFeature(featuresArr, featuresObj) {

@@ -34,7 +34,9 @@ require.config({
         absNuregoCss: '../components/abstract/css.css',
         Nurego: '../app',
         almond: '../../bower_components/almond/almond',
-        prism: '../../bower_components/prism/prism'
+        prism: '../../bower_components/prism/prism',
+        'jquery-icheck': '../../bower_components/jquery-icheck/icheck.min',
+        iCheck: '../../bower_components/iCheck/icheck.min'
     },
     shim: {
         backbone: {
@@ -44,8 +46,14 @@ require.config({
             ],
             exports: 'Backbone'
         },
-        jquery:{
-            exports:"$Nurego"
+        jquery: {
+            exports: '$Nurego'
+        },
+        iCheck: {
+            deps: [
+                'jquery'
+            ],
+            exports: 'iCheck'
         }
     },
     packages: [

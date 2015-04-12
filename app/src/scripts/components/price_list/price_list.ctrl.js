@@ -6,7 +6,7 @@ define(["backbone","text!priceListHTML","utils",
 		  tagName: "div",
 		  className: "login",
 		  template: _.template(tmpl),
-		  events: {
+		  events:{
 		    "click .plan-select":   "registration",
 		    "click .terms":   "openTerms",
 		    "click .postNoSSo" : "postRegistration"
