@@ -8497,7 +8497,6 @@ widgetFactory = function (_, utils, constants, $Nurego) {
       token: ''
     },
     build: function (components, opt) {
-      console.log('1');
       this.createWidgetFrame(components, opt);
     },
     createWidgetFrame: function (component, opt) {
@@ -10421,7 +10420,7 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
     postRegistration: function () {
       var plan = this.selectedPlan;
       var baseURL = constants.nuregoApiUrl();
-      var legal_doc_id = this.tosModel.get('id');
+      var legal_doc_id = this.tosModel ? this.tosModel.get('id') : null;
       // need to get this from a model
       var email = this.$el.find('input.email').val();
       var params = { plan_id: plan };

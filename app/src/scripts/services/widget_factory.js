@@ -10,7 +10,6 @@ define(["underscore","utils","constants","jquery"],function(_,utils,constants,$N
 		},
 
 		build:function(components,opt){
-			console.log("1")
 			this.createWidgetFrame(components,opt);
 		},
 

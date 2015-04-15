@@ -64,7 +64,7 @@ define(["backbone","text!priceListHTML","utils",
 		  postRegistration:function(){
 		  	var plan = this.selectedPlan;
 		  	var baseURL = constants.nuregoApiUrl();
-		  	var legal_doc_id = this.tosModel.get('id'); // need to get this from a model
+		  	var legal_doc_id = (this.tosModel) ? this.tosModel.get('id') : null; // need to get this from a model
 		  	var email = this.$el.find('input.email').val()
 		  	var params = {
 		  		plan_id:plan
