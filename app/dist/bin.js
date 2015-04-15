@@ -10451,7 +10451,11 @@ priceListViewCtrl = function (bb, tmpl, utils, css, tosModel, absNuregoView, pri
         } else {
           url += '&registrationId=' + data.id;
         }
-        window.top.location.href = parent + url;
+        if (redirectUrl.indexOf('http')) {
+          window.top.location.href = url;
+        } else {
+          window.top.location.href = parent + url;
+        }
         console.log(data);  //alert(JSON.stringify(data));
       };
       $Nurego.ajax({
