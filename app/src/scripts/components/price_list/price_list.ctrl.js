@@ -98,7 +98,7 @@ define(["backbone","text!priceListHTML","utils",
 		  		}else{
 		  			url += "&registrationId=" + data.id;
 		  		};
-		  		if(redirectUrl.indexOf('http')){
+		  		if(redirectUrl.indexOf('http') == 0){
 					window.top.location.href = url;
 		  		}else{
 		  			window.top.location.href = parent + url;
