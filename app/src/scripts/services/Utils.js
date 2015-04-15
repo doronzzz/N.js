@@ -1,7 +1,7 @@
 define(["underscore","jquery"],function(_,jq){
 	
-	window.$Nurego = jq.noConflict();
-	window.jQuery = ($) ? $ : jQuery;
+	window.$Nurego = jq.noConflict(true);
+	//window.jQuery = ($) ? $ : jQuery;
 	
 	//Doron: Overwrite template syntax to a more angular like syntax
 	_.templateSettings = {
@@ -34,3 +34,4 @@ define(["underscore","jquery"],function(_,jq){
 
 	return Utils;
 })
+ 
