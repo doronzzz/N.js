@@ -3,7 +3,7 @@
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
-var underscore, jquery, utils, constants, widgetFactory, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, text_absNuregoCss, Nurego;
+var underscore, jquery, utils, constants, widgetFactory, backbone, loginModel, registrationModel, priceListModel, text, text_loginHTML, absNuregoView, loginViewCtrl, text_priceListHTML, text__components_price_list_price_listcss, tosModel, text_priceListSingleTierHTML, priceListViewCtrl, text_registrationHTML, text__components_registration_registrationcss, registrationViewCtrl, text_tosHTML, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosViewCtrl, text_categoryHTML, text__components_catalog_category_categorycss, categoryModel, categoryViewCtrl, text_absNuregoCss, Nurego;
 (function () {
   // Baseline setup
   // --------------
@@ -8503,6 +8503,9 @@ widgetFactory = function (_, utils, constants, $Nurego) {
       var compSrc = this.buildComponentUrl(component, opt);
       var iframe = document.createElement('iframe');
       iframe.src = compSrc;
+      if (typeof opt.configParams.uid != 'undefined') {
+        iframe.id = opt.configParams.uid;
+      }
       this.decorateIframe(iframe);
       $Nurego(opt.element).append(iframe);
     },
@@ -10655,8 +10658,69 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
   });
   return activation;
 }(backbone, text_tosHTML, utils, text__components_terms_of_service_terms_of_servicecss, tosStatusModel, tosModel, absNuregoView, jquery);
+text_categoryHTML = '<style>\r\n\t.itemsWrapper{\r\n\t\tdisplay:flex;\r\n\t\twidth:100%;\r\n\t}\r\n\r\n\t.singleItem{\r\n\t  flex: 1;\r\n\t  background: "#b4b4b4";\r\n\t  border-right: 1px solid;\r\n\t  padding: 20px;\r\n\t  font-size: 16px;\r\n\t}\r\n\r\n\r\n</style>\r\n\r\n<h1>\r\n\t{{ for (category in obj.data ) { }}\r\n\t\t{{=obj.data[category].name}}\r\n\t{{ } }}\r\n</h1>\r\n\r\n\r\n\r\n<div class="itemsWrapper">\r\n\t{{ for (category in obj.data ) { }}\r\n\t\t\r\n\r\n\t\t{{ for(item in obj.data[category].services.data) {  }}\r\n\t\t\t<div class="singleItem">\r\n\t\t\t\t{{=obj.data[category].services.data[item].name}}\r\n\t\t\t\t{{=obj.data[category].services.data[item].description}}\r\n\t\t\t</div>\r\n\r\n\t\t{{\t}\t}}\r\n\r\n\r\n\t{{ } }}\r\n</div>\r\n\r\n';
+text__components_catalog_category_categorycss = 'div.myDiv {\r\n\r\n}';
+categoryModel = function (Backbone, constants) {
+  var categoryMod = Backbone.Model.extend({
+    initialize: function () {
+      console.log('category model init');
+    },
+    url: function () {
+      //var str = constants.nuregoApiUrl() + "/legaldocs/";
+      var str = '/src/scripts/mockdata/category.json';
+      var apiKey = constants.getNuregoApiKey();
+      if (apiKey !== 'false') {
+        str += '?api_key=' + apiKey;
+      }
+      return str;
+    }
+  });
+  return categoryMod;
+}(backbone, constants);
+categoryViewCtrl = function (bb, tmpl, utils, css, categoryModel, absNuregoView, $Nurego) {
+  /*
+          categoryViewCtrl: '../components/catalog/category/category.ctrl',
+          categoryHTML: '../components/catalog/category/category.html',
+          categoryModel: '../models/category',
+  */
+  var categoryView = absNuregoView.extend({
+    tagName: 'div',
+    className: 'category_view',
+    template: _.template(tmpl),
+    events: {},
+    initialize: function (model, customTmpl) {
+      //this.__super__.initialize.apply(this);
+      this.params = utils.URLToArray(window.location.href);
+      this.model = model;
+      if (customTmpl) {
+        this.template = _.template(customTmpl);
+      }
+      this.listenToOnce(this.model, 'change', this.render);
+      this.model.fetch({
+        dataType: 'json',
+        error: _.bind(this.modelHttpErrorsHandler, this)
+      });
+      this.addStyle();
+    },
+    addStyle: function () {
+      var styleEl = document.createElement('style');
+      styleEl.innerHTML = css;
+      $Nurego('body').append(styleEl);
+    },
+    redirect: function () {
+      var redirectURL = this.params['redirect-url'];
+      window.top.location.href = this.params.parent + redirectURL;
+    },
+    render: function () {
+      var html = this.template(this.model.toJSON());
+      this.$el.html(html);
+      return this;
+    }
+  });
+  return categoryView;
+}(backbone, text_categoryHTML, utils, text__components_catalog_category_categorycss, categoryModel, absNuregoView, jquery);
 text_absNuregoCss = '/* line 1, ../../../styles/main.scss */\r\nnurego-widget {\r\n  display: block;\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n/* line 7, ../../../styles/main.scss */\r\n.alert {\r\n  display: relative;\r\n  z-index: 9999999;\r\n}\r\n\r\n/* line 12, ../../../styles/main.scss */\r\n#checkbox label {\r\n  line-height: 175%;\r\n}\r\n\r\n/******************CHECK BOXES ******************/\r\n';
-Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, absNuregoCss, $Nurego) {
+Nurego = function (constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, categoryViewCtrl, categoryModel, tosModel, tosStatusModel, absNuregoCss, $Nurego) {
   var app, lib;
   app = {};
   lib = {
@@ -10684,6 +10748,10 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
       terms_of_service: {
         view: tosViewCtrl,
         model: tosModel
+      },
+      category: {
+        view: categoryViewCtrl,
+        model: categoryModel
       }
     }
   };
@@ -10787,6 +10855,6 @@ Nurego = function (constants, utils, widgetFactory, loginModel, registrationMode
     app.initObserver();
   });
   return app;
-}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, tosModel, tosStatusModel, text_absNuregoCss, jquery);
+}(constants, utils, widgetFactory, loginModel, registrationModel, priceListModel, loginViewCtrl, priceListViewCtrl, registrationViewCtrl, tosViewCtrl, categoryViewCtrl, categoryModel, tosModel, tosStatusModel, text_absNuregoCss, jquery);
 window.Nurego = Nurego;
 }());

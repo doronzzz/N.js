@@ -17,7 +17,9 @@ define(["underscore","utils","constants","jquery"],function(_,utils,constants,$N
 			var compSrc = this.buildComponentUrl(component,opt);
 			var iframe = document.createElement('iframe');
 			iframe.src = compSrc;
-
+			if(typeof(opt.configParams.uid) != "undefined"){
+				iframe.id = opt.configParams.uid;
+			}
 			this.decorateIframe(iframe);
 			$Nurego(opt.element).append(iframe);
 		},

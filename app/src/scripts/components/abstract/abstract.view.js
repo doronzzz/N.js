@@ -9,7 +9,7 @@ define(["backbone","utils"],function(bb,utils){
 				link.setAttribute('type', 'text/css');
 				link.setAttribute('href', this.params.css);
 				document.getElementsByTagName('head')[0].appendChild(link);
-		  	}
+		  	} 
 		  }, 
 
 		  errorMsgHandler:function(response){

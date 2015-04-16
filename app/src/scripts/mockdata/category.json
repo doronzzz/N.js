@@ -1,0 +1,35 @@
+{
+    "data": [
+        {
+            "name": "name of tag",
+            "object": "list",
+            "id": "<guid>",
+            "services": {
+                "data": [
+                    {
+                        "object": "service",
+                        "name": "service name 1",
+                        "description": "description",
+                        "id": "<guid>"
+                    },
+                    {
+                        "object": "service",
+                        "name": "service name 2",
+                        "description": "description",
+                        "id": "<guid>"
+                    },
+                    {
+                        "object": "service",
+                        "name": "service name 3",
+                        "description": "description",
+                        "id": "<guid>"
+                    }
+
+                ],
+                "count": "<services count>",
+                "object": "list"
+            },
+            "count": "<count of tags>"
+        }
+    ]
+}

@@ -9,6 +9,8 @@ define([
 		"priceListViewCtrl",
 		"registrationViewCtrl",
 		"tosViewCtrl",
+		"categoryViewCtrl",
+		"categoryModel",
 		"tosModel",
 		"tosStatusModel",
 		"text!absNuregoCss",
@@ -16,7 +18,8 @@ define([
 		],
 	function(constants,utils,widgetFactory,loginModel,registrationModel,
 			priceListModel,loginViewCtrl,priceListViewCtrl,registrationViewCtrl,
-			tosViewCtrl,tosModel,tosStatusModel,absNuregoCss,$Nurego){
+			tosViewCtrl,categoryViewCtrl,categoryModel,tosModel,
+			tosStatusModel,absNuregoCss,$Nurego){
 				var app,lib;
 				app = {};
 				lib = {
@@ -43,6 +46,10 @@ define([
 						terms_of_service:{
 							view:tosViewCtrl,
 							model:tosModel
+						},
+						category:{
+							view:categoryViewCtrl,
+							model:categoryModel
 						}
 					}
 				};
@@ -108,7 +115,7 @@ define([
 					var draw = function(){
 						thisWidget = lib.components[params.widget];
 				    	widgetModel = new thisWidget.model({apiKey:params.apiKey});
-				    	widgetView = new thisWidget.view(widgetModel).$el;
+				   		widgetView = new thisWidget.view(widgetModel).$el;
 				    	$Nurego('body').append(widgetView);
 				    	//widgetModel.fetch({dataType:"jsonp",success:callback});
 					}

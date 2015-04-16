@@ -1,0 +1,41 @@
+<style>
+	.itemsWrapper{
+		display:flex;
+		width:100%;
+	}
+
+	.singleItem{
+	  flex: 1;
+	  background: "#b4b4b4";
+	  border-right: 1px solid;
+	  padding: 20px;
+	  font-size: 16px;
+	}
+
+
+</style>
+
+<h1>
+	{{ for (category in obj.data ) { }}
+		{{=obj.data[category].name}}
+	{{ } }}
+</h1>
+
+
+
+<div class="itemsWrapper">
+	{{ for (category in obj.data ) { }}
+		
+
+		{{ for(item in obj.data[category].services.data) {  }}
+			<div class="singleItem">
+				{{=obj.data[category].services.data[item].name}}
+				{{=obj.data[category].services.data[item].description}}
+			</div>
+
+		{{	}	}}
+
+
+	{{ } }}
+</div>
+
