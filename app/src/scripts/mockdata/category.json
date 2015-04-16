@@ -8,20 +8,20 @@
                 "data": [
                     {
                         "object": "service",
-                        "name": "service name 1",
-                        "description": "description",
+                        "name": "Notifications",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
                         "id": "<guid>"
                     },
                     {
                         "object": "service",
-                        "name": "service name 2",
-                        "description": "description",
+                        "name": "Redis",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
                         "id": "<guid>"
                     },
                     {
                         "object": "service",
-                        "name": "service name 3",
-                        "description": "description",
+                        "name": "MongoDB",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
                         "id": "<guid>"
                     }
 
