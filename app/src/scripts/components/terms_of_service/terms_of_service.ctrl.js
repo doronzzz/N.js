@@ -74,7 +74,8 @@ define(["backbone","text!tosHTML","utils",
 				        withCredentials: true
 				    },
 				    error:_.bind(this.genericHttpErrorsHandler,this),
-			  		/*crossDomain: true,
+				    crossDomain: true,
+			  		/*
 				    dataType: 'json', 
 				    contentType: "application/x-www-form-urlencoded",*/
 			  		//data:"plan_id=" + params.plan_id + "&email=" + params.email,
