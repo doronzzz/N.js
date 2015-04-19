@@ -45,7 +45,22 @@ define(["backbone","text!tosHTML","utils",
 		  },
 
   		  acceptTerms:function(){
+
   		  	var docs = this.model.get('legal_docs');
+
+  		  	var callback = function(data,req){
+	  			console.log(data);
+	  			console.log(req);
+  				this.docs.sent += 1;
+  				if(this.docs.sent >= this.docs.total){
+  					this.redirect();
+  				}
+			};
+
+			this.docs = {
+			 	total:docs.data.length,
+			 	sent:0
+			};
 
   		  	for(var i = 0; i <docs.data.length; i++){
   		  		var doc_id = docs.data[i].id;
@@ -54,8 +69,8 @@ define(["backbone","text!tosHTML","utils",
 	            $Nurego.ajax({
 			  		url:url,
 			  		type:"post",
-			  		async:false,
-			  		xhrFields: {
+			  		//async:false, //firefox dont like async 
+			  		xhrFields:{
 				        withCredentials: true
 				    },
 				    error:_.bind(this.genericHttpErrorsHandler,this),
@@ -64,15 +79,9 @@ define(["backbone","text!tosHTML","utils",
 				    contentType: "application/x-www-form-urlencoded",*/
 			  		//data:"plan_id=" + params.plan_id + "&email=" + params.email,
 					//data: { plan_id: params.plan_id, email:params.email},
-			  		success:function(data,req){
-			  			console.log(data)
-			  			console.log(req)
-			  		}
+			  		success:_.bind(callback,this)
 			  	})
   		  	}
-
-			this.redirect()
-
           },
 
 		  render: function(){

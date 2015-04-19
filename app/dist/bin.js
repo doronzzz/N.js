@@ -10619,6 +10619,18 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
     },
     acceptTerms: function () {
       var docs = this.model.get('legal_docs');
+      var callback = function (data, req) {
+        console.log(data);
+        console.log(req);
+        this.docs.sent += 1;
+        if (this.docs.sent >= this.docs.total) {
+          this.redirect();
+        }
+      };
+      this.docs = {
+        total: docs.data.length,
+        sent: 0
+      };
       for (var i = 0; i < docs.data.length; i++) {
         var doc_id = docs.data[i].id;
         //POST /v1/legaldocs/accept?api_key=l22085b6-7062-4b57-8869-cccb2f66f6fb&doc_id=leg_0b06-d678-4675-bd16-efd4f60f2b47
@@ -10626,7 +10638,7 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
         $Nurego.ajax({
           url: url,
           type: 'post',
-          async: false,
+          //async:false, //firefox dont like async 
           xhrFields: { withCredentials: true },
           error: _.bind(this.genericHttpErrorsHandler, this),
           /*crossDomain: true,
@@ -10634,13 +10646,9 @@ tosViewCtrl = function (bb, tmpl, utils, css, tosStatusModel, tosModel, absNureg
           contentType: "application/x-www-form-urlencoded",*/
           //data:"plan_id=" + params.plan_id + "&email=" + params.email,
           //data: { plan_id: params.plan_id, email:params.email},
-          success: function (data, req) {
-            console.log(data);
-            console.log(req);
-          }
+          success: _.bind(callback, this)
         });
       }
-      this.redirect();
     },
     render: function () {
       var legalDocs = this.model.get('legal_docs');
