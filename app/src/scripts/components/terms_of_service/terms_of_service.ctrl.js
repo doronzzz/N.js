@@ -10,7 +10,7 @@ define(["backbone","text!tosHTML","utils",
 		  events: {
 		    "click .acceptTerms": "acceptTerms"
 		  },
-
+ 
 		  initialize: function(model,customTmpl){
 		  	//this.__super__.initialize.apply(this);
 		  	this.params = utils.URLToArray(window.location.href);

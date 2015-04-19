@@ -45,28 +45,27 @@
 	}
 </style>
 
-<div class="headerWrapper">
-	<h1>
-		{{ for (category in obj.data ) { }}
-			{{=obj.data[category].name}}
-		{{ } }}
-	</h1>
-	<h5>
-		Lorem Impsum Neque porro quisquam 
-		est qui dolorem ipsum quia dolor sit amet, 
-		consectetur, adipisci velit
-	</h5>
-</div>
 
 
 
-<div class="itemsWrapper">
-	{{ for (category in obj.data ) { }}
+{{ for (category in obj.data ) { }}
+	<div class="">
+		<div class="headerWrapper">
+			<h1>
+					{{=obj.data[category].name}}
+			</h1>
+			<h5>
+				Lorem Impsum Neque porro quisquam 
+				est qui dolorem ipsum quia dolor sit amet, 
+				consectetur, adipisci velit
+			</h5>
+		</div>
 		
-
+		<div class="itemsWrapper">
 		{{ for(item in obj.data[category].services.data) {  }}
+
 			<div class="singleItem">
-				<img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="45px" width="45px" />
+				<img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-128.png" height="45px" width="45px" />
 				<div class="name">
 					{{=obj.data[category].services.data[item].name}}
 				</div>
@@ -81,8 +80,9 @@
 			</div>
 
 		{{	}	}}
+		</div>
+		
+	</div>
+{{ } }}
 
-
-	{{ } }}
-</div>
 

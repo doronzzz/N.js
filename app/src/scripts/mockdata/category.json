@@ -30,6 +30,37 @@
                 "object": "list"
             },
             "count": "<count of tags>"
+        },
+        {
+            "name": "name of tag2",
+            "object": "list",
+            "id": "<guid>",
+            "services": {
+                "data": [
+                    {
+                        "object": "service",
+                        "name": "Notifications2",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+                        "id": "<guid>"
+                    },
+                    {
+                        "object": "service",
+                        "name": "Redis2",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+                        "id": "<guid>"
+                    },
+                    {
+                        "object": "service",
+                        "name": "MongoDB2",
+                        "description": "Lorem Impsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+                        "id": "<guid>"
+                    }
+
+                ],
+                "count": "<services count>",
+                "object": "list"
+            },
+            "count": "<count of tags>"
         }
     ]
 }
