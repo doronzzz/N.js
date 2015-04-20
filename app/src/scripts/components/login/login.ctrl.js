@@ -7,7 +7,7 @@ define(["backbone","text!loginHTML","absNuregoView","jquery"],function(bb,loginT
 		  events: {
 		    "click .button":   "login"
 		  },
-		  
+		   
 		  initialize: function(model,customTmpl){
 		  	//this.__super__.initialize.apply(this);
 		  	if(customTmpl){
